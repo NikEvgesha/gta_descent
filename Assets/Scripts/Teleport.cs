@@ -7,7 +7,7 @@ public class Teleport : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PrometeoCarController>() != null)
         {
-            TeleportOnStart(other.gameObject);
+            other.gameObject.GetComponent<PrometeoCarController>().TeleportCar(spawnPoint.GetPointToSpawn());
         }
     }
     private void TeleportOnStart(GameObject car)
