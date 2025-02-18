@@ -190,7 +190,7 @@ MonoBehaviour:
     useYandexMetrica: 1
   RewardedAdv:
     rewardedAfterClosing: 1
-    skipInterAdvAfterReward: 0
+    skipInterAdvAfterReward: 1
     labelAdvSimLabel: 0
   Storage:
     saveLocal: 0
