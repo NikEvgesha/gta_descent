@@ -12,17 +12,33 @@ public class LevelMenuItem : MonoBehaviour
 
     private void OnEnable()
     {
+        CurrencyManager.Instance.CupsChanged += CheckCupsButton;
         _animator.SetTrigger("Open");
         if (_unlocked || YG2.saves.levels[_levelData.ID-1])
         {
             UnlockLevel();
+        } else
+        {
+            CheckCupsButton(CurrencyManager.Instance.Cups);
         }
-        else
+    }
+
+    private void Start()
+    {
+        if (!_unlocked)
         {
             _lvlLockedPanel.SetPrice(_levelData);
         }
     }
 
+
+    private void CheckCupsButton(int newAmount)
+    {
+        if (newAmount >= _levelData.CupsPrice)
+        {
+            _lvlLockedPanel.UnlockCupsButton();
+        }
+    }
 
     public void LoadLevel()
     {

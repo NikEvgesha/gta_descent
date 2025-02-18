@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 261786959625234688}
   - component: {fileID: 5135156708204615449}
   - component: {fileID: 627556911}
+  - component: {fileID: 6811313656447827158}
   m_Layer: 0
   m_Name: Prometheus
   m_TagString: Untagged
@@ -120,10 +121,10 @@ MonoBehaviour:
   brakeForce: 450
   decelerationMultiplier: 2
   handbrakeDriftMultiplier: 5
+  bodyMassCenter: {x: 0, y: 0, z: 0}
   _pointForseLeft: {fileID: 7471941895445523399}
   _pointForseRight: {fileID: 4050807778884445540}
   _forseRotate: 1
-  bodyMassCenter: {x: 0, y: 0, z: 0}
   frontLeftMesh: {fileID: 8649133034589738184}
   frontLeftCollider: {fileID: 2239677824950174677}
   frontRightMesh: {fileID: 3386343362015136015}
@@ -151,6 +152,27 @@ MonoBehaviour:
   carSpeed: 0
   isDrifting: 0
   isTractionLocked: 0
+--- !u!65 &6811313656447827158
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642287924342879162}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.03, y: 1.47, z: 5.32}
+  m_Center: {x: 0, y: 0.73, z: 0}
 --- !u!1 &934883528070179459
 GameObject:
   m_ObjectHideFlags: 0
