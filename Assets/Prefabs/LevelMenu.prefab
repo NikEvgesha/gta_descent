@@ -367,7 +367,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9186783984600081200}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1356446991119841290}
+        m_TargetAssemblyTypeName: LevelMenuItem, Assembly-CSharp
+        m_MethodName: LoadLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1929576300564062480
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,7 +576,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2065950628850955813}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1356446991119841290}
+        m_TargetAssemblyTypeName: LevelMenuItem, Assembly-CSharp
+        m_MethodName: TryUnlockWithGems
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5380763770912125064
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,6 +905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2888874438531998644}
   - component: {fileID: 1356446991119841290}
+  - component: {fileID: 7676756212167382590}
   m_Layer: 5
   m_Name: LevelMenu
   m_TagString: Untagged
@@ -897,8 +922,8 @@ RectTransform:
   m_GameObject: {fileID: 8021440592028728680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4500956057631630742}
   - {fileID: 7930175511665318271}
@@ -924,6 +949,28 @@ MonoBehaviour:
   _lvlLockedPanel: {fileID: 8524185702350143048}
   _levelData: {fileID: 0}
   _unlocked: 0
+  _animator: {fileID: 7676756212167382590}
+--- !u!95 &7676756212167382590
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8021440592028728680}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 195bd8d7444d1c94b9c47eeed2bf4387, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9211532497404037714
 GameObject:
   m_ObjectHideFlags: 0

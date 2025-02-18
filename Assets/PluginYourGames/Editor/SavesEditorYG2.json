@@ -1,0 +1,21 @@
+{
+    "intExample": 5,
+    "strExample": "Hello!",
+    "boolExample": [
+        false,
+        false,
+        false,
+        false
+    ],
+    "idSave": 30,
+    "levels": [
+        true,
+        true,
+        true,
+        true,
+        false
+    ],
+    "scores": [],
+    "cups": 0,
+    "gems": 0
+}

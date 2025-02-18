@@ -15,5 +15,4 @@ MonoBehaviour:
   _ID: 5
   _cupsPrice: 50
   _gemsPrice: 500
-  _scene:
-    m_Handle: 0
+  _sceneName: Scen 1

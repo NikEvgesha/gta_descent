@@ -7,11 +7,11 @@ public class LevelData : ScriptableObject
     [SerializeField] private int _ID;
     [SerializeField] private int _cupsPrice;
     [SerializeField] private int _gemsPrice;
-    [SerializeField] private Scene _scene;
+    [SerializeField] private string _sceneName;
 
 
     public int ID { get { return _ID; } }
     public int CupsPrice { get { return _cupsPrice; } }
     public int GesmsPrice { get { return _gemsPrice; } }
-    public Scene Scene { get { return _scene; } }
+    public string Scene { get { return _sceneName; } }
 }
