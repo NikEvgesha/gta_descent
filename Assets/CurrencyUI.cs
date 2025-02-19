@@ -9,6 +9,12 @@ public class CurrencyUI : MonoBehaviour
     {
         CurrencyManager.Instance.GemsChanged += SetGems;
         CurrencyManager.Instance.CupsChanged += SetCups;
+        GameManager.Instance.LevelInProgress += ToggleGemsUI;
+    }
+
+    private void ToggleGemsUI(bool lvlInProgress)
+    {
+        _gems.gameObject.SetActive(!lvlInProgress);
     }
 
     private void SetGems(int newAmount)

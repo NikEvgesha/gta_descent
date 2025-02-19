@@ -45,6 +45,7 @@ public class LevelMenuItem : MonoBehaviour
         if (_unlocked)
         {
             GameLoader.Instance.LoadNextScene(_levelData.Scene, true);
+            GameManager.Instance.LevelInProgress?.Invoke(true);
         }
     }
 
