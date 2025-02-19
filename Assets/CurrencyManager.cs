@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using YG;
 
 public class CurrencyManager : MonoBehaviour
@@ -55,10 +54,12 @@ public class CurrencyManager : MonoBehaviour
         _gemsAmount = YG2.saves.gems;
     }
 
+
     public void AddCups(int amount)
     {
         _cupsAmount += amount;
         CupsChanged?.Invoke(_cupsAmount);
+        YG2.saves.cups = _cupsAmount;
     }
 
     public bool RemoveCups(int amount)
@@ -69,6 +70,7 @@ public class CurrencyManager : MonoBehaviour
         }
         _cupsAmount -= amount;
         CupsChanged?.Invoke(_cupsAmount);
+        YG2.saves.cups = _cupsAmount;
         return true;
     }
 
@@ -81,6 +83,7 @@ public class CurrencyManager : MonoBehaviour
     {
         _gemsAmount += amount;
         GemsChanged?.Invoke(_gemsAmount);
+        YG2.saves.gems = _gemsAmount;
     }
 
     public bool RemoveGems(int amount)
@@ -93,6 +96,7 @@ public class CurrencyManager : MonoBehaviour
         }
         _gemsAmount -= amount;
         GemsChanged?.Invoke(_gemsAmount);
+        YG2.saves.gems = _gemsAmount;
         return true;
     }
 
