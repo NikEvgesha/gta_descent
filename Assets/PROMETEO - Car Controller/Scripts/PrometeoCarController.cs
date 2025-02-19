@@ -785,11 +785,12 @@ public class PrometeoCarController : MonoBehaviour
 
     public Transform SpawnPoint; // Начальная точка телепорта
     public Action UseTeleport;
-    public void TeleportCar(Transform spawn)
+    public void TeleportCar(Transform spawn,bool onInertion = false)
     {
         SpawnPoint = spawn;
-        Vector3 velocity = carRigidbody.velocity; // Сохраняем скорость
-        Vector3 angularVelocity = carRigidbody.angularVelocity; // Сохраняем вращение
+
+        Vector3 velocity = onInertion ? carRigidbody.velocity:Vector3.zero ; // Сохраняем скорость
+        Vector3 angularVelocity = onInertion ? carRigidbody.angularVelocity : Vector3.zero; // Сохраняем вращение
 
         carRigidbody.position = SpawnPoint.position; // Телепортируем машину
         carRigidbody.rotation = SpawnPoint.rotation; // Выставляем правильное направление

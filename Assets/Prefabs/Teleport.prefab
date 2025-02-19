@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 3148873132532873008}
+  onInertion: 1
 --- !u!1 &6907454619722571462
 GameObject:
   m_ObjectHideFlags: 0

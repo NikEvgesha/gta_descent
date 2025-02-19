@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    [SerializeField] SpawnPoint spawnPoint;
+    [SerializeField] private SpawnPoint spawnPoint;
+    [SerializeField] private bool onInertion = true;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<PrometeoCarController>() != null)
         {
-            other.gameObject.GetComponent<PrometeoCarController>().TeleportCar(spawnPoint.GetPointToSpawn());
+            other.gameObject.GetComponent<PrometeoCarController>().TeleportCar(spawnPoint.GetPointToSpawn(), onInertion);
         }
     }
     private void TeleportOnStart(GameObject car)
