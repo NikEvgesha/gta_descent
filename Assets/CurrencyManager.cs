@@ -100,4 +100,22 @@ public class CurrencyManager : MonoBehaviour
     {
         return _currencyIcons[type];
     }
+
+
+    public void AddCurrency(CurrencyType type, int amount)
+    {
+        switch (type) {
+            case CurrencyType.Cups:
+                {
+                    AddCups(amount);
+                    break;
+                }
+            case CurrencyType.Gems:
+                {
+                    AddGems(amount);
+                    break;
+                }
+            default: break;
+        }
+    }
 }
