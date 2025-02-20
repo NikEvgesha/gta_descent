@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PrometeoTouchInput : MonoBehaviour
@@ -12,7 +10,8 @@ public class PrometeoTouchInput : MonoBehaviour
     Vector3 initialScale;
     float scaleDownMultiplier = 0.85f;
 
-    void Start(){
+    void Start()
+    {
       rectTransform = GetComponent<RectTransform>();
       initialScale = rectTransform.localScale;
     }

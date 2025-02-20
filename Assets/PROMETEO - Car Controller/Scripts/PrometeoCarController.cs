@@ -17,26 +17,27 @@ public class PrometeoCarController : MonoBehaviour
 
     //CAR SETUP
     [Space(20)]
-      //[Header("CAR SETUP")]
-      [Space(10)]
-      [Range(20, 190)]
-      public int maxSpeed = 90; //The maximum speed that the car can reach in km/h.
-      [Range(10, 120)]
-      public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
-      [Range(1, 10)]
-      public int accelerationMultiplier = 2; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
-      [Space(10)]
-      [Range(10, 45)]
-      public int maxSteeringAngle = 27; // The maximum angle that the tires can reach while rotating the steering wheel.
-      [Range(0.1f, 1f)]
-      public float steeringSpeed = 0.5f; // How fast the steering wheel turns.
-      [Space(10)]
-      [Range(100, 600)]
-      public int brakeForce = 350; // The strength of the wheel brakes.
-      [Range(1, 10)]
-      public int decelerationMultiplier = 2; // How fast the car decelerates when the user is not using the throttle.
-      [Range(1, 10)]
-      public int handbrakeDriftMultiplier = 5; // How much grip the car loses when the user hit the handbrake.
+    //[Header("CAR SETUP")]
+    [Space(10)]
+    [Range(20, 190)]
+    public int maxSpeed = 90; //Максимальная скорость, которую может развить автомобиль в км/ч.
+    [Range(10, 120)]
+    public int maxReverseSpeed = 45; //Максимальная скорость, которую может развить автомобиль при движении задним ходом, в км/ч.
+    [Range(1, 10)]
+    public int accelerationMultiplier = 2; //Как быстро автомобиль может ускориться. 1 - это медленное ускорение, а 10 - самое быстрое.
+    [Space(10)]
+    [Range(10, 45)]
+    public int maxSteeringAngle = 27; // Максимальный угол, которого могут достичь шины при вращении рулевого колеса.
+    [Range(0.1f, 1f)]
+    public float steeringSpeed = 0.5f; // Как быстро вращается руль.
+    [Space(10)]
+    [Range(100, 600)]
+    public int brakeForce = 350; // Сила торможения колеса.
+    [Range(1, 10)]
+    public int decelerationMultiplier = 2; // Как быстро автомобиль замедляется, когда пользователь не использует дроссель.
+    [Range(1, 10)]
+    public int handbrakeDriftMultiplier = 5; // Насколько сильно автомобиль теряет сцепление с дорогой, когда пользователь нажимает на ручной тормоз.
+
 
 
     [Header("Advanced Acceleration Settings")]
@@ -48,10 +49,10 @@ public class PrometeoCarController : MonoBehaviour
     private float _inputAcceleration;
 
     [Space(10)]
-      public Vector3 bodyMassCenter; // This is a vector that contains the center of mass of the car. I recommend to set this value
-                                     // in the points x = 0 and z = 0 of your car. You can select the value that you want in the y axis,
-                                     // however, you must notice that the higher this value is, the more unstable the car becomes.
-                                     // Usually the y value goes from 0 to 1.5.
+      public Vector3 bodyMassCenter; // Это вектор, который содержит центр масс автомобиля. Я рекомендую установить это значение
+                                     // в точках x = 0 и z = 0 вашего автомобиля. Вы можете выбрать нужное вам значение по оси y,
+                                     // однако вы должны заметить, что чем выше это значение, тем более неустойчивым становится автомобиль.
+                                     // Обычно значение y колеблется от 0 до 1,5.
 
     [Space(10)]
     [SerializeField] private Transform _pointForseLeft;
@@ -63,9 +64,9 @@ public class PrometeoCarController : MonoBehaviour
     //[Header("WHEELS")]
 
     /*
-    The following variables are used to store the wheels' data of the car. We need both the mesh-only game objects and wheel
-    collider components of the wheels. The wheel collider components and 3D meshes of the wheels cannot come from the same
-    game object; they must be separate game objects.
+    Следующие переменные используются для хранения данных о колесах автомобиля. Нам нужны как игровые объекты, состоящие только из сетки, так и компоненты колес
+    компоненты коллайдера колес. Компоненты коллайдера колес и 3D сетки колес не могут быть из одного и того же
+    они должны быть отдельными игровыми объектами.
     */
     public GameObject frontLeftMesh;
       public WheelCollider frontLeftCollider;
@@ -83,16 +84,15 @@ public class PrometeoCarController : MonoBehaviour
 
       [Space(20)]
       //[Header("EFFECTS")]
-      [Space(10)]
-      //The following variable lets you to set up particle systems in your car
-      public bool useEffects = false;
+      [Space(10)]      //Следующая переменная позволяет настроить системы частиц в вашем автомобиле
+    public bool useEffects = false;
 
-      // The following particle systems are used as tire smoke when the car drifts.
-      public ParticleSystem RLWParticleSystem;
-      public ParticleSystem RRWParticleSystem;
+    //Следующие системы частиц используются в качестве дыма из шин, когда автомобиль дрифтует.
+    public ParticleSystem RLWParticleSystem;
+    public ParticleSystem RRWParticleSystem;
 
-      [Space(10)]
-      // The following trail renderers are used as tire skids when the car loses traction.
+    [Space(10)]
+      // Следующие рендеры трасс используются в качестве заносов, когда автомобиль теряет сцепление с дорогой.
       public TrailRenderer RLWTireSkid;
       public TrailRenderer RRWTireSkid;
 
@@ -101,28 +101,27 @@ public class PrometeoCarController : MonoBehaviour
       [Space(20)]
       //[Header("UI")]
       [Space(10)]
-      //The following variable lets you to set up a UI text to display the speed of your car.
-      public bool useUI = false;
-      public Text carSpeedText; // Used to store the UI object that is going to show the speed of the car.
+    //Следующая переменная позволяет настроить текст пользовательского интерфейса для отображения скорости автомобиля.
+    public bool useUI = false;
+    public Text carSpeedText; //Используется для хранения объекта UI, который будет отображать скорость автомобиля.
 
     //SOUNDS
 
-      [Space(20)]
+    [Space(20)]
       //[Header("Sounds")]
-      [Space(10)]
-      //The following variable lets you to set up sounds for your car such as the car engine or tire screech sounds.
-      public bool useSounds = false;
-      public AudioSource carEngineSound; // This variable stores the sound of the car engine.
-      public AudioSource tireScreechSound; // This variable stores the sound of the tire screech (when the car is drifting).
-      float initialCarEngineSoundPitch; // Used to store the initial pitch of the car engine sound.
+      [Space(10)]      //Следующая переменная позволяет настроить звуки для вашего автомобиля, например, звук двигателя или скрип шин.
+    public bool useSounds = false;
+    public AudioSource carEngineSound; //В этой переменной хранится звук двигателя автомобиля.
+    public AudioSource tireScreechSound; // В этой переменной хранится звук визга шин (когда машина уходит в занос).
+    float initialCarEngineSoundPitch; // Используется для хранения начального тона звука двигателя автомобиля.
 
     //CONTROLS
 
       [Space(20)]
       //[Header("CONTROLS")]
-      [Space(10)]
-      //The following variables lets you to set up touch controls for mobile devices.
-      public bool useTouchControls = false;
+      [Space(10)]      
+      //Следующие переменные позволяют настроить сенсорное управление для мобильных устройств.
+    public bool useTouchControls = false;
       public GameObject throttleButton;
       PrometeoTouchInput throttlePTI;
       public GameObject reverseButton;
@@ -137,31 +136,31 @@ public class PrometeoCarController : MonoBehaviour
     //CAR DATA
 
       [HideInInspector]
-      public float carSpeed; // Used to store the speed of the car.
-      [HideInInspector]
-      public bool isDrifting; // Used to know whether the car is drifting or not.
-      [HideInInspector]
-      public bool isTractionLocked; // Used to know whether the traction of the car is locked or not.
+      public float carSpeed; // Используется для хранения скорости автомобиля.
+    [HideInInspector]
+    public bool isDrifting; // Используется, чтобы узнать, дрифтует автомобиль или нет.
+    [HideInInspector]
+    public bool isTractionLocked; // Используется, чтобы узнать, заблокировано ли сцепление автомобиля с дорогой или нет.
 
     //PRIVATE VARIABLES
 
-      /*
-      IMPORTANT: The following variables should not be modified manually since their values are automatically given via script.
-      */
-      Rigidbody carRigidbody; // Stores the car's rigidbody.
-      float steeringAxis; // Used to know whether the steering wheel has reached the maximum value. It goes from -1 to 1.
-      float throttleAxis; // Used to know whether the throttle has reached the maximum value. It goes from -1 to 1.
-      float driftingAxis;
-      float localVelocityZ;
-      float localVelocityX;
-      bool deceleratingCar;
-      bool touchControlsSetup = false;
-      /*
-      The following variables are used to store information about sideways friction of the wheels (such as
-      extremumSlip,extremumValue, asymptoteSlip, asymptoteValue and stiffness). We change this values to
-      make the car to start drifting.
-      */
-      WheelFrictionCurve FLwheelFriction;
+    /*
+    ВАЖНО: Следующие переменные не должны быть изменены вручную, так как их значения автоматически задаются скриптом.
+    */
+    Rigidbody carRigidbody; // Хранит жесткое тело автомобиля.
+    float steeringAxis; // Используется, чтобы узнать, достиг ли руль максимального значения. Оно изменяется от -1 до 1.
+    float throttleAxis; // Используется, чтобы узнать, достиг ли дроссель максимального значения. Оно изменяется от -1 до 1.
+    float driftingAxis; 
+    float localVelocityZ;
+    float localVelocityX;
+    bool deceleratingCar;
+    bool touchControlsSetup = false;
+    /*
+    Следующие переменные используются для хранения информации о боковом трении колес (такие как
+    extremumSlip,extremumValue, asymptoteSlip, asymptoteValue и stiffness). Мы изменим эти значения на
+    чтобы автомобиль начал дрифтовать.
+    */
+    WheelFrictionCurve FLwheelFriction;
       float FLWextremumSlip;
       WheelFrictionCurve FRwheelFriction;
       float FRWextremumSlip;
@@ -170,19 +169,18 @@ public class PrometeoCarController : MonoBehaviour
       WheelFrictionCurve RRwheelFriction;
       float RRWextremumSlip;
 
-    // Start is called before the first frame update
+    // Start вызывается перед обновлением первого кадра
     void Start()
-    {
-      //In this part, we set the 'carRigidbody' value with the Rigidbody attached to this
-      //gameObject. Also, we define the center of mass of the car with the Vector3 given
-      //in the inspector.
-      carRigidbody = gameObject.GetComponent<Rigidbody>();
-      carRigidbody.centerOfMass = bodyMassCenter;
+    {      //В этой части мы устанавливаем значение 'carRigidbody' для жесткого тела, прикрепленного к этому
+           //игровому объекту. Также мы определяем центр масс автомобиля с помощью Vector3, заданного
+           //в инспекторе.
+        carRigidbody = gameObject.GetComponent<Rigidbody>();
+        carRigidbody.centerOfMass = bodyMassCenter;
         _rb = carRigidbody;
-        //Initial setup to calculate the drift value of the car. This part could look a bit
-        //complicated, but do not be afraid, the only thing we're doing here is to save the default
-        //friction values of the car wheels so we can set an appropiate drifting value later.
-      FLwheelFriction = new WheelFrictionCurve ();
+        //Инициальная настройка для вычисления величины дрифта автомобиля. Эта часть может показаться немного
+        //сложной, но не пугайтесь, единственное, что мы здесь делаем, это сохраняем значение по умолчанию
+        //значения трения колес автомобиля по умолчанию, чтобы мы могли установить подходящее значение дрифта позже.
+        FLwheelFriction = new WheelFrictionCurve ();
         FLwheelFriction.extremumSlip = frontLeftCollider.sidewaysFriction.extremumSlip;
         FLWextremumSlip = frontLeftCollider.sidewaysFriction.extremumSlip;
         FLwheelFriction.extremumValue = frontLeftCollider.sidewaysFriction.extremumValue;
@@ -211,15 +209,15 @@ public class PrometeoCarController : MonoBehaviour
         RRwheelFriction.asymptoteValue = rearRightCollider.sidewaysFriction.asymptoteValue;
         RRwheelFriction.stiffness = rearRightCollider.sidewaysFriction.stiffness;
 
-        // We save the initial pitch of the car engine sound.
-        if(carEngineSound != null){
+        // Мы сохраняем начальную высоту звука автомобильного двигателя.
+        if (carEngineSound != null){
           initialCarEngineSoundPitch = carEngineSound.pitch;
         }
 
-        // We invoke 2 methods inside this script. CarSpeedUI() changes the text of the UI object that stores
-        // the speed of the car and CarSounds() controls the engine and drifting sounds. Both methods are invoked
-        // in 0 seconds, and repeatedly called every 0.1 seconds.
-        if(useUI){
+        // Мы вызываем 2 метода внутри этого скрипта. CarSpeedUI() изменяет текст объекта UI, который хранит...
+        // скорость автомобиля, а CarSounds() управляет звуками двигателя и дрифта. Оба метода вызываются
+        // через 0 секунд и повторяются каждые 0,1 секунды.
+        if (useUI){
           InvokeRepeating("CarSpeedUI", 0f, 0.1f);
         }else if(!useUI){
           if(carSpeedText != null){
@@ -277,7 +275,7 @@ public class PrometeoCarController : MonoBehaviour
     {
         HandleInput();
     }
-    // Update is called once per frame
+    // Обновление вызывается один раз за кадр
     void FixedUpdate()
     {
 
@@ -285,26 +283,26 @@ public class PrometeoCarController : MonoBehaviour
         ApplySteering();
         //CAR DATA
 
-        // We determine the speed of the car.
+        // Мы определяем скорость автомобиля.
         carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
-      // Save the local velocity of the car in the x axis. Used to know if the car is drifting.
-      localVelocityX = transform.InverseTransformDirection(carRigidbody.velocity).x;
-      // Save the local velocity of the car in the z axis. Used to know if the car is going forward or backwards.
-      localVelocityZ = transform.InverseTransformDirection(carRigidbody.velocity).z;
+        // Сохраните локальную скорость автомобиля по оси x. Используется, чтобы узнать, дрейфует ли автомобиль.
+        localVelocityX = transform.InverseTransformDirection(carRigidbody.velocity).x;
+        // Сохраните локальную скорость автомобиля по оси z. Используется для определения того, едет ли автомобиль вперед или назад.
+        localVelocityZ = transform.InverseTransformDirection(carRigidbody.velocity).z;
 
-      //CAR PHYSICS
+        //CAR PHYSICS
 
-      /*
-      The next part is regarding to the car controller. First, it checks if the user wants to use touch controls (for
-      mobile devices) or analog input controls (WASD + Space).
+        /*
+        Следующая часть касается контроллера автомобиля. Сначала проверяется, хочет ли пользователь использовать сенсорное управление (for
+        mobile devices) или регуляторы аналогового входа (WASD + Space).
 
-      The following methods are called whenever a certain key is pressed. For example, in the first 'if' we call the
-      method GoForward() if the user has pressed W.
+        Следующие методы вызываются каждый раз, когда нажата определенная клавиша. Например, в первом "если" мы вызываем
+        метод GoForward(), если пользователь нажал клавишу W.
 
-      In this part of the code we specify what the car needs to do if the user presses W (throttle), S (reverse),
-      A (turn left), D (turn right) or Space bar (handbrake).
-      */
-      if (useTouchControls && touchControlsSetup){
+        В этой части кода мы указываем, что должна сделать машина, если пользователь нажмет W (throttle), S (reverse),
+        A (turn left), D (turn right) or Space bar (handbrake).
+        */
+        if (useTouchControls && touchControlsSetup){
 
         if(throttlePTI.buttonPressed){
           CancelInvoke("DecelerateCar");
@@ -383,12 +381,12 @@ public class PrometeoCarController : MonoBehaviour
       }
 
 
-      // We call the method AnimateWheelMeshes() in order to match the wheel collider movements with the 3D meshes of the wheels.
-      AnimateWheelMeshes();
+        // Мы вызываем метод AnimateWheelMeshes(), чтобы согласовать движения коллайдеров колес с 3D-сетками колес.
+        AnimateWheelMeshes();
 
     }
 
-    // This method converts the car speed data from float to string, and then set the text of the UI carSpeedText with this value.
+    // Этот метод преобразует данные о скорости автомобиля из float в строку, а затем устанавливает текст пользовательского интерфейса carSpeedText в это значение.
     public void CarSpeedUI(){
 
       if(useUI){
@@ -402,10 +400,11 @@ public class PrometeoCarController : MonoBehaviour
 
     }
 
-    // This method controls the car sounds. For example, the car engine will sound slow when the car speed is low because the
-    // pitch of the sound will be at its lowest point. On the other hand, it will sound fast when the car speed is high because
-    // the pitch of the sound will be the sum of the initial pitch + the car speed divided by 100f.
-    // Apart from that, the tireScreechSound will play whenever the car starts drifting or losing traction.
+    // Этот метод управляет звуками автомобиля. Например, двигатель автомобиля будет звучать медленно, когда скорость автомобиля низкая, потому что
+    // высота звука будет самой низкой. С другой стороны, он будет звучать быстро, когда скорость автомобиля высока, потому что
+    // высота звука будет равна сумме начальной высоты звука + скорость автомобиля, деленной на 100f.
+    // Кроме того, звук tireScreechSound будет воспроизводиться всякий раз, когда автомобиль начинает дрифтовать или терять сцепление с дорогой.
+
     public void CarSounds(){
 
       if(useSounds){
@@ -439,7 +438,7 @@ public class PrometeoCarController : MonoBehaviour
     //STEERING METHODS
     //
 
-    //The following method turns the front car wheels to the left. The speed of this movement will depend on the steeringSpeed variable.
+    //Следующий метод поворачивает передние колеса автомобиля влево. Скорость этого движения будет зависеть от переменной steeringSpeed.
     public void TurnLeft(){
         carRigidbody.AddForceAtPosition(carRigidbody.transform.position - _pointForseLeft.localPosition, new Vector3( 0f, -_forseRotate, 0f));
         carRigidbody.AddForceAtPosition(carRigidbody.transform.position - _pointForseRight.localPosition, new Vector3(0f, _forseRotate, 0f));
@@ -454,7 +453,7 @@ public class PrometeoCarController : MonoBehaviour
       frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
     }
 
-    //The following method turns the front car wheels to the right. The speed of this movement will depend on the steeringSpeed variable.
+    //Следующий метод поворачивает передние колеса автомобиля вправо. Скорость этого движения будет зависеть от переменной steeringSpeed.
     public void TurnRight()
     {
         carRigidbody.AddForceAtPosition(carRigidbody.transform.position - _pointForseRight.localPosition, new Vector3(0f, -_forseRotate, 0f));
@@ -469,8 +468,8 @@ public class PrometeoCarController : MonoBehaviour
       frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
     }
 
-    //The following method takes the front car wheels to their default position (rotation = 0). The speed of this movement will depend
-    // on the steeringSpeed variable.
+    //Следующий метод переводит передние колеса автомобиля в положение по умолчанию(rotation = 0). Скорость этого движения будет зависеть от
+    // от переменной steeringSpeed.
     public void ResetSteeringAngle(){
       if(steeringAxis < 0f){
         steeringAxis = steeringAxis + (Time.deltaTime * 10f * steeringSpeed);
@@ -485,7 +484,7 @@ public class PrometeoCarController : MonoBehaviour
       frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
     }
 
-    // This method matches both the position and rotation of the WheelColliders with the WheelMeshes.
+    // Этот метод согласует положение и вращение WheelColliders с WheelMeshes.
     void AnimateWheelMeshes(){
       try{
         Quaternion FLWRotation;
