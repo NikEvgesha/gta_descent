@@ -11,9 +11,4 @@ public class Teleport : MonoBehaviour
             other.gameObject.GetComponent<PrometeoCarController>().TeleportCar(spawnPoint.GetPointToSpawn(), onInertion);
         }
     }
-    private void TeleportOnStart(GameObject car)
-    {
-        car.transform.position = spawnPoint.GetPointToSpawn().position;
-        car.transform.rotation = spawnPoint.GetPointToSpawn().rotation;
-    }
 }

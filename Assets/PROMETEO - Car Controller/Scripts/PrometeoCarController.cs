@@ -9,6 +9,7 @@ something useful for your game. Best regards, Mena.
 */
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,16 +38,6 @@ public class PrometeoCarController : MonoBehaviour
 	public int decelerationMultiplier = 2; //  ак быстро автомобиль замедл€етс€, когда пользователь не использует дроссель.
 	[Range(1, 10)]
 	public int handbrakeDriftMultiplier = 5; // Ќасколько сильно автомобиль тер€ет сцепление с дорогой, когда пользователь нажимает на ручной тормоз.
-
-
-
-	[Header("Advanced Acceleration Settings")]
-	public bool useExponentialAcceleration = false;
-	public float accelerationCurveFactor = 2f; // „ем выше, тем более нелинейное ускорение
-
-	private Rigidbody _rb;
-	private float _currentSpeed;
-	private float _inputAcceleration;
 
 	[Space(10)]
 	public Vector3 bodyMassCenter; // Ёто вектор, который содержит центр масс автомобил€. я рекомендую установить это значение
@@ -169,28 +160,29 @@ public class PrometeoCarController : MonoBehaviour
 	WheelFrictionCurve RRwheelFriction;
 	float RRWextremumSlip;
 
-    private bool isOnGround = true; // флаг дл€ проверки, на земле ли машина
 
-    void OnCollisionStay(Collision collision)
+
+    // NEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEW
+    private bool _isOnGround;
+	private List<WheelCollider> _wheelColliders = new List<WheelCollider>();
+    // -------------------------
+
+    // CHAT GPT 
+
+    [Header("Advanced Acceleration Settings")]
+    public bool _useExponentialAcceleration = false;
+    public float _accelerationCurveFactor = 2f; // „ем выше, тем более нелинейное ускорение
+
+    private Rigidbody _rb;
+    private float _currentSpeed;
+    private float _inputAcceleration;
+    // -------------------------
+
+    private void Awake()
     {
-        // ѕровер€ем, что объект в слое "Ground"
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isOnGround = true;
-			Debug.Log(isOnGround);
-        }
+        _wheelColliders.Add(rearLeftCollider);
+        _wheelColliders.Add(rearRightCollider);
     }
-
-    void OnCollisionExit(Collision collision)
-    {
-        // ≈сли объект покидает землю
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isOnGround = false;
-            Debug.Log(isOnGround);
-        }
-    }
-
     // Start вызываетс€ перед обновлением первого кадра
     void Start()
 	{      //¬ этой части мы устанавливаем значение 'carRigidbody' дл€ жесткого тела, прикрепленного к этому
@@ -318,7 +310,21 @@ public class PrometeoCarController : MonoBehaviour
 	void Update()
 	{
 		HandleInput();
-	}
+		CheckGround();
+        //Debug.Log(_isOnGround);
+    }
+	private void CheckGround()
+    {
+        _isOnGround = false;
+        foreach (WheelCollider wheel in _wheelColliders)  // wheels Ч это массив или список всех колЄс машины
+        {
+            if (wheel.isGrounded)
+            {
+                _isOnGround = true;
+                break;  // ≈сли хот€ бы одно колесо на земле, можно сразу выйти
+            }
+        }
+    }
 	// ќбновление вызываетс€ один раз за кадр
 	void FixedUpdate()
 	{
@@ -849,7 +855,7 @@ public class PrometeoCarController : MonoBehaviour
     public void DriftCarPS()
 	{
 
-		if (useEffects)
+		if (useEffects && _isOnGround)
 		{
 			try
 			{
@@ -887,7 +893,7 @@ public class PrometeoCarController : MonoBehaviour
 				Debug.LogWarning(ex);
 			}
 		}
-		else if (!useEffects)
+		else if (!useEffects || !_isOnGround)
 		{
 			if (RLWParticleSystem != null)
 			{
@@ -981,11 +987,15 @@ public class PrometeoCarController : MonoBehaviour
 
 	private void ApplyAcceleration()
 	{
+		if (!_isOnGround)
+		{
+			return;
+		}
 		if (_inputAcceleration > 0)
 		{
 			float speedFactor = Mathf.Clamp01(_rb.velocity.magnitude / maxSpeed);
-			float acceleration = useExponentialAcceleration
-				? accelerationMultiplier * Mathf.Pow(1 - speedFactor, accelerationCurveFactor)
+			float acceleration = _useExponentialAcceleration
+				? accelerationMultiplier * Mathf.Pow(1 - speedFactor, _accelerationCurveFactor)
 				: accelerationMultiplier * (1 - speedFactor);
 
 			_rb.AddForce(transform.forward * acceleration * _inputAcceleration, ForceMode.Acceleration);
@@ -1005,7 +1015,11 @@ public class PrometeoCarController : MonoBehaviour
 
 	private void ApplySteering()
 	{
-		float steeringInput = Input.GetAxis("Horizontal");
+        if (!_isOnGround)
+        {
+            return;
+        }
+        float steeringInput = Input.GetAxis("Horizontal");
 		float steeringAngle = steeringInput * maxSteeringAngle;
 		transform.Rotate(Vector3.up, steeringAngle * steeringSpeed * Time.fixedDeltaTime);
 	}

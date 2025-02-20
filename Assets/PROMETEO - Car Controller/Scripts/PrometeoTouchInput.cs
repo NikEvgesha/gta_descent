@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PrometeoTouchInput : MonoBehaviour
 {
-
     public bool changeScaleOnPressed = false;
     [HideInInspector]
     public bool buttonPressed = false;
