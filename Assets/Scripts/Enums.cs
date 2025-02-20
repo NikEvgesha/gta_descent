@@ -4,3 +4,8 @@ public enum CurrencyType
     Gems,
     Real
 }
+
+public enum ShopItemType
+{
+    Color,
+}

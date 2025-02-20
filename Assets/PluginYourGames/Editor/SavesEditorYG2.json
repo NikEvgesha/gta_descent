@@ -7,15 +7,16 @@
         false,
         false
     ],
-    "idSave": 115,
+    "idSave": 143,
     "levels": [
         true,
         false,
-        false,
+        true,
         false,
         false
     ],
+    "colors": [],
     "scores": [],
     "cups": 0,
-    "gems": 0
+    "gems": 100
 }

@@ -10,6 +10,7 @@ public class SaveManager : MonoBehaviour
 
     private List<float> _scores = new List<float>();
     private List<bool> _lvls = new List<bool>();
+    private List<bool> _colors = new List<bool>();
     private int _topScoreCounts = 5;
     private int _lvlsCount = 5;
 
@@ -29,7 +30,7 @@ public class SaveManager : MonoBehaviour
             YG2.SaveProgress();
         } else if (YG2.isSDKEnabled == true)
         {
-            //LoadScores();
+            LoadColors();
             LoadLevels();
             Debug.Log("LOADED");
         }
@@ -40,7 +41,7 @@ public class SaveManager : MonoBehaviour
         YG2.SaveProgress();
     }
 
-    public void SaveScore(float score)
+    /*public void SaveScore(float score)
     {
 
         if (YG2.saves.scores == null)
@@ -83,8 +84,9 @@ public class SaveManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
+    // TODO: переделать
     public void LoadLevels()
     {
         if (YG2.saves.levels.Length == 0)
@@ -95,15 +97,32 @@ public class SaveManager : MonoBehaviour
 
     public void SaveLevel(int id, bool unlocked)
     {
-        if (YG2.saves.levels == null)
+        if (YG2.saves.levels.Length == 0)
         {
             YG2.saves.levels = new bool[_lvlsCount];
         }
         YG2.saves.levels[id - 1] = unlocked;
     }
 
-    public List<float> GetPlayerScores()
+
+    public void LoadColors()
     {
-        return _scores;
+        
+    }
+
+    public void SaveColor(CustomizerColorData data, bool purchased)
+    {
+        
+    }
+
+
+    public List<bool> GetLevelStatuses()
+    {
+        return _lvls;
+    }
+
+    public List<bool> GetColorsStatuses()
+    {
+        return _colors;
     }
 }

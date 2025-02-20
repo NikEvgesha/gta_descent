@@ -14,7 +14,7 @@ public class LevelMenuItem : MonoBehaviour
     {
         CurrencyManager.Instance.CupsChanged += CheckCupsButton;
         _animator.SetTrigger("Open");
-        if (_unlocked || YG2.saves.levels[_levelData.ID-1])
+        if (_unlocked || (YG2.saves.levels.Length > 0 && YG2.saves.levels[_levelData.ID-1]))
         {
             UnlockLevel();
         } else
