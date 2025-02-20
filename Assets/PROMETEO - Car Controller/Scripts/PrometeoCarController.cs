@@ -38,8 +38,16 @@ public class PrometeoCarController : MonoBehaviour
       [Range(1, 10)]
       public int handbrakeDriftMultiplier = 5; // How much grip the car loses when the user hit the handbrake.
 
-      
-      [Space(10)]
+
+    [Header("Advanced Acceleration Settings")]
+    public bool useExponentialAcceleration = false;
+    public float accelerationCurveFactor = 2f; // Чем выше, тем более нелинейное ускорение
+
+    private Rigidbody _rb;
+    private float _currentSpeed;
+    private float _inputAcceleration;
+
+    [Space(10)]
       public Vector3 bodyMassCenter; // This is a vector that contains the center of mass of the car. I recommend to set this value
                                      // in the points x = 0 and z = 0 of your car. You can select the value that you want in the y axis,
                                      // however, you must notice that the higher this value is, the more unstable the car becomes.
@@ -170,10 +178,10 @@ public class PrometeoCarController : MonoBehaviour
       //in the inspector.
       carRigidbody = gameObject.GetComponent<Rigidbody>();
       carRigidbody.centerOfMass = bodyMassCenter;
-
-      //Initial setup to calculate the drift value of the car. This part could look a bit
-      //complicated, but do not be afraid, the only thing we're doing here is to save the default
-      //friction values of the car wheels so we can set an appropiate drifting value later.
+        _rb = carRigidbody;
+        //Initial setup to calculate the drift value of the car. This part could look a bit
+        //complicated, but do not be afraid, the only thing we're doing here is to save the default
+        //friction values of the car wheels so we can set an appropiate drifting value later.
       FLwheelFriction = new WheelFrictionCurve ();
         FLwheelFriction.extremumSlip = frontLeftCollider.sidewaysFriction.extremumSlip;
         FLWextremumSlip = frontLeftCollider.sidewaysFriction.extremumSlip;
@@ -265,15 +273,20 @@ public class PrometeoCarController : MonoBehaviour
         }
 
     }
-
+    void Update()
+    {
+        HandleInput();
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
 
-      //CAR DATA
+        ApplyAcceleration();
+        ApplySteering();
+        //CAR DATA
 
-      // We determine the speed of the car.
-      carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
+        // We determine the speed of the car.
+        carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
       // Save the local velocity of the car in the x axis. Used to know if the car is drifting.
       localVelocityX = transform.InverseTransformDirection(carRigidbody.velocity).x;
       // Save the local velocity of the car in the z axis. Used to know if the car is going forward or backwards.
@@ -800,4 +813,39 @@ public class PrometeoCarController : MonoBehaviour
         UseTeleport?.Invoke();
     }
 
+    void HandleInput()
+    {
+        _inputAcceleration = Input.GetAxis("Vertical");
+    }
+
+    void ApplyAcceleration()
+    {
+        if (_inputAcceleration > 0)
+        {
+            float speedFactor = Mathf.Clamp01(_rb.velocity.magnitude / maxSpeed);
+            float acceleration = useExponentialAcceleration
+                ? accelerationMultiplier * Mathf.Pow(1 - speedFactor, accelerationCurveFactor)
+                : accelerationMultiplier * (1 - speedFactor);
+
+            _rb.AddForce(transform.forward * acceleration * _inputAcceleration, ForceMode.Acceleration);
+        }
+        else if (_inputAcceleration < 0)
+        {
+            if (_rb.velocity.magnitude < maxReverseSpeed)
+            {
+                _rb.AddForce(transform.forward * accelerationMultiplier * _inputAcceleration, ForceMode.Acceleration);
+            }
+        }
+        else
+        {
+            _rb.velocity *= 1 - (Time.fixedDeltaTime * decelerationMultiplier);
+        }
+    }
+
+    void ApplySteering()
+    {
+        float steeringInput = Input.GetAxis("Horizontal");
+        float steeringAngle = steeringInput * maxSteeringAngle;
+        transform.Rotate(Vector3.up, steeringAngle * steeringSpeed * Time.fixedDeltaTime);
+    }
 }
