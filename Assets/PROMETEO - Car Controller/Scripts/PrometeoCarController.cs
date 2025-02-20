@@ -493,14 +493,14 @@ public class PrometeoCarController : MonoBehaviour
 					float engineSoundPitch = initialCarEngineSoundPitch + (Mathf.Abs(carRigidbody.velocity.magnitude) / 25f);
 					carEngineSound.pitch = engineSoundPitch;
 				}
-				if ((isDrifting) || (isTractionLocked && Mathf.Abs(carSpeed) > 12f))
+				if (((isDrifting) || (isTractionLocked && Mathf.Abs(carSpeed) > 12f)) && _isOnGround)
 				{
 					if (!tireScreechSound.isPlaying)
 					{
 						tireScreechSound.Play();
 					}
 				}
-				else if ((!isDrifting) && (!isTractionLocked || Mathf.Abs(carSpeed) < 12f))
+				else if (!_isOnGround || ((!isDrifting) && (!isTractionLocked || Mathf.Abs(carSpeed) < 12f)))
 				{
 					tireScreechSound.Stop();
 				}
