@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6958d3e8735d0064c9b38772622604d3, type: 3}
-  m_Name: red
+  m_Name: yellow 1
   m_EditorClassIdentifier: 
-  _price: 0
+  _price: 999
   _currencyType: 1
-  _itemImg: {fileID: 21300000, guid: 2835516f99cc5f6428e0939fe019fbc8, type: 3}
-  _identifier: red_white
-  _material: {fileID: 2100000, guid: 2d997c6d92b71154e8dee74617594aea, type: 2}
-  _default: 1
+  _itemImg: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  _identifier: yellow_test
+  _material: {fileID: 2100000, guid: c4e883fe2709962409ae36424538b2e4, type: 2}
+  _default: 0

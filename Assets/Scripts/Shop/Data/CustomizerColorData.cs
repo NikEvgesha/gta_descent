@@ -5,9 +5,12 @@ public class CustomizerColorData : ShopItemData
 {
     [SerializeField] private string _identifier;
     [SerializeField] private Material _material;
+    [SerializeField] private bool _default;
     private ShopItemType _type = ShopItemType.Color;
 
     public string Identifier {  get { return _identifier; } }
     public Material Material { get { return _material; } }
     public ShopItemType Type { get { return _type; } }
+
+    public bool IsDefault { get { return _default; } }
 }

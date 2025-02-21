@@ -5,18 +5,17 @@ using YG;
 
 public class CurrencyManager : MonoBehaviour
 {
-    [SerializeField] private bool _cheat;
     [SerializeField] private Sprite _gemsIcon;
     [SerializeField] private Sprite _cupsIcon;
     [SerializeField] private Sprite _yanIcon;
     private static CurrencyManager _instance;
-    private int _gemsAmount;
-    private int _cupsAmount;
+
+    private Dictionary<CurrencyType, int> _balance;
 
     private Dictionary<CurrencyType, Sprite> _currencyIcons;
 
-    public int Gems { get {return _gemsAmount; } }
-    public int Cups { get { return _cupsAmount; } }
+    public int Gems { get {return _balance[CurrencyType.Gems]; } }
+    public int Cups { get { return _balance[CurrencyType.Cups]; } }
 
     public Action<int> GemsChanged;
     public Action<int> CupsChanged;
@@ -34,43 +33,34 @@ public class CurrencyManager : MonoBehaviour
 
     private void Start()
     {
-
-        if (_cheat)
-        {
-            _cupsAmount = 15;
-            _gemsAmount = 500;
-        }
-         else if (YG2.isSDKEnabled == true)
-        {
-            Load();
-        }
-        CupsChanged?.Invoke(_cupsAmount);
-        GemsChanged?.Invoke(_gemsAmount);
+        _balance = SaveManager.Instance.LoadCurrency();
+        CupsChanged?.Invoke(_balance[CurrencyType.Cups]);
+        GemsChanged?.Invoke(_balance[CurrencyType.Gems]);
     }
 
-    private void Load()
+/*    private void Load()
     {
         _cupsAmount = YG2.saves.cups;
         _gemsAmount = YG2.saves.gems;
-    }
+    }*/
 
 
     public void AddCups(int amount)
     {
-        _cupsAmount += amount;
-        CupsChanged?.Invoke(_cupsAmount);
-        YG2.saves.cups = _cupsAmount;
+        _balance[CurrencyType.Cups] += amount;
+        CupsChanged?.Invoke(_balance[CurrencyType.Cups]);
+        SaveManager.Instance.SaveCurrency(CurrencyType.Cups, _balance[CurrencyType.Cups]);
     }
 
     public bool RemoveCups(int amount)
     {
-        if (_cupsAmount < amount)
+        if (_balance[CurrencyType.Cups] < amount)
         {
             return false;
         }
-        _cupsAmount -= amount;
-        CupsChanged?.Invoke(_cupsAmount);
-        YG2.saves.cups = _cupsAmount;
+        _balance[CurrencyType.Cups] -= amount;
+        CupsChanged?.Invoke(_balance[CurrencyType.Cups]);
+        SaveManager.Instance.SaveCurrency(CurrencyType.Cups, _balance[CurrencyType.Cups]);
         return true;
     }
 
@@ -81,22 +71,21 @@ public class CurrencyManager : MonoBehaviour
 
     public void AddGems(int amount)
     {
-        _gemsAmount += amount;
-        GemsChanged?.Invoke(_gemsAmount);
-        YG2.saves.gems = _gemsAmount;
+        _balance[CurrencyType.Gems] += amount;
+        GemsChanged?.Invoke(_balance[CurrencyType.Gems]);
+        SaveManager.Instance.SaveCurrency(CurrencyType.Gems, _balance[CurrencyType.Gems]);
     }
 
     public bool RemoveGems(int amount)
     {
-        if (_gemsAmount < amount)
+        if (_balance[CurrencyType.Gems] < amount)
         {
-            // TODO: open shop
             ShopUI.Instance.OpenGemsShop();
             return false;
         }
-        _gemsAmount -= amount;
-        GemsChanged?.Invoke(_gemsAmount);
-        YG2.saves.gems = _gemsAmount;
+        _balance[CurrencyType.Gems] -= amount;
+        GemsChanged?.Invoke(_balance[CurrencyType.Gems]);
+        SaveManager.Instance.SaveCurrency(CurrencyType.Gems, _balance[CurrencyType.Gems]);
         return true;
     }
 

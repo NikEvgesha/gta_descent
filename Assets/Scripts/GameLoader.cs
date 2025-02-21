@@ -17,14 +17,16 @@ public class GameLoader : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        DontDestroyOnLoad(gameObject);
+
     }
 
 
-/*    private void Start()
-    {
-        _currentSceneName = _gameOptions.LobbySceneName;
-        SceneManager.LoadScene(_currentSceneName);
-    }*/
+    /*    private void Start()
+        {
+            _currentSceneName = _gameOptions.LobbySceneName;
+            SceneManager.LoadScene(_currentSceneName);
+        }*/
 
     public void LoadNextScene(string SceneName, bool asyncMode)
     {

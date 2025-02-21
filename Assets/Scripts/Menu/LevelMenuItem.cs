@@ -8,8 +8,6 @@ public class LevelMenuItem : MonoBehaviour
     [SerializeField] private bool _unlocked = false;
     [SerializeField] private Animator _animator;
 
-    private int _levelsCount = 5;
-
     private void OnEnable()
     {
         CurrencyManager.Instance.CupsChanged += CheckCupsButton;

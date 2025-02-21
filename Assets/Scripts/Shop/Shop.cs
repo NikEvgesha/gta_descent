@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class Shop : MonoBehaviour
     [SerializeField] private CurrencyShopSlot _currencyPrefab;
     [SerializeField] private Transform _currencySlotParent;
 
+    [Header("Elements")]
+    [SerializeField] private BuyButton _buyButton;
+    [SerializeField] private ToggleGroup _toggleGroup;
+
     private Dictionary<CustomizerColorData, bool> _colorStatuses = new Dictionary<CustomizerColorData, bool>();
 
     public Action ItemPurchased;
@@ -29,20 +34,25 @@ public class Shop : MonoBehaviour
 
     private void Start()
     {
-        _carColors.ForEach(x => _colorStatuses.Add(x, false));
-        //LoadStatuses();
+        //_carColors.ForEach(x => _colorStatuses.Add(x, false));
+        _colorStatuses = SaveManager.Instance.LoadColorsStatuses(_carColors);
         InitSlots();
     }
 
 
-    public void TryBuy(CustomizerColorData colorData)
+    public void TryBuy(CustomizerColorData colorData, ColorShopSlot slot)
     {
         if (CurrencyManager.Instance.RemoveCurrency(colorData.CurrencyType, colorData.Price))
         {
             _colorStatuses[colorData] = true;
             SaveManager.Instance.SaveColor(colorData, true);
             CustomizerManager.Instance.Activate(colorData, true);
+            slot.SetPurchaseStatus(true);
+        } else
+        {
+            slot.SetPurchaseStatus(false);
         }
+            
     }
 
 
@@ -62,7 +72,7 @@ public class Shop : MonoBehaviour
     {
         foreach (var item in _carColors) {
             ColorShopSlot slot = Instantiate(_colorSlotPrefab, _colorSlotParent);
-            slot.Init(item, _colorStatuses[item]);
+            slot.Init(item, _colorStatuses[item], _buyButton, _toggleGroup);
         }
 
         foreach (var item in _currencyPacks)
