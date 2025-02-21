@@ -77,6 +77,7 @@ public class PrometeoEditor : Editor{
   private SerializedProperty turnRightButton;
   private SerializedProperty turnLeftButton;
   private SerializedProperty handbrakeButton;
+  private SerializedProperty _spawnButton;
 
   private void OnEnable(){
     prometeo = (PrometeoCarController)target;
@@ -123,8 +124,9 @@ public class PrometeoEditor : Editor{
     turnRightButton = SO.FindProperty("turnRightButton");
     turnLeftButton = SO.FindProperty("turnLeftButton");
     handbrakeButton = SO.FindProperty("handbrakeButton");
+    _spawnButton = SO.FindProperty("_spawnButton");
 
-  }
+    }
 
   public override void OnInspectorGUI(){
 
@@ -248,8 +250,9 @@ public class PrometeoEditor : Editor{
         EditorGUILayout.PropertyField(turnLeftButton, new GUIContent("Turn Left Button: "));
         EditorGUILayout.PropertyField(turnRightButton, new GUIContent("Turn Right Button: "));
         EditorGUILayout.PropertyField(handbrakeButton, new GUIContent("Handbrake Button: "));
+        EditorGUILayout.PropertyField(_spawnButton, new GUIContent("Go Spawn Button: "));
 
-    EditorGUILayout.EndToggleGroup();
+        EditorGUILayout.EndToggleGroup();
 
     //END
 
