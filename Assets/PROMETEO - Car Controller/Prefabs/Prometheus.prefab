@@ -117,7 +117,7 @@ MonoBehaviour:
   maxSpeed: 120
   maxReverseSpeed: 45
   accelerationMultiplier: 5
-  maxSteeringAngle: 35
+  maxSteeringAngle: 20
   steeringSpeed: 0.4
   brakeForce: 450
   decelerationMultiplier: 1
@@ -44804,7 +44804,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 37
+  m_VersionIndex: 40
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
