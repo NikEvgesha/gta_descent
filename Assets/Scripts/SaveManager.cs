@@ -184,7 +184,7 @@ public class SaveManager : MonoBehaviour
                 YG2.saves.colors_status[i] = colors[i].IsDefault;
                 _colors.Add(YG2.saves.colors_id[i], YG2.saves.colors_status[i]);
             }
-        } else
+        } else if (_colors.Count == 0)
         {
             /* Load from saves */
 

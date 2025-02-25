@@ -8,6 +8,7 @@ public class Teleport : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PrometeoCarController>() != null)
         {
+            GameManager.Instance.LevelWin?.Invoke();
             other.gameObject.GetComponent<PrometeoCarController>().TeleportCar(_spawnPoint.GetPointToSpawn(), _onInertion);
         }
     }

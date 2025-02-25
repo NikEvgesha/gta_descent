@@ -10,7 +10,7 @@ public class LevelMenuItem : MonoBehaviour
 
     private void OnEnable()
     {
-        CurrencyManager.Instance.CupsChanged += CheckCupsButton;
+        //CurrencyManager.Instance.CupsChanged += CheckCupsButton;
         _animator.SetTrigger("Open");
         if (_unlocked || (YG2.saves.levels.Length > 0 && YG2.saves.levels[_levelData.ID-1]))
         {
@@ -42,8 +42,7 @@ public class LevelMenuItem : MonoBehaviour
     {
         if (_unlocked)
         {
-            GameLoader.Instance.LoadNextScene(_levelData.Scene, true);
-            GameManager.Instance.LevelInProgress?.Invoke(true);
+            GameManager.Instance.StartLevel(_levelData);
         }
     }
 

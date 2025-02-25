@@ -5,6 +5,7 @@ public class ColorShopSlot : ShopSlot, IPurchasable
 {
     [SerializeField] private CustomizerColorData _colorData;
     [SerializeField] private GameObject _activeIndicator;
+    [SerializeField] private GameObject _lockedIndicator;
 
     private BuyButton _buyButton;
 
@@ -28,6 +29,10 @@ public class ColorShopSlot : ShopSlot, IPurchasable
         _colorData = data;
         _itemImgObj.sprite = _colorData.ItemIMG;
         _purchased = purchased;
+        if (_purchased)
+        {
+            _lockedIndicator.SetActive(false);
+        }
     }
 
     public override void OnClick()
@@ -63,9 +68,11 @@ public class ColorShopSlot : ShopSlot, IPurchasable
     {
         Debug.Log("Set status: " + purchased);
         _purchased = purchased;
-        if (_activated && _purchased)
+        if (_purchased)
         {
-            _buyButton.HideButton();
+            _lockedIndicator.SetActive(false);
+            if (_activated)
+                _buyButton.HideButton();
         }
     }
 

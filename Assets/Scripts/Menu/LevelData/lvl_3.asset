@@ -16,3 +16,4 @@ MonoBehaviour:
   _cupsPrice: 10
   _gemsPrice: 100
   _sceneName: Scen 3
+  _baseReward: 5

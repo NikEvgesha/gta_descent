@@ -4,9 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameLoader : MonoBehaviour
 {
-    
-    //[SerializeField] private GameOptions _gameOptions;
 
+    //[SerializeField] private GameOptions _gameOptions;
     private string _currentSceneName;
     private static GameLoader _instance;
     private AsyncOperation _asyncOperation;
