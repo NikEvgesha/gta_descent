@@ -118,14 +118,14 @@ MonoBehaviour:
   maxReverseSpeed: 45
   accelerationMultiplier: 5
   maxSteeringAngle: 35
-  steeringSpeed: 0.5
+  steeringSpeed: 0.4
   brakeForce: 450
   decelerationMultiplier: 1
-  handbrakeDriftMultiplier: 5
+  handbrakeDriftMultiplier: 4
   bodyMassCenter: {x: 0, y: 0, z: 0}
   _pointForseLeft: {fileID: 7471941895445523399}
   _pointForseRight: {fileID: 4050807778884445540}
-  _forseRotate: 500
+  _forseRotate: 1000
   frontLeftMesh: {fileID: 8649133034589738184}
   frontLeftCollider: {fileID: 2239677824950174677}
   frontRightMesh: {fileID: 3386343362015136015}
@@ -139,7 +139,7 @@ MonoBehaviour:
   RRWParticleSystem: {fileID: 4402756320999286479}
   RLWTireSkid: {fileID: 7045468751846977024}
   RRWTireSkid: {fileID: 7045468751210077382}
-  useUI: 1
+  useUI: 0
   carSpeedText: {fileID: 0}
   useSounds: 1
   carEngineSound: {fileID: 8307932094690542670}
@@ -153,9 +153,9 @@ MonoBehaviour:
   carSpeed: 0
   isDrifting: 0
   isTractionLocked: 0
+  _spawnButton: {fileID: 0}
   _useExponentialAcceleration: 0
   _accelerationCurveFactor: 2
-  SpawnPoint: {fileID: 0}
 --- !u!65 &6811313656447827158
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -44804,7 +44804,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 22
+  m_VersionIndex: 37
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

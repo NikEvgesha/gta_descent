@@ -334,9 +334,9 @@ public class PrometeoCarController : MonoBehaviour
 	}
 	void Update()
 	{
-		HandleInput();
+		
 		CheckGround();
-        //Debug.Log(_isOnGround);
+        //Debug.Log(steeringAxis);
     }
 	private void CheckGround()
     {
@@ -357,7 +357,7 @@ public class PrometeoCarController : MonoBehaviour
 		ApplyAcceleration();
 		//ApplySteering();
 		//CAR DATA
-
+		//Debug.Log(frontLeftCollider.rpm);
 		// Мы определяем скорость автомобиля.
 		carSpeed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000;
 		// Сохраните локальную скорость автомобиля по оси x. Используется, чтобы узнать, дрейфует ли автомобиль.
@@ -365,93 +365,9 @@ public class PrometeoCarController : MonoBehaviour
 		// Сохраните локальную скорость автомобиля по оси z. Используется для определения того, едет ли автомобиль вперед или назад.
 		localVelocityZ = transform.InverseTransformDirection(carRigidbody.velocity).z;
 
-		//CAR PHYSICS
-
-		/*
-		Следующая часть касается контроллера автомобиля. Сначала проверяется, хочет ли пользователь использовать сенсорное управление (for
-		mobile devices) или регуляторы аналогового входа (WASD + Space).
-
-		Следующие методы вызываются каждый раз, когда нажата определенная клавиша. Например, в первом "если" мы вызываем
-		метод GoForward(), если пользователь нажал клавишу W.
-
-		В этой части кода мы указываем, что должна сделать машина, если пользователь нажмет W (throttle), S (reverse),
-		A (turn left), D (turn right) or Space bar (handbrake).
-		*/
-		if (useTouchControls && touchControlsSetup)
-        {
-            _isThrottlePressed = throttlePTI.buttonPressed;
-            _isReversePressed = reversePTI.buttonPressed;
-            _isTurnLeftPressed = turnLeftPTI.buttonPressed;
-            _isTurnRightPressed = turnRightPTI.buttonPressed;
-            _isHandbrakePressed = handbrakePTI.buttonPressed;
-            _isSpawnPressed = _spawnPTI.buttonPressed;
-        }
-		else
-		{
-            _isThrottlePressed = Input.GetKey(KeyCode.W);
-            _isReversePressed = Input.GetKey(KeyCode.S);
-            _isTurnLeftPressed = Input.GetKey(KeyCode.A);
-            _isTurnRightPressed = Input.GetKey(KeyCode.D);
-            _isHandbrakePressed = Input.GetKey(KeyCode.Space);
-            _isSpawnPressed = Input.GetKey(KeyCode.F);
-        }
-        
-		if (_isSpawnPressed && !_startTeleport)
-		{
-			_startTeleport = !_startTeleport;
-			TeleportCar(_spawnPoint.GetPointToSpawn());
-			//апчхи
-        } else if (!_isSpawnPressed && _startTeleport)
-		{
-            _startTeleport = !_startTeleport;
-        }
-        if (_isThrottlePressed)
-		{
-            CancelInvoke("DecelerateCar");
-			deceleratingCar = false;
-			GoForward();
-		}
-		if (_isReversePressed)
-		{
-			CancelInvoke("DecelerateCar");
-			deceleratingCar = false;
-			GoReverse();
-		}
-
-		if (_isTurnLeftPressed)
-		{
-			TurnLeft();
-		}
-		if (_isTurnRightPressed)
-		{
-			TurnRight();
-		}
-		if (_isHandbrakePressed)
-		{
-			CancelInvoke("DecelerateCar");
-			deceleratingCar = false;
-			Handbrake();
-		}
-		if (!_isHandbrakePressed)
-		{
-			RecoverTraction();
-		}
-		if ((!_isThrottlePressed && !_isReversePressed))
-		{
-			ThrottleOff();
-		}
-		if ((!_isReversePressed && !_isThrottlePressed) && !_isHandbrakePressed && !deceleratingCar)
-		{
-			InvokeRepeating("DecelerateCar", 0f, 0.1f);
-			deceleratingCar = true;
-		}
-		if (!_isTurnLeftPressed && !_isTurnRightPressed && steeringAxis != 0f)
-		{
-			ResetSteeringAngle();
-		}
-
-		// Мы вызываем метод AnimateWheelMeshes(), чтобы согласовать движения коллайдеров колес с 3D-сетками колес.
-		AnimateWheelMeshes();
+        HandleInput();
+        // Мы вызываем метод AnimateWheelMeshes(), чтобы согласовать движения коллайдеров колес с 3D-сетками колес.
+        AnimateWheelMeshes();
 
 	}
 
@@ -489,6 +405,7 @@ public class PrometeoCarController : MonoBehaviour
 				if (carEngineSound != null)
 				{
 					float engineSoundPitch = initialCarEngineSoundPitch + (Mathf.Abs(carRigidbody.velocity.magnitude) / 25f);
+					//Debug.Log(carRigidbody.velocity.magnitude);
 					carEngineSound.pitch = engineSoundPitch;
 				}
 				if (((isDrifting) || (isTractionLocked && Mathf.Abs(carSpeed) > 12f)) && _isOnGround)
@@ -527,42 +444,6 @@ public class PrometeoCarController : MonoBehaviour
     //
 
     //Следующий метод поворачивает передние колеса автомобиля влево. Скорость этого движения будет зависеть от переменной steeringSpeed.
-    /*public void TurnLeft()
-	{
-        *//*
-		 * carRigidbody.AddForceAtPosition(carRigidbody.transform.position - _pointForseLeft.localPosition, new Vector3(0f, -_forseRotate, 0f));
-		carRigidbody.AddForceAtPosition(carRigidbody.transform.position - _pointForseRight.localPosition, new Vector3(0f, _forseRotate, 0f));
-		*//*
-        carRigidbody.AddForceAtPosition(new Vector3(0f, -_forseRotate, 0f), _pointForseLeft.position);
-        carRigidbody.AddForceAtPosition(new Vector3(0f, _forseRotate, 0f), _pointForseRight.position);
-
-
-        //this.GetComponent<Rigidbody>().AddForce(0f, 5000f, 0f);
-        steeringAxis = steeringAxis - (Time.deltaTime * 10f * steeringSpeed);
-		if (steeringAxis < -1f)
-		{
-			steeringAxis = -1f;
-		}
-		var steeringAngle = steeringAxis * maxSteeringAngle;
-		frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
-		frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
-	}
-
-    //Следующий метод поворачивает передние колеса автомобиля вправо. Скорость этого движения будет зависеть от переменной steeringSpeed.
-    public void TurnRight()
-    {
-        carRigidbody.AddForceAtPosition(new Vector3(0f, -_forseRotate, 0f), _pointForseRight.position);
-        carRigidbody.AddForceAtPosition(new Vector3(0f, _forseRotate, 0f), _pointForseLeft.position);
-
-        steeringAxis = steeringAxis + (Time.deltaTime * 10f * steeringSpeed);
-        if (steeringAxis > 1f)
-        {
-            steeringAxis = 1f;
-        }
-        var steeringAngle = steeringAxis * maxSteeringAngle;
-        frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
-        frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
-    }*/
     public void Turn(float direction)
     {
         // Управление осью поворота
@@ -574,20 +455,22 @@ public class PrometeoCarController : MonoBehaviour
         frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
         frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
 
-        if (!_isOnGround)
-        {
-            /*
-            // Если машина в воздухе — применяем вращение напрямую
-            transform.Rotate(Vector3.up, direction * maxSteeringAngle * steeringSpeed * Time.fixedDeltaTime);
-			*/
-            return;
-        }
+		if (!_isOnGround)
+		{
 
-        // Применение физического воздействия на машину (если на земле)
-        carRigidbody.AddForceAtPosition(new Vector3(0f, -_forseRotate * direction, 0f), _pointForseLeft.position);
-        carRigidbody.AddForceAtPosition(new Vector3(0f, _forseRotate * direction, 0f), _pointForseRight.position);
+			// Если машина в воздухе — применяем вращение напрямую
+			//transform.Rotate(Vector3.up, direction * maxSteeringAngle * steeringSpeed * Time.fixedDeltaTime);
 
-    }
+			carRigidbody.AddForceAtPosition(new Vector3(0f, 0f, _forseRotate * direction), _pointForseLeft.localPosition);
+			carRigidbody.AddForceAtPosition(new Vector3(0f, 0f, -_forseRotate * direction), _pointForseRight.localPosition);
+			return;
+		}
+
+		// Применение физического воздействия на машину (если на земле)
+		carRigidbody.AddForceAtPosition(new Vector3(0f, _forseRotate * direction/4, 0f), _pointForseLeft.position);
+		carRigidbody.AddForceAtPosition(new Vector3(0f, -_forseRotate * direction/4, 0f), _pointForseRight.position);
+
+	}
 
     // Теперь можно просто вызывать:
     public void TurnLeft() => Turn(-1f);
@@ -602,16 +485,20 @@ public class PrometeoCarController : MonoBehaviour
 		if (steeringAxis < 0f)
 		{
 			steeringAxis = steeringAxis + (Time.deltaTime * 10f * steeringSpeed);
-		}
+            //Debug.Log("1");
+        }
 		else if (steeringAxis > 0f)
 		{
 			steeringAxis = steeringAxis - (Time.deltaTime * 10f * steeringSpeed);
-		}
+            //Debug.Log("2");
+        }
 		if (Mathf.Abs(frontLeftCollider.steerAngle) < 1f)
 		{
 			steeringAxis = 0f;
-		}
-		var steeringAngle = steeringAxis * maxSteeringAngle;
+			//Debug.Log("3") ;
+        }
+        //Debug.Log(frontLeftCollider.steerAngle);
+        var steeringAngle = steeringAxis * maxSteeringAngle;
 		frontLeftCollider.steerAngle = Mathf.Lerp(frontLeftCollider.steerAngle, steeringAngle, steeringSpeed);
 		frontRightCollider.steerAngle = Mathf.Lerp(frontRightCollider.steerAngle, steeringAngle, steeringSpeed);
 	}
@@ -656,118 +543,10 @@ public class PrometeoCarController : MonoBehaviour
     //
 
     // Этот метод прикладывает положительный крутящий момент к колесам, чтобы ехать вперед.
-    /*public void GoForward()
-	{
-		//Если силы, приложенные к жесткому телу по оси 'x', больше, чем
-		//3f, это означает, что автомобиль теряет сцепление с дорогой, тогда он начнет испускать системы частиц.
-		if (Mathf.Abs(localVelocityX) > 2.5f)
-		{
-			isDrifting = true;
-			DriftCarPS();
-		}
-		else
-		{
-			isDrifting = false;
-			DriftCarPS();
-		}
-		// В следующей части мощность дросселя плавно устанавливается на 1.
-		throttleAxis = throttleAxis + (Time.deltaTime * 3f);
-		if (throttleAxis > 1f)
-		{
-			throttleAxis = 1f;
-		}
-		//Если машина едет назад, то затормозите, чтобы избежать странных
-		//поведения. Если локальная скорость по оси 'z' меньше -1f, то
-		//можно приложить положительный крутящий момент для движения вперед.
-		if (localVelocityZ < -1f)
-		{
-			Brakes();
-		}
-		else
-		{
-			if (Mathf.RoundToInt(carSpeed) < maxSpeed)
-			{
-				//Приложить положительный крутящий момент ко всем колесам, чтобы двигаться вперед, если максимальная скорость не была достигнута.
-				frontLeftCollider.brakeTorque = 0;
-				frontLeftCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
-				frontRightCollider.brakeTorque = 0;
-				frontRightCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
-				rearLeftCollider.brakeTorque = 0;
-				rearLeftCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
-				rearRightCollider.brakeTorque = 0;
-				rearRightCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
-			}
-			else
-			{
-				// Если максимальная скорость достигнута, прекратите подачу крутящего момента на колеса.
-				// ВАЖНО: Переменная maxSpeed должна рассматриваться как приблизительная величина; скорость автомобиля
-				// может оказаться несколько выше, чем ожидалось.
-				frontLeftCollider.motorTorque = 0;
-				frontRightCollider.motorTorque = 0;
-				rearLeftCollider.motorTorque = 0;
-				rearRightCollider.motorTorque = 0;
-			}
-		}
-	}
-
-    // При этом методе на колеса подается отрицательный крутящий момент, чтобы двигаться назад.
-    public void GoReverse()
-	{
-        //Если силы, приложенные к жесткому телу в направлении "x", больше, чем
-        //3f, это означает, что автомобиль теряет сцепление с дорогой, тогда автомобиль начнет испускать системы частиц.
-        if (Mathf.Abs(localVelocityX) > 2.5f)
-		{
-			isDrifting = true;
-			DriftCarPS();
-		}
-		else
-		{
-			isDrifting = false;
-			DriftCarPS();
-		}
-        // Следующая часть плавно устанавливает мощность дросселя на -1.
-        throttleAxis = throttleAxis - (Time.deltaTime * 3f);
-		if (throttleAxis < -1f)
-		{
-			throttleAxis = -1f;
-		}
-        //Если автомобиль все еще движется вперед, затормозите, чтобы избежать странных
-        //поведения. Если локальная скорость по оси 'z' больше 1f, то
-        //можно приложить отрицательный крутящий момент для движения назад.
-        if (localVelocityZ > 1f)
-		{
-			Brakes();
-		}
-		else
-		{
-			if (Mathf.Abs(Mathf.RoundToInt(carSpeed)) < maxReverseSpeed)
-			{
-                //Применение отрицательного крутящего момента на всех колесах для движения задним ходом, если не достигнута максимальная скорость (MaxReverseSpeed).
-                frontLeftCollider.brakeTorque = 0;
-				frontLeftCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
-				frontRightCollider.brakeTorque = 0;
-				frontRightCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
-				rearLeftCollider.brakeTorque = 0;
-				rearLeftCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
-				rearRightCollider.brakeTorque = 0;
-				rearRightCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
-			}
-			else
-			{
-                //Если достигнута максимальная обратная скорость, то прекратите подавать крутящий момент на колеса.
-                // ВАЖНО: Переменная maxReverseSpeed должна рассматриваться как приблизительная величина; скорость автомобиля
-                // может быть немного выше, чем ожидалось.
-                frontLeftCollider.motorTorque = 0;
-				frontRightCollider.motorTorque = 0;
-				rearLeftCollider.motorTorque = 0;
-				rearRightCollider.motorTorque = 0;
-			}
-		}
-
-	}*/
+    
     public void GoForward()
-    {
-        float tiltAmount = 5f; // Степень наклона машины при движении
+	{
+		float tiltAmount = 5f; // Степень наклона машины при движении
         float tiltSpeed = 2f;  // Скорость наклона
 
         // Проверка заноса
@@ -781,11 +560,9 @@ public class PrometeoCarController : MonoBehaviour
             isDrifting = false;
             DriftCarPS();
         }
-
         // Плавное увеличение тяги
         throttleAxis = throttleAxis + (Time.deltaTime * 3f);
         if (throttleAxis > 1f) throttleAxis = 1f;
-
         // Тормоз, если машина движется назад
         if (localVelocityZ < -1f)
         {
@@ -808,10 +585,9 @@ public class PrometeoCarController : MonoBehaviour
             }
         }
     }
-
     public void GoReverse()
     {
-        float tiltAmount = 5f; // Степень наклона машины при движении
+		float tiltAmount = 5f; // Степень наклона машины при движении
         float tiltSpeed = 2f;  // Скорость наклона
 
         // Проверка заноса
@@ -829,7 +605,6 @@ public class PrometeoCarController : MonoBehaviour
         // Плавное уменьшение тяги
         throttleAxis = throttleAxis - (Time.deltaTime * 3f);
         if (throttleAxis < -1f) throttleAxis = -1f;
-
         // Тормоз, если машина движется вперед
         if (localVelocityZ > 1f)
         {
@@ -1113,12 +888,99 @@ public class PrometeoCarController : MonoBehaviour
 
 	private void HandleInput()
     {
+        //CAR PHYSICS
+
+        /*
+		Следующая часть касается контроллера автомобиля. Сначала проверяется, хочет ли пользователь использовать сенсорное управление (for
+		mobile devices) или регуляторы аналогового входа (WASD + Space).
+
+		Следующие методы вызываются каждый раз, когда нажата определенная клавиша. Например, в первом "если" мы вызываем
+		метод GoForward(), если пользователь нажал клавишу W.
+
+		В этой части кода мы указываем, что должна сделать машина, если пользователь нажмет W (throttle), S (reverse),
+		A (turn left), D (turn right) or Space bar (handbrake).
+		*/
+        if (useTouchControls && touchControlsSetup)
+        {
+            _isThrottlePressed = throttlePTI.buttonPressed;
+            _isReversePressed = reversePTI.buttonPressed;
+            _isTurnLeftPressed = turnLeftPTI.buttonPressed;
+            _isTurnRightPressed = turnRightPTI.buttonPressed;
+            _isHandbrakePressed = handbrakePTI.buttonPressed;
+            _isSpawnPressed = _spawnPTI.buttonPressed;
+        }
+        else
+        {
+            _isThrottlePressed = Input.GetKey(KeyCode.W);
+            _isReversePressed = Input.GetKey(KeyCode.S);
+            _isTurnLeftPressed = Input.GetKey(KeyCode.A);
+            _isTurnRightPressed = Input.GetKey(KeyCode.D);
+            _isHandbrakePressed = Input.GetKey(KeyCode.Space);
+            _isSpawnPressed = Input.GetKey(KeyCode.F);
+        }
+
+        if (_isSpawnPressed && !_startTeleport)
+        {
+            _startTeleport = !_startTeleport;
+            TeleportCar(_spawnPoint.GetPointToSpawn());
+            //апчхи
+        }
+        else if (!_isSpawnPressed && _startTeleport)
+        {
+            _startTeleport = !_startTeleport;
+        }
+        if (_isThrottlePressed)
+        {
+            CancelInvoke("DecelerateCar");
+            deceleratingCar = false;
+            GoForward();
+        }
+        if (_isReversePressed)
+        {
+            CancelInvoke("DecelerateCar");
+            deceleratingCar = false;
+            GoReverse();
+        }
+
+        if (_isTurnLeftPressed)
+        {
+            TurnLeft();
+        }
+        if (_isTurnRightPressed)
+        {
+            TurnRight();
+        }
+        if (_isHandbrakePressed)
+        {
+            CancelInvoke("DecelerateCar");
+            deceleratingCar = false;
+            Handbrake();
+        }
+        if (!_isHandbrakePressed)
+        {
+            RecoverTraction();
+        }
+        if ((!_isThrottlePressed && !_isReversePressed))
+        {
+            ThrottleOff();
+        }
+        if ((!_isReversePressed && !_isThrottlePressed) && !_isHandbrakePressed && !deceleratingCar)
+        {
+            InvokeRepeating("DecelerateCar", 0f, 0.1f);
+            deceleratingCar = true;
+        }
+        if (!_isTurnLeftPressed && !_isTurnRightPressed && steeringAxis != 0f)
+        {
+            ResetSteeringAngle();
+        }
+
         _inputAcceleration = _isReversePressed ? -1f : _isThrottlePressed ? 1f : 0f;
-	}
+    }
 
 	private void ApplyAcceleration()
 	{
-		if (!_isOnGround)
+       
+        if (!_isOnGround)
 		{
 			return;
 		}
@@ -1132,15 +994,11 @@ public class PrometeoCarController : MonoBehaviour
 			_rb.AddForce(transform.forward * acceleration * _inputAcceleration, ForceMode.Acceleration);
 		}
 		else if (_inputAcceleration < 0)
-		{
-			if (_rb.velocity.magnitude < maxReverseSpeed)
+        {
+            if (_rb.velocity.magnitude < maxReverseSpeed)
 			{
 				_rb.AddForce(transform.forward * accelerationMultiplier * _inputAcceleration, ForceMode.Acceleration);
 			}
-		}
-		else
-		{
-			_rb.velocity *= 1 - (Time.fixedDeltaTime * decelerationMultiplier);
 		}
 	}
 }

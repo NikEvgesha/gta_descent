@@ -3498,6 +3498,10 @@ PrefabInstance:
       propertyPath: _onInertion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1655208077080995162, guid: 6be50ebdb53139b4ba6e0c2d1533bb4d, type: 3}
+      propertyPath: _spawnPoint
+      value: 
+      objectReference: {fileID: 1785904138}
     - target: {fileID: 3819088540349895497, guid: 6be50ebdb53139b4ba6e0c2d1533bb4d, type: 3}
       propertyPath: m_Name
       value: Teleport (1)
@@ -6332,10 +6336,6 @@ PrefabInstance:
       propertyPath: turnRightButton
       value: 
       objectReference: {fileID: 932817444}
-    - target: {fileID: 627556911, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
-      propertyPath: useTouchControls
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 261786959625234688, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6390,7 +6390,7 @@ PrefabInstance:
       objectReference: {fileID: 215524445}
     - target: {fileID: 7912358018574668234, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: m_VersionIndex
-      value: 28
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7912358018574668234, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: m_Tangents.Array.data[2026].x
@@ -7082,6 +7082,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 307179067}
     m_Modifications:
+    - target: {fileID: 1655208077080995162, guid: 6be50ebdb53139b4ba6e0c2d1533bb4d, type: 3}
+      propertyPath: _spawnPoint
+      value: 
+      objectReference: {fileID: 1785904138}
     - target: {fileID: 3819088540349895497, guid: 6be50ebdb53139b4ba6e0c2d1533bb4d, type: 3}
       propertyPath: m_Name
       value: Teleport
@@ -7170,6 +7174,10 @@ PrefabInstance:
     - target: {fileID: 1777364829847018523, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
       propertyPath: m_Name
       value: GameCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938455352105276210, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8575362623257202356, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
       propertyPath: m_Pivot.x
