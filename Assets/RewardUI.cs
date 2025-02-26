@@ -1,8 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RewardUI : MonoBehaviour
 {
-    [SerializeField] private RewardText _prefab;
+    [SerializeField] private RewardNotification _rewardPrefab;
+    //[SerializeField] private RewardNotification _gemsRewardPrefab;
+
+    [SerializeField] private Transform _cupsPoint;
+    [SerializeField] private Transform _gemsPoint;
 
     private LevelData _currentLevel;
     private void OnEnable()
@@ -20,11 +25,28 @@ public class RewardUI : MonoBehaviour
     private void ShowReward()
     {
         _currentLevel = GameManager.Instance.GetCurrentLevelData();
+        List<CurrencyRewardData> rewards = _currentLevel.Reward;
         if (_currentLevel)
         {
-            RewardText reward = Instantiate(_prefab, transform);
-            reward.SetRewardText(_currentLevel.Reward);
-            CurrencyManager.Instance.AddCurrency(CurrencyType.Cups, _currentLevel.Reward);
+            foreach (var item in rewards)
+            {
+                switch (item.CurrencyType)
+                {
+                    case CurrencyType.Cups:
+                        {
+                            RewardNotification reward = Instantiate(_rewardPrefab, _cupsPoint);
+                            reward.SetRewardText(item.Amount, item.CurrencyType);
+                            break;
+                        }
+                    case CurrencyType.Gems:
+                        {
+                            RewardNotification reward = Instantiate(_rewardPrefab, _gemsPoint);
+                            reward.SetRewardText(item.Amount, item.CurrencyType);
+                            break;
+                        }
+                }
+                CurrencyManager.Instance.AddCurrency(item.CurrencyType, item.Amount);
+            }
         }
     }
 }

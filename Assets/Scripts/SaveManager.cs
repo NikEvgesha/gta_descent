@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using YG;
 
 public class SaveManager : MonoBehaviour
@@ -12,12 +11,31 @@ public class SaveManager : MonoBehaviour
 
     private List<float> _scores = new List<float>();
     private List<bool> _lvls = new List<bool>();
-    private Dictionary<string, bool> _colors = new Dictionary<string, bool>();
+    private Dictionary<string, bool> _colors = new();
     private int _topScoreCounts = 5;
     private int _lvlsCount = 5;
 
-    private bool _initialized;
 
+    private Dictionary<int, bool[]> _levels = new();
+
+    private bool _initialized;
+    public bool IsNewPlayer { 
+        get {
+            if (YG2.isSDKEnabled)
+            {
+                return YG2.saves.newPlayer;
+            }
+            return true;
+        } 
+        set
+        {
+            if (YG2.isSDKEnabled)
+            {
+                YG2.saves.newPlayer = value;
+            }
+        }
+        
+    }
     public int TopScoreCounts { get { return _topScoreCounts; } }
     public static SaveManager Instance { get { return _instance; } }
 
@@ -125,32 +143,65 @@ public class SaveManager : MonoBehaviour
     // TODO: переделать
     public void LoadLevels()
     {
-        if (YG2.saves.levels == null || YG2.saves.levels.Length == 0)
+        
+/*        if (YG2.saves.levels == null || YG2.saves.levels.Length == 0)
         {
             YG2.saves.levels = new bool[_lvlsCount];
-        }
-    }
+        }*/
 
-    public void SaveLevel(int id, bool unlocked)
-    {
-        if (YG2.saves.levels.Length == 0)
+        if (YG2.saves.levels_id != null && YG2.saves.levels_id.Count > 0)
         {
-            YG2.saves.levels = new bool[_lvlsCount];
-        }
-        YG2.saves.levels[id - 1] = unlocked;
-    }
-
-
-/*    public void LoadColorsInfo(int count)
-    {
-        if (YG2.saves.colors_id.Length != 0 && YG2.saves.colors_status.Length != 0)
-        {
-            for (int i = 0; i < YG2.saves.colors_id.Length; i++)
+            _levels = new Dictionary<int, bool[]>();
+            for (int i = 0; i < YG2.saves.levels_id.Count; i++)
             {
-                _colors.Add(YG2.saves.colors_id[i], YG2.saves.colors_status[i]);
+                _levels.Add(YG2.saves.levels_id[i], new bool[]{YG2.saves.levels_status[i], YG2.saves.levels_win[i]});
             }
         }
-    }*/
+    }
+
+
+
+    public void SaveLevelUnlock(int id, bool unlocked)
+    {
+/*        if (YG2.saves.levels.Length == 0)
+        {
+            YG2.saves.levels = new bool[_lvlsCount];
+        }
+        YG2.saves.levels[id - 1] = unlocked;*/
+
+       if (_levels.ContainsKey(id))
+        {
+            _levels[id][0] = unlocked;
+            YG2.saves.levels_status[id-1] = unlocked;
+        }
+    }
+
+    public void SaveLevelWin(int id, bool win)
+    {
+        //if (YG2.saves.levels.Length == 0)
+        //{
+        //    YG2.saves.levels = new bool[_lvlsCount];
+        //}
+        //YG2.saves.levels[id - 1] = win;
+        if (_levels.ContainsKey(id))
+        {
+            _levels[id][1] = win;
+            YG2.saves.levels_win[id - 1] = win;
+        }
+    }
+
+
+
+    /*    public void LoadColorsInfo(int count)
+        {
+            if (YG2.saves.colors_id.Length != 0 && YG2.saves.colors_status.Length != 0)
+            {
+                for (int i = 0; i < YG2.saves.colors_id.Length; i++)
+                {
+                    _colors.Add(YG2.saves.colors_id[i], YG2.saves.colors_status[i]);
+                }
+            }
+        }*/
 
     public void SaveColor(CustomizerColorData data, bool purchased)
     {
@@ -165,10 +216,30 @@ public class SaveManager : MonoBehaviour
     }
 
 
-    public List<bool> GetLevelStatuses()
+    public Dictionary<LevelData, bool[]> GetLevelStatuses(List<LevelData> lvlsData)
     {
-        return _lvls;
+        Dictionary<LevelData, bool[]> res = new();
+        foreach (LevelData lvl in lvlsData)
+        {
+            if (_levels.ContainsKey(lvl.ID))
+            {
+                res.Add(lvl, _levels[lvl.ID]);
+            } else
+            {
+                _levels.Add(lvl.ID, new bool[2]);
+                res.Add(lvl, _levels[lvl.ID]);
+                if (YG2.isSDKEnabled)
+                {
+                    YG2.saves.levels_id.Add(lvl.ID);
+                    YG2.saves.levels_status.Add(false);
+                    YG2.saves.levels_win.Add(false);
+                }
+            }
+        }
+
+        return res;
     }
+
 
     public Dictionary<CustomizerColorData, bool> LoadColorsStatuses(List<CustomizerColorData> colors)
     {

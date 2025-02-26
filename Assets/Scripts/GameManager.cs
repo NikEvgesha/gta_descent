@@ -23,6 +23,15 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        if (SaveManager.Instance.IsNewPlayer)
+        {
+            StartLevel(LevelsManager.Instance.GetFirstLevel());
+            SaveManager.Instance.IsNewPlayer = false;
+        }
+    }
+
     private void OnEnable()
     {
         YG2.onFocusWindowGame += OnFocusWindowGame;

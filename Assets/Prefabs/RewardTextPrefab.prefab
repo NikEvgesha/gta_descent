@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 6514992974358617680}
+  _img: {fileID: 7828896336283359734}
 --- !u!222 &1023777536837864578
 CanvasRenderer:
   m_ObjectHideFlags: 0

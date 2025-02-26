@@ -11,7 +11,7 @@ public class LevelLockedPanel : MonoBehaviour
     public void SetPrice(LevelData data)
     {
         _cupsPriceText.text = data.CupsPrice.ToString();
-        _gemsPriceText.text = data.GesmsPrice.ToString();
+        _gemsPriceText.text = data.GemsPrice.ToString();
     }
 
     public void UnlockCupsButton()

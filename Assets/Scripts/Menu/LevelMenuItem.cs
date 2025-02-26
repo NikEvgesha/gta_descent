@@ -1,21 +1,28 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using YG;
 
 public class LevelMenuItem : MonoBehaviour
 {
     [SerializeField] private LevelLockedPanel _lvlLockedPanel;
+    [SerializeField] private Text _rewardText;
     [SerializeField] private LevelData _levelData;
     [SerializeField] private bool _unlocked = false;
     [SerializeField] private Animator _animator;
+    [SerializeField] private Image _lvlImage;
+
+    private bool _firstWin;
 
     private void OnEnable()
     {
         //CurrencyManager.Instance.CupsChanged += CheckCupsButton;
         _animator.SetTrigger("Open");
-        if (_unlocked || (YG2.saves.levels.Length > 0 && YG2.saves.levels[_levelData.ID-1]))
+        if (_unlocked)
         {
-            UnlockLevel();
-        } else
+            _lvlLockedPanel.gameObject.SetActive(false);
+        }
+        else
         {
             CheckCupsButton(CurrencyManager.Instance.Cups);
         }
@@ -23,12 +30,21 @@ public class LevelMenuItem : MonoBehaviour
 
     private void Start()
     {
+        _lvlImage.sprite = _levelData.IMG;
+        SetReward();
         if (!_unlocked)
         {
             _lvlLockedPanel.SetPrice(_levelData);
         }
     }
 
+
+    public void Init(LevelData data, bool unlocked, bool win)
+    {
+        _levelData = data;
+        _unlocked = unlocked;
+        _firstWin = win;
+    }
 
     private void CheckCupsButton(int newAmount)
     {
@@ -50,25 +66,23 @@ public class LevelMenuItem : MonoBehaviour
     public void UnlockLevel()
     {
         _unlocked = true;
-        YG2.saves.levels[_levelData.ID - 1] = true;
         _lvlLockedPanel.gameObject.SetActive(false);
     }
 
 
     public void TryUnlockWithCups()
     {
-        if (CurrencyManager.Instance.RemoveCups(_levelData.CupsPrice))
-        {
-            UnlockLevel();
-        }
+        LevelsManager.Instance.TryUnlockLevel(_levelData, CurrencyType.Cups);
     }
 
     public void TryUnlockWithGems()
     {
-        if (CurrencyManager.Instance.RemoveGems(_levelData.GesmsPrice))
-        {
-            UnlockLevel();
-        } 
+        LevelsManager.Instance.TryUnlockLevel(_levelData, CurrencyType.Gems);
+    }
+
+    private void SetReward()
+    {
+        _rewardText.text = "+" + _levelData.Reward[0].Amount.ToString();
     }
 
 }
