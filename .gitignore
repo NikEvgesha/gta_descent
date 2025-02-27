@@ -73,3 +73,5 @@ crashlytics-build.properties
 
 .vsconfig
 credentials.json
+Assets/Resources/credentials.json
+Assets/Resources/credentials.json.meta
