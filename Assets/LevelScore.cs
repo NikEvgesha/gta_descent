@@ -8,6 +8,7 @@ public class LevelScore : MonoBehaviour
     private float _roundTime;
     private int _lvl_id;
     private float _playerBestScore;
+    private float _globalBestScore;
 
     public float CurrentTime { get { return _roundTime; } private set { } }
 

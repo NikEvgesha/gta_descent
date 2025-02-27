@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dbaf7410266f64398288c3a7a80db3, type: 3}
+  m_Name: lvl_6
+  m_EditorClassIdentifier: 
+  _ID: 6
+  _cupsPrice: 100
+  _gemsPrice: 800
+  _sceneName: Scen 6
+  _baseReward:
+  - Amount: 12
+    CurrencyType: 0
+  _firstReward:
+  - Amount: 70
+    CurrencyType: 0
+  - Amount: 200
+    CurrencyType: 1
+  _lvlImg: {fileID: 21300000, guid: 83220abcc7a5ff24888013763d867d46, type: 3}

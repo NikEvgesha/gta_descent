@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using YG;
+using YG.Utils.LB;
 
 public class SaveManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class SaveManager : MonoBehaviour
     private static SaveManager _instance;
 
     private List<float> _scores = new();
+    private List<float> _globalScores = new();
     private List<bool> _lvls = new List<bool>();
     private Dictionary<string, bool> _colors = new();
     private int _topScoreCounts = 5;
@@ -46,8 +48,18 @@ public class SaveManager : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        YG2.onGetLeaderboard += LoadGlobalScores;
+    }
+
     private void Start()
     {
+        for (int i = 0; i < _lvlsCount; i++)
+        {
+            YG2.GetLeaderboard("lvl_"+(i+1).ToString(), 1, 0);
+        }
+        
         if (_removeSaveOnStart)
         {
             YG2.SetDefaultSaves();
@@ -65,6 +77,11 @@ public class SaveManager : MonoBehaviour
     private void OnDisable()
     {
         YG2.SaveProgress();
+    }
+
+    private void LoadGlobalScores(LBData data)
+    {
+        int lvlId = 
     }
 
     public void SaveScore(float score, int lvlId)
