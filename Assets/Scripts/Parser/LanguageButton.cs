@@ -14,7 +14,7 @@ public class LanguageButton : MonoBehaviour
     {
         if (LocalizationManager.Instance != null)
         {
-            //LocalizationManager.Instance.ChangeLanguage(language);
+            LocalizationManager.Instance.ChangeLanguage(language);
             YG2.SwitchLanguage(char.ToLower(language[0]) + language.Substring(1));
             Debug.Log("??????????? ???? ??: " + language);
         }

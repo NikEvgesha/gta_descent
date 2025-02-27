@@ -61,3 +61,7 @@ MonoBehaviour:
     Translations:
     - "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0437\u044B\u043A"
     - Select a language
+  - Key: Play
+    Translations:
+    - "\u0418\u0433\u0440\u0430\u0442\u044C"
+    - Play
