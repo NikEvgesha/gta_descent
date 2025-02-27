@@ -181,7 +181,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _maxSteeringAngle: 27
-  _steeringSpeed: 1
+  _steeringSpeed: 0.5
   _brakeForce: 350
   _decelerationMultiplier: 10
   _handbrakeDriftMultiplier: 5
@@ -44905,7 +44905,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 46
+  m_VersionIndex: 49
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -44990,7 +44990,7 @@ WheelCollider:
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
-  m_ForceAppPointDistance: 0.1
+  m_ForceAppPointDistance: 1
   m_Mass: 1
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
@@ -45092,7 +45092,7 @@ WheelCollider:
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
-  m_ForceAppPointDistance: 0.1
+  m_ForceAppPointDistance: 1
   m_Mass: 1
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
@@ -45196,7 +45196,7 @@ WheelCollider:
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
-  m_ForceAppPointDistance: 0.1
+  m_ForceAppPointDistance: 1
   m_Mass: 1
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
@@ -45710,7 +45710,7 @@ WheelCollider:
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
-  m_ForceAppPointDistance: 0.1
+  m_ForceAppPointDistance: 1
   m_Mass: 1
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
