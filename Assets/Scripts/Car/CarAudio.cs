@@ -28,9 +28,16 @@ public class CarAudio : MonoBehaviour
 
         if (_tireScreechSound != null)
         {
-            bool shouldPlay = _physics.IsOnGround && (_physics.IsDrifting || (_physics.IsTractionLocked && Mathf.Abs(_physics.CarSpeed) > 12f));
-            if (shouldPlay && !_tireScreechSound.isPlaying) _tireScreechSound.Play();
-            else if (!shouldPlay && _tireScreechSound.isPlaying) _tireScreechSound.Stop();
+            bool shouldPlay = _physics.IsOnGround && // Добавляем проверку IsOnGround
+                            (_physics.IsDrifting || (_physics.IsTractionLocked && Mathf.Abs(_physics.CarSpeed) > 12f));
+            if (shouldPlay && !_tireScreechSound.isPlaying)
+            {
+                _tireScreechSound.Play();
+            }
+            else if (!shouldPlay && _tireScreechSound.isPlaying)
+            {
+                _tireScreechSound.Stop();
+            }
         }
     }
 }
