@@ -6,13 +6,13 @@ public class Teleport : MonoBehaviour
     [SerializeField] private bool _onInertion = true;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PrometeoCarController>() != null)
+        if (other.gameObject.GetComponent<CarTeleport>() != null)
         {
             if (_onInertion)
             {
                 GameManager.Instance.LevelWin?.Invoke();
             }
-            other.gameObject.GetComponent<PrometeoCarController>().TeleportCar(_spawnPoint.GetPointToSpawn(), _onInertion);
+            other.gameObject.GetComponent<CarTeleport>().Teleport(_spawnPoint.GetPointToSpawn(), _onInertion);
         }
     }
     private void Awake()

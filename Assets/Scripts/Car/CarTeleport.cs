@@ -21,7 +21,7 @@ public class CarTeleport : MonoBehaviour
         _wasSpawnPressed = spawnPressed;
     }
 
-    private void Teleport(Transform spawn, bool preserveInertia = false)
+    public void Teleport(Transform spawn, bool preserveInertia = false)
     {
         Vector3 velocity = preserveInertia ? _rb.velocity : Vector3.zero;
         Vector3 angularVelocity = preserveInertia ? _rb.angularVelocity : Vector3.zero;
