@@ -11,11 +11,10 @@ public class SaveManager : MonoBehaviour
     private static SaveManager _instance;
 
     private List<float> _scores = new();
-    private List<float> _globalScores = new();
+    private List<int> _globalScores = new();
     private List<bool> _lvls = new List<bool>();
     private Dictionary<string, bool> _colors = new();
-    private int _topScoreCounts = 5;
-    private int _lvlsCount = 6;
+    private int _lvlsCount = 7;
 
 
     private Dictionary<int, bool[]> _levels = new();
@@ -38,7 +37,6 @@ public class SaveManager : MonoBehaviour
         }
         
     }
-    public int TopScoreCounts { get { return _topScoreCounts; } }
     public static SaveManager Instance { get { return _instance; } }
 
     private void Awake()
@@ -55,10 +53,7 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < _lvlsCount; i++)
-        {
-            YG2.GetLeaderboard("lvl_"+(i+1).ToString(), 1, 0);
-        }
+        GetGlobalScores();
         
         if (_removeSaveOnStart)
         {
@@ -74,6 +69,15 @@ public class SaveManager : MonoBehaviour
         GameLoader.Instance.LoadNextScene("Menu", true);
     }
 
+    private void GetGlobalScores()
+    {
+        for (int i = 0; i < _lvlsCount; i++)
+        {
+            _globalScores.Add(0);
+            YG2.GetLeaderboard("lvl_" + (i + 1).ToString(), 1, 0);
+        }
+    }
+
     private void OnDisable()
     {
         YG2.SaveProgress();
@@ -81,7 +85,8 @@ public class SaveManager : MonoBehaviour
 
     private void LoadGlobalScores(LBData data)
     {
-        int lvlId = 
+        int lvlId = Int32.Parse(data.technoName.Substring(data.technoName.IndexOf("_") + 1));
+        _globalScores[lvlId - 1] = data.players[0].score;
     }
 
     public void SaveScore(float score, int lvlId)
