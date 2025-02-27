@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class LevelScore : MonoBehaviour
@@ -8,7 +9,7 @@ public class LevelScore : MonoBehaviour
     private float _roundTime;
     private int _lvl_id;
     private float _playerBestScore;
-    private float _globalBestScore;
+    private Tuple<int, string> _globalBestScore;
 
     public float CurrentTime { get { return _roundTime; } private set { } }
 
@@ -22,7 +23,9 @@ public class LevelScore : MonoBehaviour
         _roundTimeStart = Time.time;
         _lvl_id = GameManager.Instance.GetCurrentLevelData().ID;
         _playerBestScore = SaveManager.Instance.GetLevelScore(_lvl_id);
+        _globalBestScore = SaveManager.Instance.GetLevelBestScore(_lvl_id);
         UpdateRecord(_playerBestScore);
+        SetGlobalRecord();
     }
 
     private void FixedUpdate()
@@ -30,6 +33,11 @@ public class LevelScore : MonoBehaviour
         UpdateTime();
     }
 
+
+    private void SetGlobalRecord()
+    {
+        _ui.SetGlobalRecord(_globalBestScore);
+    }
 
     private void UpdateTime()
     {
@@ -51,6 +59,7 @@ public class LevelScore : MonoBehaviour
             SaveManager.Instance.SaveScore(_roundTime, _lvl_id);
             UpdateRecord(_roundTime);
             _playerBestScore = _roundTime;
+            // обновить глобальный рекорд если нужно
         }
         _roundTimeStart = Time.time;
         UpdateTime();

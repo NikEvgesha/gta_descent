@@ -11,7 +11,7 @@ public class SaveManager : MonoBehaviour
     private static SaveManager _instance;
 
     private List<float> _scores = new();
-    private List<int> _globalScores = new();
+    private List<Tuple<int, string>> _globalScores = new();
     private List<bool> _lvls = new List<bool>();
     private Dictionary<string, bool> _colors = new();
     private int _lvlsCount = 7;
@@ -53,7 +53,7 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        GetGlobalScores();
+        GetLevelLeaderboards();
         
         if (_removeSaveOnStart)
         {
@@ -61,19 +61,14 @@ public class SaveManager : MonoBehaviour
             YG2.SaveProgress();
             _removeSaveOnStart = false;
         }
-        if (YG2.isSDKEnabled == true)
-        {
-            LoadLevels();
-            LoadScores();
-        }
         GameLoader.Instance.LoadNextScene("Menu", true);
     }
 
-    private void GetGlobalScores()
+    private void GetLevelLeaderboards()
     {
         for (int i = 0; i < _lvlsCount; i++)
         {
-            _globalScores.Add(0);
+            _globalScores.Add(Tuple.Create(0, ""));
             YG2.GetLeaderboard("lvl_" + (i + 1).ToString(), 1, 0);
         }
     }
@@ -86,7 +81,14 @@ public class SaveManager : MonoBehaviour
     private void LoadGlobalScores(LBData data)
     {
         int lvlId = Int32.Parse(data.technoName.Substring(data.technoName.IndexOf("_") + 1));
-        _globalScores[lvlId - 1] = data.players[0].score;
+        if (data.players.Length > 0)
+            _globalScores[lvlId - 1] = Tuple.Create(data.players[0].score, data.players[0].name);
+    }
+
+
+    public Tuple<int, string> GetLevelBestScore(int lvlId)
+    {
+        return _globalScores[lvlId - 1];
     }
 
     public void SaveScore(float score, int lvlId)
@@ -157,25 +159,6 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    // TODO: переделать
-    public void LoadLevels()
-    {
-        
-/*        if (YG2.saves.levels == null || YG2.saves.levels.Length == 0)
-        {
-            YG2.saves.levels = new bool[_lvlsCount];
-        }*/
-
-        if (YG2.saves.levels_id != null && YG2.saves.levels_id.Count > 0)
-        {
-            _levels = new Dictionary<int, bool[]>();
-            for (int i = 0; i < YG2.saves.levels_id.Count; i++)
-            {
-                _levels.Add(YG2.saves.levels_id[i], new bool[]{YG2.saves.levels_status[i], YG2.saves.levels_win[i]});
-            }
-        }
-    }
-
 
 
     public void SaveLevelUnlock(int id, bool unlocked)
@@ -235,6 +218,20 @@ public class SaveManager : MonoBehaviour
 
     public Dictionary<LevelData, bool[]> GetLevelStatuses(List<LevelData> lvlsData)
     {
+        _lvlsCount = lvlsData.Count;
+        LoadScores();
+        GetLevelLeaderboards();
+
+        if (YG2.saves.levels_id != null && YG2.saves.levels_id.Count > 0)
+        {
+            _levels = new Dictionary<int, bool[]>();
+            for (int i = 0; i < YG2.saves.levels_id.Count; i++)
+            {
+                _levels.Add(YG2.saves.levels_id[i], new bool[] { YG2.saves.levels_status[i], YG2.saves.levels_win[i] });
+            }
+        }
+
+
         Dictionary<LevelData, bool[]> res = new();
         foreach (LevelData lvl in lvlsData)
         {
