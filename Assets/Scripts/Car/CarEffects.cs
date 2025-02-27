@@ -17,23 +17,31 @@ public class CarEffects : MonoBehaviour
 
     public void UpdateEffects()
     {
-        if (!_useEffects || !_physics.IsOnGround) return;
+        if (!_useEffects || !_physics.IsOnGround) // Добавляем проверку IsOnGround
+        {
+            // Отключаем эффекты, если машина в воздухе
+            if (_rearLeftParticleSystem != null) _rearLeftParticleSystem.Stop();
+            if (_rearRightParticleSystem != null) _rearRightParticleSystem.Stop();
+            if (_rearLeftTireSkid != null) _rearLeftTireSkid.emitting = false;
+            if (_rearRightTireSkid != null) _rearRightTireSkid.emitting = false;
+            return;
+        }
 
         bool shouldEmitParticles = _physics.IsDrifting;
         bool shouldEmitTrails = _physics.IsTractionLocked || (Mathf.Abs(_physics.LocalVelocityX) > 5f && Mathf.Abs(_physics.CarSpeed) > 12f);
 
         if (shouldEmitParticles)
         {
-            _rearLeftParticleSystem.Play();
-            _rearRightParticleSystem.Play();
+            if (_rearLeftParticleSystem != null) _rearLeftParticleSystem.Play();
+            if (_rearRightParticleSystem != null) _rearRightParticleSystem.Play();
         }
         else
         {
-            _rearLeftParticleSystem.Stop();
-            _rearRightParticleSystem.Stop();
+            if (_rearLeftParticleSystem != null) _rearLeftParticleSystem.Stop();
+            if (_rearRightParticleSystem != null) _rearRightParticleSystem.Stop();
         }
 
-        _rearLeftTireSkid.emitting = shouldEmitTrails;
-        _rearRightTireSkid.emitting = shouldEmitTrails;
+        if (_rearLeftTireSkid != null) _rearLeftTireSkid.emitting = shouldEmitTrails;
+        if (_rearRightTireSkid != null) _rearRightTireSkid.emitting = shouldEmitTrails;
     }
 }
