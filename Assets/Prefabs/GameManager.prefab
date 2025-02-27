@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 591088851629545851}
   - component: {fileID: 8755541652733677740}
   - component: {fileID: 2069020830724204759}
+  - component: {fileID: 4690905019483443117}
   m_Layer: 0
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -79,6 +80,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u041D\u0435\u0442"
+--- !u!114 &4690905019483443117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109797831344752947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4151974eac4ae4ba8ed7bcb9cf28ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationData: {fileID: 11400000, guid: 247e385684679874b849f4c64cf8b6fc, type: 2}
+  selectedKey: No
+  currentLanguage: Ru
 --- !u!1 &269431109363196474
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +170,52 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &694554399670100509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9009830458585646430}
+  - component: {fileID: 8621019225369543212}
+  m_Layer: 0
+  m_Name: Localization
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9009830458585646430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694554399670100509}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3982053013193816672}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8621019225369543212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694554399670100509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8315fa09ce770419c70cbc8c6422d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationData: {fileID: 11400000, guid: 247e385684679874b849f4c64cf8b6fc, type: 2}
+  currentLanguage: Ru
 --- !u!1 &1035660190531359163
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +227,7 @@ GameObject:
   - component: {fileID: 2733013705542683011}
   - component: {fileID: 6391997190218945136}
   - component: {fileID: 4685125115647285386}
+  - component: {fileID: 2916056625402832320}
   m_Layer: 0
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -233,6 +296,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u0414\u0430"
+--- !u!114 &2916056625402832320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035660190531359163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4151974eac4ae4ba8ed7bcb9cf28ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationData: {fileID: 11400000, guid: 247e385684679874b849f4c64cf8b6fc, type: 2}
+  selectedKey: Yes
+  currentLanguage: Ru
 --- !u!1 &1089223980696722707
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +849,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1760267648240780928, guid: 808d65a44a3a27b4d887c2897b98d4df, type: 2}
   m_audioClip: {fileID: 8300000, guid: 335b81821c37b46eaaf7014cd3b2e2c1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.317
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1483,6 +1561,7 @@ Transform:
   - {fileID: 7337371354776703359}
   - {fileID: 9076959243275095100}
   - {fileID: 4836019382124218922}
+  - {fileID: 9009830458585646430}
   m_Father: {fileID: 636246942754300731}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4169585159375526597
@@ -2057,6 +2136,7 @@ GameObject:
   - component: {fileID: 1133281501746027466}
   - component: {fileID: 3433460799323855656}
   - component: {fileID: 235637444031833384}
+  - component: {fileID: 916901469147322314}
   m_Layer: 0
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -2125,6 +2205,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F\n\u0432 \u043C\u0435\u043D\u044E?"
+--- !u!114 &916901469147322314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7230149603085508054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4151974eac4ae4ba8ed7bcb9cf28ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationData: {fileID: 11400000, guid: 247e385684679874b849f4c64cf8b6fc, type: 2}
+  selectedKey: ExitLevel
+  currentLanguage: Ru
 --- !u!1 &7236894540081023363
 GameObject:
   m_ObjectHideFlags: 0

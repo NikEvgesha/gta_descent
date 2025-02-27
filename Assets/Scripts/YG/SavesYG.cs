@@ -14,7 +14,7 @@ namespace YG
         public string[] colors_id;
         public bool[] colors_status;
 
-        public float[] scores;
+        public List<float> scores = new();
 
         public int cups = 0;
         public int gems = 0;

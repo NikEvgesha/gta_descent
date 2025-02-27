@@ -9,11 +9,11 @@ public class SaveManager : MonoBehaviour
     [SerializeField] private bool _removeSaveOnStart;
     private static SaveManager _instance;
 
-    private List<float> _scores = new List<float>();
+    private List<float> _scores = new();
     private List<bool> _lvls = new List<bool>();
     private Dictionary<string, bool> _colors = new();
     private int _topScoreCounts = 5;
-    private int _lvlsCount = 5;
+    private int _lvlsCount = 6;
 
 
     private Dictionary<int, bool[]> _levels = new();
@@ -57,6 +57,7 @@ public class SaveManager : MonoBehaviour
         if (YG2.isSDKEnabled == true)
         {
             LoadLevels();
+            LoadScores();
         }
         GameLoader.Instance.LoadNextScene("Menu", true);
     }
@@ -66,50 +67,44 @@ public class SaveManager : MonoBehaviour
         YG2.SaveProgress();
     }
 
-    /*public void SaveScore(float score)
+    public void SaveScore(float score, int lvlId)
     {
-
-        if (YG2.saves.scores == null)
-        {
-            YG2.saves.scores = new float[_topScoreCounts];
-        }
-
-        //long l_score = (long)score * 1000;
-        _scores.Add(score);
-        _scores.Sort();
-        if (_scores.Count > _topScoreCounts)
-            _scores.RemoveAt(_scores.Count - 1);
-        int i = 0;
-        foreach (float el in _scores)
-        {
-            YG2.saves.scores[i] = el;
-            //Debug.Log("YG save: "+YandexGame.savesData.scores[i]);
-            i++;
-        }
-        //Debug.Log("score: " + score);
-        if (Mathf.Abs(score - _scores[0]) <= 1e-06)
-        {
-            //Debug.Log("score to LB: " + score);
-            //YG2.SetLeaderboard("allTime", score);
-            //YG2.SetLeaderboard("monthTime", score);
-        }
-
-        YG2.SaveProgress();
+        _scores[lvlId - 1] = score;
+        YG2.saves.scores[lvlId - 1] = score;
+        string lbName = "lvl_" + lvlId.ToString();
+        YG2.SetLBTimeConvert(lbName, score);
     }
 
     public void LoadScores()
     {
-        if (YG2.saves.scores != null)
+        if (YG2.saves.scores != null && YG2.saves.scores.Count > 0)
         {
             foreach (float el in YG2.saves.scores)
             {
-                if (el != 0)
+                _scores.Add(el);
+            }
+            if (YG2.saves.scores.Count < _lvlsCount)
+            {
+                for (int i = 0; i < _lvlsCount - YG2.saves.scores.Count; i++)
                 {
-                    _scores.Add(el);
+                    YG2.saves.scores.Add(0);
+                    _scores.Add(0);
                 }
             }
+        } else
+        {
+            for (int i = 0; i < _lvlsCount; i++) {
+                YG2.saves.scores.Add(0);
+                _scores.Add(0);
+            }
         }
-    }*/
+    }
+
+
+    public float GetLevelScore(int lvlId)
+    {
+        return _scores[lvlId - 1];
+    }
 
     public Dictionary<CurrencyType, int> LoadCurrency()
     {

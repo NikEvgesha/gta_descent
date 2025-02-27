@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7334998956468278808}
   - component: {fileID: 8133077977424208864}
   - component: {fileID: 7110744195513265584}
+  - component: {fileID: 907922988171956711}
   m_Layer: 0
   m_Name: TextMusic (1)
   m_TagString: Untagged
@@ -79,6 +80,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u044F\u0437\u044B\u043A"
+--- !u!114 &907922988171956711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155870701808473713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4151974eac4ae4ba8ed7bcb9cf28ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationData: {fileID: 11400000, guid: 247e385684679874b849f4c64cf8b6fc, type: 2}
+  selectedKey: SelectLanguage
+  currentLanguage: Ru
 --- !u!1 &509395055265646334
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,6 +497,7 @@ GameObject:
   - component: {fileID: 1126713178746612578}
   - component: {fileID: 258455245479216538}
   - component: {fileID: 3532806346858089374}
+  - component: {fileID: 3271242926478989808}
   m_Layer: 0
   m_Name: TextMusic
   m_TagString: Untagged
@@ -549,6 +566,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u0413\u0440\u043E\u043C\u043A\u043E\u0441\u0442\u044C \u043C\u0443\u0437\u044B\u043A\u0438"
+--- !u!114 &3271242926478989808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402553459798439659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4151974eac4ae4ba8ed7bcb9cf28ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationData: {fileID: 11400000, guid: 247e385684679874b849f4c64cf8b6fc, type: 2}
+  selectedKey: MusicVolume
+  currentLanguage: Ru
 --- !u!1 &2471939079801842159
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,6 +993,7 @@ GameObject:
   - component: {fileID: 231361965611857009}
   - component: {fileID: 2849940631474101253}
   - component: {fileID: 3845484117799058056}
+  - component: {fileID: 982424591352918108}
   m_Layer: 0
   m_Name: En
   m_TagString: Untagged
@@ -1069,7 +1102,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 982424591352918108}
         m_TargetAssemblyTypeName: LanguageButton, Assembly-CSharp
         m_MethodName: OnButtonClick
         m_Mode: 1
@@ -1081,18 +1114,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: PlayOneShot
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: a178d93f4f375ac4183599c4d33c3c01, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &982424591352918108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4959578329654787586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5df7b3aeda0e844695da3c65c5e304c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: En
 --- !u!1 &5126254088688446551
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,6 +1139,7 @@ GameObject:
   - component: {fileID: 4624274028985384316}
   - component: {fileID: 439485751427076222}
   - component: {fileID: 4964265972858736484}
+  - component: {fileID: 8680356870297320094}
   m_Layer: 0
   m_Name: Ru
   m_TagString: Untagged
@@ -1213,7 +1248,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8680356870297320094}
         m_TargetAssemblyTypeName: LanguageButton, Assembly-CSharp
         m_MethodName: OnButtonClick
         m_Mode: 1
@@ -1225,18 +1260,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: PlayOneShot
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: a178d93f4f375ac4183599c4d33c3c01, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &8680356870297320094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5126254088688446551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5df7b3aeda0e844695da3c65c5e304c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: Ru
 --- !u!1 &5301907130573871565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,6 +1634,7 @@ GameObject:
   - component: {fileID: 5753968959028131096}
   - component: {fileID: 9165982154974371626}
   - component: {fileID: 4771291731878339559}
+  - component: {fileID: 1948081478478709426}
   m_Layer: 0
   m_Name: TextSound
   m_TagString: Untagged
@@ -1666,3 +1703,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u0413\u0440\u043E\u043C\u043A\u043E\u0441\u0442\u044C \u0437\u0432\u0443\u043A\u043E\u0432"
+--- !u!114 &1948081478478709426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631279378448505522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4151974eac4ae4ba8ed7bcb9cf28ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationData: {fileID: 11400000, guid: 247e385684679874b849f4c64cf8b6fc, type: 2}
+  selectedKey: SoundVolume
+  currentLanguage: Ru
