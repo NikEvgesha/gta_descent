@@ -836,8 +836,11 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: PLUGIN_YG_2;YandexGamesPlatform_yg;Authorization_yg;Leaderboards_yg;Localization_yg;Metrica_yg;Storage_yg;TMP_YG2;RU_YG2;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;GameLabel_yg;Review_yg;Payments_yg
-    WebGL: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;Authorization_yg;Storage_yg;Leaderboards_yg;Metrica_yg;Localization_yg;EnvirData_yg;GameLabel_yg;InterstitialAdv_yg;Review_yg;RewardedAdv_yg;Payments_yg
+    Android: PROBUILDER_EXPERIMENTAL_FEATURES
+    Server: PROBUILDER_EXPERIMENTAL_FEATURES
+    Standalone: PLUGIN_YG_2;YandexGamesPlatform_yg;Authorization_yg;Leaderboards_yg;Localization_yg;Metrica_yg;Storage_yg;TMP_YG2;RU_YG2;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;GameLabel_yg;Review_yg;Payments_yg;PROBUILDER_EXPERIMENTAL_FEATURES
+    WebGL: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;Authorization_yg;Storage_yg;Leaderboards_yg;Metrica_yg;Localization_yg;EnvirData_yg;GameLabel_yg;InterstitialAdv_yg;Review_yg;RewardedAdv_yg;Payments_yg;PROBUILDER_EXPERIMENTAL_FEATURES
+    iPhone: PROBUILDER_EXPERIMENTAL_FEATURES
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
