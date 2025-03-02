@@ -1,5 +1,6 @@
 // CarInput.cs
 using UnityEngine;
+using YG;
 
 public class CarInput : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class CarInput : MonoBehaviour
         if (uiControls != null)
         {
 #if !UNITY_EDITOR
-			_useTouchControls = !YG2.envir.isDesktop
+			_useTouchControls = !YG2.envir.isDesktop;
             uiControls.UseMobileSetup(_useTouchControls);
 #else
             uiControls.UseMobileSetup(_useTouchControls);

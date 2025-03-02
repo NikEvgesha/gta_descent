@@ -16,7 +16,7 @@ public class CarPhysics : MonoBehaviour
     [SerializeField] private AnimationCurve _accelerationCurve = AnimationCurve.Linear(0, 1, 1, 0);
     [SerializeField, Range(10, 45)] private int _maxSteeringAngle = 27;
     [SerializeField, Range(0.1f, 1f)] private float _steeringSpeed = 0.5f;
-    [SerializeField, Range(100, 600)] private int _brakeForce = 350;
+    //[SerializeField, Range(100, 600)] private int _brakeForce = 350;
     [SerializeField, Range(1, 10)] private int _decelerationMultiplier = 2;
     [SerializeField, Range(1, 10)] private int _handbrakeDriftMultiplier = 5;
     [SerializeField] private Vector3 _bodyMassCenter = Vector3.zero;
