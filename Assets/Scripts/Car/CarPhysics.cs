@@ -81,12 +81,12 @@ public class CarPhysics : MonoBehaviour
     {
         if (!IsOnGround)
         {
-            Debug.Log("Car is not on ground, cannot accelerate.");
+            //Debug.Log("Car is not on ground, cannot accelerate.");
             return;
         }
 
         float input = throttle ? 1f : reverse ? -1f : 0f;
-        Debug.Log($"Acceleration input: {input}");
+        //Debug.Log($"Acceleration input: {input}");
 
         if (input == 0)
         {
@@ -97,7 +97,7 @@ public class CarPhysics : MonoBehaviour
         float speedFactor = _rb.velocity.magnitude / (input > 0 ? _maxSpeed : _maxReverseSpeed);
         float acceleration = _accelerationMultiplier * _accelerationCurve.Evaluate(speedFactor);
         Vector3 force = transform.forward * acceleration * input;
-        Debug.Log($"Applying force: {force}");
+        //Debug.Log($"Applying force: {force}");
 
         _rb.AddForce(force, ForceMode.Acceleration);
 

@@ -121,12 +121,15 @@ public class PrometeoEditor : Editor
             _inputSO.FindProperty("_useTouchControls").boolValue = EditorGUILayout.Toggle("Use Touch Controls", _inputSO.FindProperty("_useTouchControls").boolValue);
             if (_inputSO.FindProperty("_useTouchControls").boolValue)
             {
+                EditorGUILayout.PropertyField(_inputSO.FindProperty("_uIButton"), new GUIContent("UI Button"));
+                /*
                 EditorGUILayout.PropertyField(_inputSO.FindProperty("_throttleButton"), new GUIContent("Throttle Button"));
                 EditorGUILayout.PropertyField(_inputSO.FindProperty("_reverseButton"), new GUIContent("Reverse Button"));
                 EditorGUILayout.PropertyField(_inputSO.FindProperty("_turnLeftButton"), new GUIContent("Turn Left Button"));
                 EditorGUILayout.PropertyField(_inputSO.FindProperty("_turnRightButton"), new GUIContent("Turn Right Button"));
                 EditorGUILayout.PropertyField(_inputSO.FindProperty("_handbrakeButton"), new GUIContent("Handbrake Button"));
                 EditorGUILayout.PropertyField(_inputSO.FindProperty("_spawnButton"), new GUIContent("Spawn Button"));
+                */
             }
         }
 

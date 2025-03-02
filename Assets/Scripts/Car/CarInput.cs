@@ -4,12 +4,7 @@ using UnityEngine;
 public class CarInput : MonoBehaviour
 {
     [SerializeField] private bool _useTouchControls = false;
-    [SerializeField] private GameObject _throttleButton;
-    [SerializeField] private GameObject _reverseButton;
-    [SerializeField] private GameObject _turnRightButton;
-    [SerializeField] private GameObject _turnLeftButton;
-    [SerializeField] private GameObject _handbrakeButton;
-    [SerializeField] private GameObject _spawnButton;
+    [SerializeField] private UIButton _uIButton;
 
     private PrometeoTouchInput _throttlePTI, _reversePTI, _turnRightPTI, _turnLeftPTI, _handbrakePTI, _spawnPTI;
     public bool ThrottlePressed { get; private set; }
@@ -21,14 +16,25 @@ public class CarInput : MonoBehaviour
 
     private void Awake()
     {
+        UIControls uiControls = FindAnyObjectByType<UIControls>();
+        if (uiControls != null)
+        {
+#if !UNITY_EDITOR
+			_useTouchControls = !YG2.envir.isDesktop
+            uiControls.UseMobileSetup(_useTouchControls);
+#else
+            uiControls.UseMobileSetup(_useTouchControls);
+#endif
+        }
+        _uIButton = uiControls.GetButton();
         if (_useTouchControls && ValidateTouchControls())
         {
-            _throttlePTI = _throttleButton.GetComponent<PrometeoTouchInput>();
-            _reversePTI = _reverseButton.GetComponent<PrometeoTouchInput>();
-            _turnLeftPTI = _turnLeftButton.GetComponent<PrometeoTouchInput>();
-            _turnRightPTI = _turnRightButton.GetComponent<PrometeoTouchInput>();
-            _handbrakePTI = _handbrakeButton.GetComponent<PrometeoTouchInput>();
-            _spawnPTI = _spawnButton.GetComponent<PrometeoTouchInput>();
+            _throttlePTI = _uIButton._throttleButton;
+            _reversePTI = _uIButton._reverseButton;
+            _turnLeftPTI = _uIButton._turnLeftButton;
+            _turnRightPTI = _uIButton._turnRightButton;
+            _handbrakePTI = _uIButton._handbrakeButton;
+            _spawnPTI = _uIButton._spawnButton;
         }
     }
 
@@ -54,14 +60,14 @@ public class CarInput : MonoBehaviour
         }
 
         // Добавляем отладку
-        if (ThrottlePressed) Debug.Log("Throttle Pressed");
-        if (ReversePressed) Debug.Log("Reverse Pressed");
+        //if (ThrottlePressed) Debug.Log("Throttle Pressed");
+        //if (ReversePressed) Debug.Log("Reverse Pressed");
     }
 
     private bool ValidateTouchControls()
     {
-        if (_throttleButton == null || _reverseButton == null || _turnRightButton == null ||
-            _turnLeftButton == null || _handbrakeButton == null || _spawnButton == null)
+        if (_uIButton._throttleButton == null || _uIButton._reverseButton == null || _uIButton._turnRightButton == null ||
+            _uIButton._turnLeftButton == null || _uIButton._handbrakeButton == null || _uIButton._spawnButton == null)
         {
             Debug.LogWarning("Touch controls are not fully set up. Assign all buttons in the inspector.");
             return false;
