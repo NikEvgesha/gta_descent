@@ -62,12 +62,27 @@ public class CarPhysics : MonoBehaviour
             {
                 _wheelFrictions[i] = _wheels[i].Collider.sidewaysFriction;
                 _defaultExtremumSlips[i] = _wheelFrictions[i].extremumSlip;
+                WheelFrictionCurve friction = _wheels[i].Collider.sidewaysFriction;
+
+                if (i < 2) // Передние колеса
+                {
+                    friction.extremumSlip *= 0.8f; // Улучшаем сцепление передних колес
+                    friction.asymptoteSlip *= 0.8f;
+                }
+                else // Задние колеса
+                {
+                    friction.extremumSlip *= 1.2f; // Позволяем задним колесам больше скользить
+                    friction.asymptoteSlip *= 1.2f;
+                }
+
+                _wheels[i].Collider.sidewaysFriction = friction;
             }
             else
             {
                 Debug.LogWarning($"Wheel {i} is not properly set up!");
             }
         }
+
     }
 
     private void FixedUpdate()
@@ -75,6 +90,11 @@ public class CarPhysics : MonoBehaviour
         CheckGround();
         UpdatePhysics();
         AnimateWheels();
+        if (Mathf.Abs(LocalVelocityX) > 0.5f) // Если занос больше 0.5 м/с
+        {
+            Vector3 counterForce = -transform.right * (LocalVelocityX * 2f);
+            _rb.AddForce(counterForce, ForceMode.Acceleration);
+        }
     }
 
     public void ApplyAcceleration(bool throttle, bool reverse)
@@ -111,8 +131,21 @@ public class CarPhysics : MonoBehaviour
     {
         float direction = turnLeft ? -1f : turnRight ? 1f : 0f;
         _steeringAxis = Mathf.MoveTowards(_steeringAxis, direction, Time.deltaTime * 10f * _steeringSpeed);
+        float speedFactor = Mathf.Clamp01(_rb.velocity.magnitude / _maxSpeed);
+        float dynamicSteeringAngle = Mathf.Lerp(_maxSteeringAngle, _maxSteeringAngle * 0.5f, speedFactor);
+        float steeringAngle = _steeringAxis * dynamicSteeringAngle;
+        float gripBoost = 1f - Mathf.Abs(_steeringAxis) * 2f; // Чем сильнее поворот, тем выше сцепление
 
-        float steeringAngle = _steeringAxis * _maxSteeringAngle;
+        WheelFrictionCurve frontLeftFriction = _frontLeftWheel.Collider.sidewaysFriction;
+        WheelFrictionCurve frontRightFriction = _frontRightWheel.Collider.sidewaysFriction;
+
+        frontLeftFriction.extremumSlip *= gripBoost;
+        frontRightFriction.extremumSlip *= gripBoost;
+
+        _frontLeftWheel.Collider.sidewaysFriction = frontLeftFriction;
+        _frontRightWheel.Collider.sidewaysFriction = frontRightFriction;
+
+        _rb.AddForce(transform.right * _steeringAxis * _rb.velocity.magnitude * 0.05f, ForceMode.Acceleration);
         if (_frontLeftWheel != null && _frontLeftWheel.Collider != null)
             _frontLeftWheel.Collider.steerAngle = Mathf.Lerp(_frontLeftWheel.Collider.steerAngle, steeringAngle, _steeringSpeed);
         if (_frontRightWheel != null && _frontRightWheel.Collider != null)

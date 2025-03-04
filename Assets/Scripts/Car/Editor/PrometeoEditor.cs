@@ -64,7 +64,7 @@ public class PrometeoEditor : Editor
             EditorGUILayout.PropertyField(_physicsSO.FindProperty("_accelerationCurve"), new GUIContent("Acceleration Curve"));
             EditorGUILayout.IntSlider(_physicsSO.FindProperty("_maxSteeringAngle"), 10, 45, "Max Steering Angle");
             EditorGUILayout.Slider(_physicsSO.FindProperty("_steeringSpeed"), 0.1f, 1f, "Steering Speed");
-            EditorGUILayout.IntSlider(_physicsSO.FindProperty("_brakeForce"), 100, 600, "Brake Force");
+            //EditorGUILayout.IntSlider(_physicsSO.FindProperty("_brakeForce"), 100, 600, "Brake Force");
             EditorGUILayout.IntSlider(_physicsSO.FindProperty("_decelerationMultiplier"), 1, 10, "Deceleration Multiplier");
             EditorGUILayout.IntSlider(_physicsSO.FindProperty("_handbrakeDriftMultiplier"), 1, 10, "Drift Multiplier");
             EditorGUILayout.PropertyField(_physicsSO.FindProperty("_bodyMassCenter"), new GUIContent("Mass Center"));
