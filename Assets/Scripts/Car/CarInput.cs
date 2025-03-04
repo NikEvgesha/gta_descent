@@ -1,4 +1,3 @@
-// CarInput.cs
 using UnityEngine;
 using YG;
 
@@ -15,13 +14,18 @@ public class CarInput : MonoBehaviour
     public bool HandbrakePressed { get; private set; }
     public bool SpawnPressed { get; private set; }
 
+    // Добавляем свойства для управления камерой и мышью
+    public float MouseX { get; private set; }
+    public float MouseY { get; private set; }
+    public bool IsCursorVisible { get; private set; }
+
     private void Awake()
     {
         UIControls uiControls = FindAnyObjectByType<UIControls>();
         if (uiControls != null)
         {
 #if !UNITY_EDITOR
-			_useTouchControls = !YG2.envir.isDesktop;
+            _useTouchControls = !YG2.envir.isDesktop;
             uiControls.UseMobileSetup(_useTouchControls);
 #else
             uiControls.UseMobileSetup(_useTouchControls);
@@ -37,10 +41,21 @@ public class CarInput : MonoBehaviour
             _handbrakePTI = _uIButton._handbrakeButton;
             _spawnPTI = _uIButton._spawnButton;
         }
-    }
 
+        // Инициализируем курсор скрытым
+        IsCursorVisible = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+    private void OnDestroy()
+    {
+        IsCursorVisible = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
     private void Update()
     {
+        // Управление машиной
         if (_useTouchControls)
         {
             ThrottlePressed = _throttlePTI.buttonPressed;
@@ -60,9 +75,32 @@ public class CarInput : MonoBehaviour
             SpawnPressed = Input.GetKey(KeyCode.F);
         }
 
-        // Добавляем отладку
-        //if (ThrottlePressed) Debug.Log("Throttle Pressed");
-        //if (ReversePressed) Debug.Log("Reverse Pressed");
+        // Управление курсором
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            IsCursorVisible = true;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        if (Input.GetMouseButtonDown(1)) // Правая кнопка мыши
+        {
+            IsCursorVisible = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        // Управление мышью (только если курсор скрыт)
+        if (!IsCursorVisible)
+        {
+            MouseX = Input.GetAxis("Mouse X");
+            MouseY = Input.GetAxis("Mouse Y");
+        }
+        else
+        {
+            MouseX = 0f;
+            MouseY = 0f;
+        }
     }
 
     private bool ValidateTouchControls()

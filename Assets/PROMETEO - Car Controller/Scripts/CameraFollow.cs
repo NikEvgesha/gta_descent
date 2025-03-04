@@ -14,6 +14,9 @@ public class CameraFollow : MonoBehaviour
     [Header("Mobile Controls")]
     public RectTransform touchArea; // Прозрачный спрайт для управления камерой на мобильных устройствах
 
+    [Header("Input Reference")]
+    public CarInput carInput; // Ссылка на скрипт CarInput
+
     private Vector2 rotation = Vector2.zero;
     private Vector3 velocity = Vector3.zero;
     private bool isRotating = false;
@@ -24,9 +27,11 @@ public class CameraFollow : MonoBehaviour
         rotation.x = carTransform ? carTransform.eulerAngles.y : 0;
         rotation.y = 20f;
 
-        // Скрываем курсор при старте и включаем управление
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        if (!carInput)
+        {
+            carInput = FindObjectOfType<CarInput>();
+            if (!carInput) Debug.LogError("CarInput не найден на сцене!");
+        }
     }
 
     void Update()
@@ -34,20 +39,6 @@ public class CameraFollow : MonoBehaviour
         if (!Application.isPlaying)
         {
             UpdateCameraPosition();
-        }
-
-        // Показываем курсор при нажатии Tab
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
-
-        // Скрываем курсор и включаем управление при нажатии правой кнопки мыши
-        if (Input.GetMouseButtonDown(1)) // Правая кнопка мыши
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
@@ -62,20 +53,19 @@ public class CameraFollow : MonoBehaviour
 
     void HandleCameraRotation()
     {
+        if (!carInput) return;
+
         bool userInput = false;
 
-        // Управление для ПК (только если курсор скрыт)
-        if (!Cursor.visible) // Проверяем, скрыт ли курсор
+        // Управление для ПК через CarInput
+        float mouseX = carInput.MouseX * rotationSpeed;
+        float mouseY = carInput.MouseY * rotationSpeed;
+        if (Mathf.Abs(mouseX) > 0.01f || Mathf.Abs(mouseY) > 0.01f)
         {
-            float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
-            float mouseY = Input.GetAxis("Mouse Y") * rotationSpeed;
-            if (Mathf.Abs(mouseX) > 0.01f || Mathf.Abs(mouseY) > 0.01f)
-            {
-                rotation.x += mouseX;
-                rotation.y -= mouseY;
-                rotation.y = Mathf.Clamp(rotation.y, 5f, 60f);
-                userInput = true;
-            }
+            rotation.x += mouseX;
+            rotation.y -= mouseY;
+            rotation.y = Mathf.Clamp(rotation.y, 5f, 60f);
+            userInput = true;
         }
 
         // Управление для мобильных устройств (через прозрачный спрайт)
@@ -84,7 +74,6 @@ public class CameraFollow : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             Vector2 touchPos = touch.position;
 
-            // Проверяем, находится ли касание внутри области touchArea
             if (RectTransformUtility.RectangleContainsScreenPoint(touchArea, touchPos))
             {
                 rotation.x += touch.deltaPosition.x * 0.1f;
@@ -125,7 +114,6 @@ public class CameraFollow : MonoBehaviour
                 targetRotationX = Mathf.Atan2(carVelocity.x, carVelocity.z) * Mathf.Rad2Deg;
             }
 
-            // Плавно возвращаем rotation.x к целевому значению
             rotation.x = Mathf.LerpAngle(rotation.x, targetRotationX, Time.fixedDeltaTime * rotationReturnSpeed);
         }
     }
