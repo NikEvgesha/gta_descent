@@ -15,7 +15,7 @@ public class CarPhysics : MonoBehaviour
     [SerializeField, Range(1, 100)] private float _accelerationMultiplier = 10f;
     [SerializeField] private AnimationCurve _accelerationCurve = AnimationCurve.Linear(0, 1, 1, 0);
     [SerializeField, Range(10, 45)] private int _maxSteeringAngle = 27;
-    [SerializeField, Range(0.1f, 1f)] private float _steeringSpeed = 0.5f;
+    [SerializeField, Range(0.1f, 10f)] private float _steeringSpeed = 0.5f;
     //[SerializeField, Range(100, 600)] private int _brakeForce = 350;
     [SerializeField, Range(1, 10)] private int _decelerationMultiplier = 2;
     [SerializeField, Range(1, 10)] private int _handbrakeDriftMultiplier = 5;
@@ -23,6 +23,7 @@ public class CarPhysics : MonoBehaviour
     [SerializeField] private Transform _pointForceLeft;
     [SerializeField] private Transform _pointForceRight;
     [SerializeField] private float _forceRotate = 1f;
+    [SerializeField] private float _forceUp = 0.0001f;
 
     [SerializeField] private Wheel _frontLeftWheel;
     [SerializeField] private Wheel _frontRightWheel;
@@ -99,9 +100,7 @@ public class CarPhysics : MonoBehaviour
 
     public void ApplyAcceleration(bool throttle, bool reverse)
     {
-
         float input = throttle ? 1f : reverse ? -1f : 0f;
-        //Debug.Log($"Acceleration input: {input}");
 
         if (input == 0)
         {
@@ -111,55 +110,63 @@ public class CarPhysics : MonoBehaviour
 
         if (!IsOnGround)
         {
-            float pitchTorque = -input * 0.0005f; // Чем больше значение, тем сильнее эффект
+            float pitchTorque = -input * _forceUp;
             _rb.AddTorque(transform.right * pitchTorque * _rb.mass, ForceMode.Acceleration);
-            //Debug.Log("Car is not on ground, cannot accelerate.");
             return;
         }
 
-        float speedFactor = _rb.velocity.magnitude / (input > 0 ? _maxSpeed : _maxReverseSpeed);
-        float acceleration = _accelerationMultiplier * _accelerationCurve.Evaluate(speedFactor);
+        // Теперь ускорение зависит от скорости (убирает рывки)
+        float speedFactor = Mathf.Clamp01(_rb.velocity.magnitude / (input > 0 ? _maxSpeed : _maxReverseSpeed));
+        float acceleration = Mathf.Lerp(5f, _accelerationMultiplier, 1f - speedFactor); // Мягкое увеличение тяги
+
+        // Убираем резкие рывки
         Vector3 force = transform.forward * acceleration * input;
-        //Debug.Log($"Applying force: {force}");
-
         _rb.AddForce(force, ForceMode.Acceleration);
-
-        Quaternion targetTilt = Quaternion.Euler(input * 5f, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, targetTilt, Time.deltaTime * 2f);
-
-        UpdateDriftState();
     }
+
 
     public void ApplySteering(bool turnLeft, bool turnRight)
     {
         float direction = turnLeft ? -1f : turnRight ? 1f : 0f;
-        _steeringAxis = Mathf.MoveTowards(_steeringAxis, direction, Time.deltaTime * 10f * _steeringSpeed);
-        float speedFactor = Mathf.Clamp01(_rb.velocity.magnitude / _maxSpeed);
-        float dynamicSteeringAngle = Mathf.Lerp(_maxSteeringAngle, _maxSteeringAngle * 0.5f, speedFactor);
-        float steeringAngle = _steeringAxis * dynamicSteeringAngle;
-        float gripBoost = 1f - Mathf.Abs(_steeringAxis) * 2f; // Чем сильнее поворот, тем выше сцепление
-
-        WheelFrictionCurve frontLeftFriction = _frontLeftWheel.Collider.sidewaysFriction;
-        WheelFrictionCurve frontRightFriction = _frontRightWheel.Collider.sidewaysFriction;
-
-        frontLeftFriction.extremumSlip *= gripBoost;
-        frontRightFriction.extremumSlip *= gripBoost;
-
-        _frontLeftWheel.Collider.sidewaysFriction = frontLeftFriction;
-        _frontRightWheel.Collider.sidewaysFriction = frontRightFriction;
-        if (_frontLeftWheel != null && _frontLeftWheel.Collider != null)
-            _frontLeftWheel.Collider.steerAngle = Mathf.Lerp(_frontLeftWheel.Collider.steerAngle, steeringAngle, _steeringSpeed);
-        if (_frontRightWheel != null && _frontRightWheel.Collider != null)
-            _frontRightWheel.Collider.steerAngle = Mathf.Lerp(_frontRightWheel.Collider.steerAngle, steeringAngle, _steeringSpeed);
 
         if (!IsOnGround)
         {
-            _rb.AddTorque(Vector3.up * direction * _forceRotate * Time.fixedDeltaTime, ForceMode.Acceleration);
+            transform.Rotate(Vector3.up * direction * _forceRotate * Time.deltaTime * 1.5f);
             return;
         }
 
-        _rb.AddForce(transform.right * _steeringAxis * _rb.velocity.magnitude * 0.05f, ForceMode.Acceleration);
+        // Плавное изменение оси поворота
+        _steeringAxis = Mathf.MoveTowards(_steeringAxis, direction, Time.deltaTime * 10f * _steeringSpeed);
+
+        // Улучшенный угол поворота (быстро реагирует)
+        float speedFactor = Mathf.Clamp01(_rb.velocity.magnitude / _maxSpeed);
+        float dynamicSteeringAngle = Mathf.Lerp(_maxSteeringAngle, _maxSteeringAngle * 0.5f, speedFactor);
+        float steeringAngle = _steeringAxis * dynamicSteeringAngle;
+
+        // Если кнопки не нажаты, мгновенно возвращаем колеса в ноль
+        if (direction == 0)
+        {
+            steeringAngle = Mathf.MoveTowards(_frontLeftWheel.Collider.steerAngle, 0, Time.deltaTime * 100f);
+        }
+
+        // Применяем угол к колесам
+        if (_frontLeftWheel != null && _frontLeftWheel.Collider != null)
+            _frontLeftWheel.Collider.steerAngle = steeringAngle;
+        if (_frontRightWheel != null && _frontRightWheel.Collider != null)
+            _frontRightWheel.Collider.steerAngle = steeringAngle;
+
+        // Гасим боковое скольжение
+        if (IsOnGround)
+        {
+            Vector3 localVelocity = transform.InverseTransformDirection(_rb.velocity);
+            localVelocity.x *= 0.75f; // Уменьшаем скольжение для быстрого восстановления
+            _rb.velocity = transform.TransformDirection(localVelocity);
+        }
     }
+
+
+
+
 
     public void ApplyHandbrake(bool handbrake)
     {

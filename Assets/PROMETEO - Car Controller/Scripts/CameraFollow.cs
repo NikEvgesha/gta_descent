@@ -43,7 +43,10 @@ public class CameraFollow : MonoBehaviour
         }
         rotation.x = carTransform ? carTransform.eulerAngles.y : 0;
         rotation.y = 20f;
-        touchArea = carInput.GetComponent<UIControls>().GetButton().CameraArea;
+        if (Application.isPlaying)
+        {
+            touchArea = carInput.GetCameraArea();
+        }
     }
 
     void Update()

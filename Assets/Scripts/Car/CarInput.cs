@@ -110,4 +110,8 @@ public class CarInput : MonoBehaviour
         }
         return true;
     }
+    public RectTransform GetCameraArea()
+    {
+        return _uIButton.CameraArea;
+    }
 }
