@@ -111,7 +111,7 @@ public class CarPhysics : MonoBehaviour
 
         if (!IsOnGround)
         {
-            float pitchTorque = -input * 0.001f; // Чем больше значение, тем сильнее эффект
+            float pitchTorque = -input * 0.0005f; // Чем больше значение, тем сильнее эффект
             _rb.AddTorque(transform.right * pitchTorque * _rb.mass, ForceMode.Acceleration);
             //Debug.Log("Car is not on ground, cannot accelerate.");
             return;
@@ -147,8 +147,6 @@ public class CarPhysics : MonoBehaviour
 
         _frontLeftWheel.Collider.sidewaysFriction = frontLeftFriction;
         _frontRightWheel.Collider.sidewaysFriction = frontRightFriction;
-
-        _rb.AddForce(transform.right * _steeringAxis * _rb.velocity.magnitude * 0.05f, ForceMode.Acceleration);
         if (_frontLeftWheel != null && _frontLeftWheel.Collider != null)
             _frontLeftWheel.Collider.steerAngle = Mathf.Lerp(_frontLeftWheel.Collider.steerAngle, steeringAngle, _steeringSpeed);
         if (_frontRightWheel != null && _frontRightWheel.Collider != null)
@@ -157,7 +155,10 @@ public class CarPhysics : MonoBehaviour
         if (!IsOnGround)
         {
             _rb.AddTorque(Vector3.up * direction * _forceRotate * Time.fixedDeltaTime, ForceMode.Acceleration);
+            return;
         }
+
+        _rb.AddForce(transform.right * _steeringAxis * _rb.velocity.magnitude * 0.05f, ForceMode.Acceleration);
     }
 
     public void ApplyHandbrake(bool handbrake)
