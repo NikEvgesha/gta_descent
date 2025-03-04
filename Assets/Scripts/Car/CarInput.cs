@@ -31,7 +31,7 @@ public class CarInput : MonoBehaviour
 #endif
         }
         _uIButton = uiControls.GetButton();
-        if (_useTouchControls && ValidateTouchControls())
+        if (ValidateTouchControls())
         {
             _throttlePTI = _uIButton._throttleButton;
             _reversePTI = _uIButton._reverseButton;

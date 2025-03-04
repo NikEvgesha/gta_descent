@@ -99,11 +99,6 @@ public class CarPhysics : MonoBehaviour
 
     public void ApplyAcceleration(bool throttle, bool reverse)
     {
-        if (!IsOnGround)
-        {
-            //Debug.Log("Car is not on ground, cannot accelerate.");
-            return;
-        }
 
         float input = throttle ? 1f : reverse ? -1f : 0f;
         //Debug.Log($"Acceleration input: {input}");
@@ -111,6 +106,14 @@ public class CarPhysics : MonoBehaviour
         if (input == 0)
         {
             if (!_deceleratingCar) Decelerate();
+            return;
+        }
+
+        if (!IsOnGround)
+        {
+            float pitchTorque = -input * 0.001f; // Чем больше значение, тем сильнее эффект
+            _rb.AddTorque(transform.right * pitchTorque * _rb.mass, ForceMode.Acceleration);
+            //Debug.Log("Car is not on ground, cannot accelerate.");
             return;
         }
 
