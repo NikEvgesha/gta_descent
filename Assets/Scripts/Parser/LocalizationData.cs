@@ -14,14 +14,29 @@ public class LocalizationData : ScriptableObject
 
     public string GetTranslation(string key, string language)
     {
-        if (entryDictionary.TryGetValue(key, out var entry))
+        if (entries == null || languages == null)
         {
-            int langIndex = languages.IndexOf(language);
-            if (langIndex >= 0 && langIndex < entry.Translations.Count)
-                return entry.Translations[langIndex];
+            Debug.LogError("LocalizationData: Entries или Languages не инициализированы!");
+            return key;
         }
-        return key;
+
+        var entry = entries.Find(e => e.Key == key);
+        if (entry == null)
+        {
+            Debug.LogWarning($"LocalizationData:  люч '{key}' не найден!");
+            return key;
+        }
+
+        int langIndex = languages.IndexOf(language);
+        if (langIndex < 0 || langIndex >= entry.Translations.Count)
+        {
+            Debug.LogWarning($"LocalizationData: язык '{language}' не найден дл€ ключа '{key}'!");
+            return key;
+        }
+
+        return entry.Translations[langIndex];
     }
+
 
     public void SetData(List<string[]> rawData)
     {
