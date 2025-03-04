@@ -3,15 +3,20 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [CreateAssetMenu(fileName = "GoogleSheetData", menuName = "Google Sheets/Data")]
 public class GoogleSheetData : ScriptableObject
 {
-    [SerializeField] private string sheetId; // ID ????? ???????
-    [SerializeField] private string sheetName; // ??? ????? (????????, "Sheet1")
-    [SerializeField] private string credentialsPath = "Assets/Resources/credentials.json"; // ???? ? JSON
-    [SerializeField] private LocalizationData localizationData;
+    [SerializeField] private string sheetId; // ID таблицы
+    [SerializeField] private string sheetName; // Имя листа (например, "Sheet1")
+    [SerializeField] private string credentialsPath = "Assets/Resources/credentials.json"; // Путь к JSON
+    [SerializeField] private LocalizationData localizationData; 
+
 
     private SheetsService GetSheetsService()
     {
@@ -41,12 +46,17 @@ public class GoogleSheetData : ScriptableObject
             return;
         }
 
-        var service = GetSheetsService();
-        if (service == null) return;
-
         try
         {
-            string range = $"{sheetName}!A1:Z"; // ???????? ??? ?????? (????? ?????????)
+            string range = $"{sheetName}!A1:Z";
+            var service = GetSheetsService();
+
+            if (service == null)
+            {
+                Debug.LogError("Failed to initialize Google Sheets service.");
+                return;
+            }
+
             SpreadsheetsResource.ValuesResource.GetRequest request =
                 service.Spreadsheets.Values.Get(sheetId, range);
 
@@ -58,18 +68,17 @@ public class GoogleSheetData : ScriptableObject
                 List<string[]> data = new List<string[]>();
                 foreach (var row in values)
                 {
-                    List<string> rowData = new List<string>();
-                    foreach (var cell in row)
-                    {
-                        rowData.Add(cell?.ToString() ?? "");
-                    }
-                    data.Add(rowData.ToArray());
+                    data.Add(row.Select(cell => cell?.ToString() ?? "").ToArray());
                 }
 
                 if (localizationData != null)
                 {
                     localizationData.SetData(data);
                     Debug.Log("Localization data updated via Google Sheets API!");
+#if UNITY_EDITOR
+                    EditorUtility.SetDirty(localizationData);
+                    AssetDatabase.SaveAssets();  // Сохраняем изменения в ScriptableObject
+#endif
                 }
                 else
                 {
@@ -86,6 +95,7 @@ public class GoogleSheetData : ScriptableObject
             Debug.LogError($"Failed to fetch data: {ex.Message}");
         }
     }
+
 
     public void OpenSheetInBrowser()
     {

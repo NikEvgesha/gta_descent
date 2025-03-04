@@ -1,6 +1,7 @@
 using UnityEditor;
 using System.Collections.Generic;
 using YG;
+using UnityEngine;
 
 [CustomEditor(typeof(LocalizationManager))]
 public class LocalizationManagerEditor : Editor
@@ -13,17 +14,38 @@ public class LocalizationManagerEditor : Editor
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("localizationData"));
 
-        if (manager.LocalizationData != null)
+        if (manager.LocalizationData == null || manager.LocalizationData.Languages == null)
         {
-            List<string> languages = manager.LocalizationData.Languages;
-            int langIndex = languages.IndexOf(manager.CurrentLanguage);
-            langIndex = EditorGUILayout.Popup("Current Language", langIndex, languages.ToArray());
+            EditorGUILayout.HelpBox("LocalizationData не назначен!", MessageType.Warning);
+            serializedObject.ApplyModifiedProperties();
+            return;
+        }
 
-            if (langIndex >= 0 && langIndex < languages.Count)
+        List<string> languages = manager.LocalizationData.Languages;
+        SerializedProperty currentLangProp = serializedObject.FindProperty("currentLanguage");
+
+        int langIndex = languages.IndexOf(currentLangProp.stringValue);
+        langIndex = EditorGUILayout.Popup("Current Language", langIndex, languages.ToArray());
+
+        if (langIndex >= 0 && langIndex < languages.Count)
+        {
+            string newLanguage = languages[langIndex];
+
+            if (newLanguage != currentLangProp.stringValue)
             {
-                //manager.ChangeLanguage(languages[langIndex]);
-                YG2.SwitchLanguage(char.ToLower(languages[langIndex][0]) + languages[langIndex].Substring(1));
+                currentLangProp.stringValue = newLanguage;
+                manager.ChangeLanguage(newLanguage);
+                YG2.SwitchLanguage(char.ToLower(newLanguage[0]) + newLanguage.Substring(1));
+
+                EditorUtility.SetDirty(manager);
             }
+        }
+
+        EditorGUILayout.Space(10);
+        if (GUILayout.Button("Обновить локализацию"))
+        {
+            manager.ChangeLanguage(manager.CurrentLanguage);
+            EditorUtility.SetDirty(manager);
         }
 
         serializedObject.ApplyModifiedProperties();

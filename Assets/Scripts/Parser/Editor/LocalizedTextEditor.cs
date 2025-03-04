@@ -12,30 +12,42 @@ public class LocalizedTextEditor : Editor
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("localizationData"));
 
-        if (localizedText.LocalizationData != null)
+        if (localizedText.LocalizationData == null || localizedText.LocalizationData.Entries == null)
         {
-            List<string> keys = new List<string>();
-            foreach (var entry in localizedText.LocalizationData.Entries)
-            {
-                keys.Add(entry.Key);
-            }
+            EditorGUILayout.HelpBox("LocalizationData не назначен!", MessageType.Warning);
+            serializedObject.ApplyModifiedProperties();
+            return;
+        }
 
-            int selectedIndex = keys.IndexOf(localizedText.SelectedKey);
-            selectedIndex = EditorGUILayout.Popup("Localization Key", selectedIndex, keys.ToArray());
+        // Выбор ключа перевода
+        List<string> keys = new List<string>();
+        foreach (var entry in localizedText.LocalizationData.Entries)
+        {
+            keys.Add(entry.Key);
+        }
 
-            if (selectedIndex >= 0 && selectedIndex < keys.Count)
-            {
-                localizedText.SelectedKey = keys[selectedIndex];
-            }
+        SerializedProperty keyProp = serializedObject.FindProperty("selectedKey");
+        int selectedIndex = keys.IndexOf(keyProp.stringValue);
+        selectedIndex = EditorGUILayout.Popup("Localization Key", selectedIndex, keys.ToArray());
 
-            List<string> languages = localizedText.LocalizationData.Languages;
-            int langIndex = languages.IndexOf(localizedText.CurrentLanguage);
-            langIndex = EditorGUILayout.Popup("Current Language", langIndex, languages.ToArray());
+        if (selectedIndex >= 0 && selectedIndex < keys.Count && keyProp.stringValue != keys[selectedIndex])
+        {
+            keyProp.stringValue = keys[selectedIndex];
+            localizedText.SetLanguage(localizedText.CurrentLanguage);
+            EditorUtility.SetDirty(localizedText);
+        }
 
-            if (langIndex >= 0 && langIndex < languages.Count)
-            {
-                localizedText.CurrentLanguage = languages[langIndex];
-            }
+        // Выбор языка
+        List<string> languages = localizedText.LocalizationData.Languages;
+        SerializedProperty langProp = serializedObject.FindProperty("currentLanguage");
+        int langIndex = languages.IndexOf(langProp.stringValue);
+        langIndex = EditorGUILayout.Popup("Current Language", langIndex, languages.ToArray());
+
+        if (langIndex >= 0 && langIndex < languages.Count && langProp.stringValue != languages[langIndex])
+        {
+            langProp.stringValue = languages[langIndex];
+            localizedText.SetLanguage(languages[langIndex]);
+            EditorUtility.SetDirty(localizedText);
         }
 
         serializedObject.ApplyModifiedProperties();

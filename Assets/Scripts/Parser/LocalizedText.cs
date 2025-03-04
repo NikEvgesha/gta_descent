@@ -18,13 +18,26 @@ public class LocalizedText : MonoBehaviour
 
     private void Awake()
     {
-        uiText = GetComponent<Text>();
-        tmpText = GetComponent<TextMeshProUGUI>();
+        TryGetComponent(out uiText);
+        TryGetComponent(out tmpText);
     }
     private void OnEnable()
     {
-        SetLanguage(LocalizationManager.Instance.CurrentLanguage);
+        if (LocalizationManager.Instance != null)
+        {
+            LocalizationManager.Instance.OnLanguageChanged += SetLanguage;
+            SetLanguage(LocalizationManager.Instance.CurrentLanguage);
+        }
     }
+
+    private void OnDisable()
+    {
+        if (LocalizationManager.Instance != null)
+        {
+            LocalizationManager.Instance.OnLanguageChanged -= SetLanguage;
+        }
+    }
+
     public void SetLanguage(string language)
     {
         currentLanguage = language;
@@ -43,10 +56,17 @@ public class LocalizedText : MonoBehaviour
 
     private void OnValidate()
     {
-        if (localizationData != null && !localizationData.Languages.Contains(currentLanguage))
+        if (localizationData != null)
         {
-            currentLanguage = localizationData.Languages.Count > 0 ? localizationData.Languages[0] : "";
+            if (!localizationData.Languages.Contains(currentLanguage))
+            {
+                currentLanguage = localizationData.Languages.Count > 0 ? localizationData.Languages[0] : "";
+            }
+            if (!string.IsNullOrEmpty(currentLanguage))
+            {
+                UpdateText();
+            }
         }
-        UpdateText();
     }
+
 }
