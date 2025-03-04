@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -66,7 +67,6 @@ public class ColorShopSlot : ShopSlot, IPurchasable
 
     public void SetPurchaseStatus(bool purchased)
     {
-        Debug.Log("Set status: " + purchased);
         _purchased = purchased;
         if (_purchased)
         {

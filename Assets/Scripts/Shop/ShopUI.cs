@@ -1,11 +1,18 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ShopUI : MonoBehaviour
 {
     [SerializeField] private GameObject _gemsShop;
     [SerializeField] private GameObject _customShop;
 
+
+    [SerializeField] private CurrencyShopSlot _currencyPrefab;
+    [SerializeField] private Transform _currencySlotParent;
+    [SerializeField] private Transform _leftPackParent;
+    [SerializeField] private Transform _rightPackParent;
 
     private static ShopUI instance;
     public static ShopUI Instance {  get { return instance; } }
@@ -51,5 +58,22 @@ public class ShopUI : MonoBehaviour
         {
             CloseGemsShop();
         }
+    }
+
+
+    public void InitCurrencySpecialSlots(List<CurrencyPackData> packs, CurrencyPackData packLeft, CurrencyPackData packRight)
+    {
+        foreach (var item in packs)
+        {
+            CurrencyShopSlot slot = Instantiate(_currencyPrefab, _currencySlotParent);
+            slot.Init(item);
+        }
+
+        CurrencyShopSlot left = Instantiate(_currencyPrefab, _leftPackParent);
+        left.Init(packLeft);
+
+        CurrencyShopSlot right = Instantiate(_currencyPrefab, _rightPackParent);
+        right.Init(packRight);
+
     }
 }

@@ -13,9 +13,11 @@ public struct CurrencyRewardData
 public class CurrencyPackData : ShopItemData
 {
     [SerializeField] private string _text;
-    [SerializeField] private List<CurrencyRewardData> _rewards;
+    [SerializeField] private List<CurrencyRewardData> _currencyReward;
+    [SerializeField] private List<CustomizerColorData> _itemReward;
 
     public string Description { get { return _text; } }
-    public List<CurrencyRewardData> Rewards { get { return _rewards; } }
+    public List<CurrencyRewardData> CurrencyRewards { get { return _currencyReward; } }
+    public List<CustomizerColorData> ItemRewards { get { return _itemReward; } }
 
 }
