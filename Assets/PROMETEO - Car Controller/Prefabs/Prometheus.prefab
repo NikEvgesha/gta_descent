@@ -180,9 +180,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _maxSteeringAngle: 27
-  _steeringSpeed: 0.5
-  _brakeForce: 350
+  _maxSteeringAngle: 24
+  _steeringSpeed: 1
   _decelerationMultiplier: 10
   _handbrakeDriftMultiplier: 5
   _bodyMassCenter: {x: 0, y: 0.2, z: 0}
@@ -260,12 +259,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useTouchControls: 0
-  _throttleButton: {fileID: 0}
-  _reverseButton: {fileID: 0}
-  _turnRightButton: {fileID: 0}
-  _turnLeftButton: {fileID: 0}
-  _handbrakeButton: {fileID: 0}
-  _spawnButton: {fileID: 0}
+  _uIButton:
+    _throttleButton: {fileID: 0}
+    _reverseButton: {fileID: 0}
+    _turnRightButton: {fileID: 0}
+    _turnLeftButton: {fileID: 0}
+    _handbrakeButton: {fileID: 0}
+    _spawnButton: {fileID: 0}
+    CameraArea: {fileID: 0}
 --- !u!114 &7919753840042828970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44905,7 +44906,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 49
+  m_VersionIndex: 73
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

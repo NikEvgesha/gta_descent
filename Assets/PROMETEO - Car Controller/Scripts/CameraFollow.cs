@@ -25,14 +25,15 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        rotation.x = carTransform ? carTransform.eulerAngles.y : 0;
-        rotation.y = 20f;
-
         if (!carInput)
         {
             carInput = FindObjectOfType<CarInput>();
+            carTransform = carInput.transform;
             if (!carInput) Debug.LogError("CarInput не найден на сцене!");
         }
+        rotation.x = carTransform ? carTransform.eulerAngles.y : 0;
+        rotation.y = 20f;
+        touchArea = carInput.GetComponent<UIControls>().GetButton().CameraArea;
     }
 
     void Update()

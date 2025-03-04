@@ -10,6 +10,7 @@ public struct UIButton
     public PrometeoTouchInput _turnLeftButton;
     public PrometeoTouchInput _handbrakeButton;
     public PrometeoTouchInput _spawnButton;
+    public RectTransform CameraArea;
 }
 public class UIControls : MonoBehaviour
 {

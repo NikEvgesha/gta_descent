@@ -760,7 +760,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.003921569}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1019,6 +1019,7 @@ MonoBehaviour:
     _turnLeftButton: {fileID: 1582255186645455177}
     _handbrakeButton: {fileID: 3330261183657788397}
     _spawnButton: {fileID: 6532585681812038963}
+    CameraArea: {fileID: 7406255668022257307}
 --- !u!1 &5111414144216756316
 GameObject:
   m_ObjectHideFlags: 0
