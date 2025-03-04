@@ -14,7 +14,6 @@ public class CarInput : MonoBehaviour
     public bool HandbrakePressed { get; private set; }
     public bool SpawnPressed { get; private set; }
 
-    // Добавляем свойства для управления камерой и мышью
     public float MouseX { get; private set; }
     public float MouseY { get; private set; }
     public bool IsCursorVisible { get; private set; }
@@ -42,20 +41,20 @@ public class CarInput : MonoBehaviour
             _spawnPTI = _uIButton._spawnButton;
         }
 
-        // Инициализируем курсор скрытым
         IsCursorVisible = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
+
     private void OnDestroy()
     {
         IsCursorVisible = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
+
     private void Update()
     {
-        // Управление машиной
         if (_useTouchControls)
         {
             ThrottlePressed = _throttlePTI.buttonPressed;
@@ -75,7 +74,6 @@ public class CarInput : MonoBehaviour
             SpawnPressed = Input.GetKey(KeyCode.F);
         }
 
-        // Управление курсором
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             IsCursorVisible = true;
@@ -83,14 +81,13 @@ public class CarInput : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
-        if (Input.GetMouseButtonDown(1)) // Правая кнопка мыши
+        if (Input.GetMouseButtonDown(1))
         {
             IsCursorVisible = false;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        // Управление мышью (только если курсор скрыт)
         if (!IsCursorVisible)
         {
             MouseX = Input.GetAxis("Mouse X");

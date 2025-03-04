@@ -4,7 +4,8 @@
 public class CameraFollow : MonoBehaviour
 {
     public Transform carTransform; // Машина
-    public float rotationSpeed = 3f; // Чувствительность поворота
+    public float mouseRotationSpeed = 3f; // Чувствительность поворота для мыши
+    public float touchRotationSpeed = 0.1f; // Чувствительность поворота для тач-управления
     public float distance = 5f; // Расстояние до машины
     public float height = 2f; // Высота камеры
     public float smoothTime = 0.1f; // Сглаживание позиции
@@ -58,8 +59,8 @@ public class CameraFollow : MonoBehaviour
         bool userInput = false;
 
         // Управление для ПК через CarInput
-        float mouseX = carInput.MouseX * rotationSpeed;
-        float mouseY = carInput.MouseY * rotationSpeed;
+        float mouseX = carInput.MouseX * mouseRotationSpeed;
+        float mouseY = carInput.MouseY * mouseRotationSpeed;
         if (Mathf.Abs(mouseX) > 0.01f || Mathf.Abs(mouseY) > 0.01f)
         {
             rotation.x += mouseX;
@@ -76,8 +77,8 @@ public class CameraFollow : MonoBehaviour
 
             if (RectTransformUtility.RectangleContainsScreenPoint(touchArea, touchPos))
             {
-                rotation.x += touch.deltaPosition.x * 0.1f;
-                rotation.y -= touch.deltaPosition.y * 0.1f;
+                rotation.x += touch.deltaPosition.x * touchRotationSpeed;
+                rotation.y -= touch.deltaPosition.y * touchRotationSpeed;
                 rotation.y = Mathf.Clamp(rotation.y, 5f, 60f);
                 userInput = true;
             }
