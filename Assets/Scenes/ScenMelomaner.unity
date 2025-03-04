@@ -5234,6 +5234,9 @@ MonoBehaviour:
   distance: 7.77
   height: 3.28
   smoothTime: 0.1
+  rotationReturnSpeed: 2
+  returnDelay: 2
+  touchArea: {fileID: 8145389782376145833}
 --- !u!1 &1738370645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6385554232637855927, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
@@ -6848,8 +6851,8 @@ Transform:
   m_GameObject: {fileID: 2084232130}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.63359, y: 72.72199, z: -268.71426}
-  m_LocalScale: {x: 1.2386, y: 1.2386, z: 1.2386}
+  m_LocalPosition: {x: -146.71, y: 72.72199, z: -145.28}
+  m_LocalScale: {x: 13.02388, y: 1.2386, z: 12.538348}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1062024621}
@@ -7450,7 +7453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3211575737104757499, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: _useTouchControls
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3662151755858889237, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
       propertyPath: _useSounds
@@ -8303,6 +8306,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1592698749269605460, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1777364829847018523, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
       propertyPath: m_Name
       value: GameCanvas
@@ -8627,6 +8634,11 @@ PrefabInstance:
       addedObject: {fileID: 1906805780}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
+--- !u!224 &8145389782376145833 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7406255668022257307, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
+  m_PrefabInstance: {fileID: 8145389782376145832}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
