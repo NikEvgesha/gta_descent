@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3434348500657737678}
   - component: {fileID: 3540529787744365905}
   - component: {fileID: 4500178692406302546}
+  - component: {fileID: 4970187662424318567}
   m_Layer: 5
   m_Name: Controls
   m_TagString: Untagged
@@ -66,7 +67,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: eda16a574f5cf654b832867016f588f6, type: 3}
+    m_Font: {fileID: 12800000, guid: f9c237cd8ce5acc488ae71578c0683f4, type: 3}
     m_FontSize: 83
     m_FontStyle: 2
     m_BestFit: 1
@@ -88,6 +89,21 @@ MonoBehaviour:
     Right
 
     Space - Handbrake'
+--- !u!114 &4970187662424318567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164493942203832143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4151974eac4ae4ba8ed7bcb9cf28ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationData: {fileID: 11400000, guid: 247e385684679874b849f4c64cf8b6fc, type: 2}
+  selectedKey: ControlHint
+  currentLanguage: Ru
 --- !u!1 &223199085950771405
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +140,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 171.47998, y: 124.59802}
-  m_SizeDelta: {x: 213.81409, y: 215.19598}
+  m_SizeDelta: {x: 271.7, y: 215.19598}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3270680582551066624
 CanvasRenderer:

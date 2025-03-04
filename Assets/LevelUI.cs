@@ -8,6 +8,11 @@ public class LevelUI : MonoBehaviour
         GameManager.Instance.LevelInProgress += OnLevelSwitch;
     }
 
+    private void OnDisable()
+    {
+        GameManager.Instance.LevelInProgress -= OnLevelSwitch;
+    }
+
     private void OnLevelSwitch(bool inProgress)
     {
         _menu.gameObject.SetActive(inProgress);
