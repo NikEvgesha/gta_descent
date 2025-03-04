@@ -23,6 +23,16 @@ public class CameraFollow : MonoBehaviour
     private bool isRotating = false;
     private float timeSinceLastInput = 0f;
 
+
+    private void OnEnable()
+    {
+        Settings.instance.ChangeMouseSensitivity += ChangeMouseSensitivity;
+    }
+    private void OnDisable()
+    {
+        Settings.instance.ChangeMouseSensitivity -= ChangeMouseSensitivity;
+    }
+
     void Start()
     {
         if (!carInput)
@@ -141,5 +151,12 @@ public class CameraFollow : MonoBehaviour
     void OnValidate()
     {
         UpdateCameraPosition();
+    }
+
+
+    private void ChangeMouseSensitivity(float sens)
+    {
+        mouseRotationSpeed = Mathf.Lerp(1f, 10f, sens);
+        touchRotationSpeed = Mathf.Lerp(0.1f, 0.5f, sens);
     }
 }
