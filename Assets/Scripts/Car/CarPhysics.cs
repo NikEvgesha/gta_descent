@@ -91,11 +91,6 @@ public class CarPhysics : MonoBehaviour
         CheckGround();
         UpdatePhysics();
         AnimateWheels();
-        if (Mathf.Abs(LocalVelocityX) > 0.5f) // Если занос больше 0.5 м/с
-        {
-            Vector3 counterForce = -transform.right * (LocalVelocityX * 2f);
-            _rb.AddForce(counterForce, ForceMode.Acceleration);
-        }
     }
 
     public void ApplyAcceleration(bool throttle, bool reverse)
@@ -115,6 +110,11 @@ public class CarPhysics : MonoBehaviour
             return;
         }
 
+        if (Mathf.Abs(LocalVelocityX) > 0.5f) // Если занос больше 0.5 м/с
+        {
+            Vector3 counterForce = -transform.right * (LocalVelocityX * 2f);
+            _rb.AddForce(counterForce, ForceMode.Acceleration);
+        }
         // Теперь ускорение зависит от скорости (убирает рывки)
         float speedFactor = Mathf.Clamp01(_rb.velocity.magnitude / (input > 0 ? _maxSpeed : _maxReverseSpeed));
         float acceleration = Mathf.Lerp(5f, _accelerationMultiplier, 1f - speedFactor); // Мягкое увеличение тяги

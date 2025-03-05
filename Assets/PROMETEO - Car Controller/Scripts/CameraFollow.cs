@@ -7,10 +7,14 @@ public class CameraFollow : MonoBehaviour
     public float mouseRotationSpeed = 3f; // Чувствительность поворота для мыши
     public float touchRotationSpeed = 0.1f; // Чувствительность поворота для тач-управления
     public float distance = 5f; // Расстояние до машины
-    public float height = 2f; // Высота камеры
+    public float height = 2f; // Высота камеры над машиной
     public float smoothTime = 0.1f; // Сглаживание позиции
     public float rotationReturnSpeed = 2f; // Скорость возврата камеры
     public float returnDelay = 2f; // Задержка перед возвратом камеры (в секундах)
+
+    [Header("Camera Offset")]
+    [Tooltip("Смещение точки, на которую смотрит камера (в локальных координатах машины)")]
+    public Vector3 lookAtOffset = new Vector3(0f, 0f, 0f); // Смещение центра взгляда
 
     [Header("Mobile Controls")]
     public RectTransform touchArea; // Прозрачный спрайт для управления камерой на мобильных устройствах
@@ -23,11 +27,11 @@ public class CameraFollow : MonoBehaviour
     private bool isRotating = false;
     private float timeSinceLastInput = 0f;
 
-
     private void OnEnable()
     {
         Settings.instance.ChangeMouseSensitivity += ChangeMouseSensitivity;
     }
+
     private void OnDisable()
     {
         Settings.instance.ChangeMouseSensitivity -= ChangeMouseSensitivity;
@@ -41,8 +45,6 @@ public class CameraFollow : MonoBehaviour
             carTransform = carInput.transform;
             if (!carInput) Debug.LogError("CarInput не найден на сцене!");
         }
-        rotation.x = carTransform ? carTransform.eulerAngles.y : 0;
-        rotation.y = 20f;
         if (Application.isPlaying)
         {
             touchArea = carInput.GetCameraArea();
@@ -137,25 +139,27 @@ public class CameraFollow : MonoBehaviour
     {
         if (!carTransform) return;
 
+        // Вычисляем позицию камеры
         Quaternion rotationQuat = Quaternion.Euler(rotation.y, rotation.x, 0);
         Vector3 targetPosition = carTransform.position - (rotationQuat * Vector3.forward * distance) + (Vector3.up * height);
         transform.position = Application.isPlaying ? Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime) : targetPosition;
 
-        transform.LookAt(carTransform.position);
+        // Вычисляем точку, на которую смотрит камера, с учётом смещения
+        Vector3 lookAtPoint = carTransform.position + carTransform.TransformDirection(lookAtOffset);
+        transform.LookAt(lookAtPoint);
     }
 
     public void TeleportCamera()
     {
         rotation.x = carTransform.eulerAngles.y;
         transform.position = carTransform.position - (Quaternion.Euler(rotation.y, rotation.x, 0) * Vector3.forward * distance) + (Vector3.up * height);
-        transform.LookAt(carTransform.position);
+        transform.LookAt(carTransform.position + carTransform.TransformDirection(lookAtOffset));
     }
 
     void OnValidate()
     {
         UpdateCameraPosition();
     }
-
 
     private void ChangeMouseSensitivity(float sens)
     {
