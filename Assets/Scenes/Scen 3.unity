@@ -130,17 +130,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1908386856}
     m_Modifications:
-    - target: {fileID: 7515416383442781820, guid: 675aa9877f3cb1e40af84387295ac4fe, type: 3}
-      propertyPath: m_Name
-      value: GoHome
-      objectReference: {fileID: 0}
     - target: {fileID: 3923966054753012048, guid: 675aa9877f3cb1e40af84387295ac4fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.1955
       objectReference: {fileID: 0}
     - target: {fileID: 3923966054753012048, guid: 675aa9877f3cb1e40af84387295ac4fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.8668826
+      value: -9.5
       objectReference: {fileID: 0}
     - target: {fileID: 3923966054753012048, guid: 675aa9877f3cb1e40af84387295ac4fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -173,6 +169,10 @@ PrefabInstance:
     - target: {fileID: 3923966054753012048, guid: 675aa9877f3cb1e40af84387295ac4fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.011993408
+      objectReference: {fileID: 0}
+    - target: {fileID: 7515416383442781820, guid: 675aa9877f3cb1e40af84387295ac4fe, type: 3}
+      propertyPath: m_Name
+      value: GoHome
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
