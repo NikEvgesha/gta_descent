@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     {
         if (_instance != null)
         {
+            Debug.Log("delete duplicate GameMAnager");
             Destroy(gameObject);
             return;
         }

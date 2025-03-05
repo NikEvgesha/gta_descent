@@ -18,6 +18,11 @@ public class LevelScore : MonoBehaviour
         GameManager.Instance.LevelWin += OnWin;
     }
 
+    private void OnDisable()
+    {
+        GameManager.Instance.LevelWin -= OnWin;
+    }
+
     void Start()
     {
         _roundTimeStart = Time.time;

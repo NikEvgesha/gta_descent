@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00010678171}
   m_LocalPosition: {x: -2.36, y: -79.88588, z: 304.34088}
-  m_LocalScale: {x: 22.666939, y: 19.412, z: 1}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7617095909549415006}
@@ -53,8 +53,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.5720115, y: 2.5724978, z: 1}
+  m_Center: {x: -0.008389814, y: 0.09220069, z: -8.173426e-14}
 --- !u!114 &1655208077080995162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +79,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7617095909549415006}
   - component: {fileID: 6430839451248576986}
+  - component: {fileID: 8532794403797529031}
   m_Layer: 0
   m_Name: Teleport (2)
   m_TagString: Untagged
@@ -96,7 +97,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.096, z: 0}
-  m_LocalScale: {x: 0.39159, y: 0.39159, z: 0.3916}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7726072481675385957}
@@ -153,3 +154,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8532794403797529031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083559438035914072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f66561a0a0d38f4388ac9837946f274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 0}
+  testVector: 0

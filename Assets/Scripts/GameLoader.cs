@@ -15,8 +15,18 @@ public class GameLoader : MonoBehaviour
 
     private void Awake()
     {
-        _instance = this;
-        DontDestroyOnLoad(gameObject);
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("LocalizationManager уже существует! Удаляем дубликат.");
+            Destroy(gameObject);
+        }
+        
+        
 
     }
 

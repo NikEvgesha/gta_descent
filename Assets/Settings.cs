@@ -1,7 +1,5 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
 {
@@ -33,21 +31,30 @@ public class Settings : MonoBehaviour
         GameManager.Instance.LevelInProgress += OnLevelSwitch;
     }
 
-/*    private void OnDisable()
+    private void OnDisable()
     {
         GameManager.Instance.LevelInProgress -= OnLevelSwitch;
-    }*/
+    }
 
     private void OnLevelSwitch(bool inProgress)
     {
-        _exitButton.gameObject.SetActive(inProgress);
+        if (_exitButton != null)
+            _exitButton.gameObject.SetActive(inProgress);
     }
 
 
     // �������� ������ � ����� - ������ ��������
     private void Awake()
     {
-        instance = this;
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     public void Sensitivity(float sens)
     {

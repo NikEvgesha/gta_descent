@@ -23,12 +23,21 @@ public class CurrencyManager : MonoBehaviour
 
     private void Awake()
     {
-        _instance = this;
-        _currencyIcons = new Dictionary<CurrencyType, Sprite> {
+        if (_instance == null)
+        {
+            _instance = this;
+
+            _currencyIcons = new Dictionary<CurrencyType, Sprite> {
             {CurrencyType.Gems, _gemsIcon},
             {CurrencyType.Cups, _cupsIcon},
             {CurrencyType.Real, _yanIcon},
         };
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
 
     private void Start()

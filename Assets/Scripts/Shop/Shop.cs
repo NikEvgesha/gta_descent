@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-    private static Shop instance;
+    private static Shop _instance;
     [Header("Items")]
     [SerializeField] List<CustomizerColorData> _carColors;
     [SerializeField] List<CurrencyPackData> _currencyPacks;
@@ -29,11 +30,18 @@ public class Shop : MonoBehaviour
 
     public Action ItemPurchased;
 
-    public static Shop Instance {  get { return instance; } }
+    public static Shop Instance {  get { return _instance; } }
 
     private void Awake()
     {
-        instance = this;
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
