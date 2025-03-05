@@ -29,12 +29,14 @@ public class CameraFollow : MonoBehaviour
 
     private void OnEnable()
     {
-        Settings.instance.ChangeMouseSensitivity += ChangeMouseSensitivity;
+        if (Application.isPlaying)
+            Settings.instance.ChangeMouseSensitivity += ChangeMouseSensitivity;
     }
 
     private void OnDisable()
     {
-        Settings.instance.ChangeMouseSensitivity -= ChangeMouseSensitivity;
+        if (Application.isPlaying)
+            Settings.instance.ChangeMouseSensitivity -= ChangeMouseSensitivity;
     }
 
     void Start()
