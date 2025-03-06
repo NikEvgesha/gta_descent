@@ -25,9 +25,19 @@ public class RewardUI : MonoBehaviour
     private void ShowReward()
     {
         _currentLevel = GameManager.Instance.GetCurrentLevelData();
-        List<CurrencyRewardData> rewards = _currentLevel.Reward;
         if (_currentLevel)
         {
+            bool firstWin = !(LevelsManager.Instance.CheckLevelWin(_currentLevel.ID));
+            List<CurrencyRewardData> rewards;
+            if (firstWin)
+            {
+                rewards = _currentLevel.FirstReward;
+                LevelsManager.Instance.UpdateFirstWin(_currentLevel.ID);
+            }
+            else
+            {
+                rewards = _currentLevel.Reward;
+            }
             foreach (var item in rewards)
             {
                 switch (item.CurrencyType)

@@ -24,4 +24,4 @@ MonoBehaviour:
     CurrencyType: 0
   - Amount: 150
     CurrencyType: 1
-  _lvlImg: {fileID: 21300000, guid: 25d8cbec3df44cd4a8c6814132dc226d, type: 3}
+  _lvlImg: {fileID: 21300000, guid: 559fcbe770650a54fac8feaeec3a3abe, type: 3}

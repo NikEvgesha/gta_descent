@@ -87,4 +87,20 @@ public class LevelsManager : MonoBehaviour
     }
 
 
+    public bool CheckLevelWin(int lvlIdx)
+    {
+        return _levelsSaveInfo[_levelsData[lvlIdx - 1]][1];
+    }
+
+    public bool CheckLevelUnlock(int lvlIdx)
+    {
+        return _levelsSaveInfo[_levelsData[lvlIdx - 1]][0];
+    }
+
+    public void UpdateFirstWin(int lvlIdx)
+    {
+        _levelsSaveInfo[_levelsData[lvlIdx - 1]][1] = true;
+        SaveManager.Instance.SaveLevelWin(lvlIdx, true);
+    } 
+
 }
