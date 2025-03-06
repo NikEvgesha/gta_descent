@@ -1054,7 +1054,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f6eb9184d2a829a4691cda94adf07fa2, type: 2}
   - {fileID: 11400000, guid: 411716a129560954ca24f372ede3d727, type: 2}
   - {fileID: 11400000, guid: e0e475f95819f0040a041c4350b3c48b, type: 2}
-  - {fileID: 11400000, guid: 89a15357fbf68aa4b81596d7679edad9, type: 2}
   _lvlPrefab: {fileID: 1356446991119841290, guid: 227871426db4fc44fb545b2ecfe43097, type: 3}
   _lvlParent: {fileID: 1327874654}
 --- !u!1 &1408210045

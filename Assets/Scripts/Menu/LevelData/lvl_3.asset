@@ -15,13 +15,13 @@ MonoBehaviour:
   _ID: 3
   _cupsPrice: 10
   _gemsPrice: 100
-  _sceneName: Scen 3
+  _sceneName: Scen 4
   _baseReward:
   - Amount: 5
     CurrencyType: 0
   _firstReward:
   - Amount: 15
     CurrencyType: 0
-  - Amount: 70
+  - Amount: 10
     CurrencyType: 1
-  _lvlImg: {fileID: 21300000, guid: 29b7c567e3e49364baca13166596d1ad, type: 3}
+  _lvlImg: {fileID: 21300000, guid: b5b1eb1fabc00fa47a95465177c8bb46, type: 3}
