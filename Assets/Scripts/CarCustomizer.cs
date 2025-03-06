@@ -10,6 +10,11 @@ public class CarCustomizer : MonoBehaviour
         SetColor(CustomizerManager.Instance.GetActiveColor());
     }
 
+    private void OnDisable()
+    {
+        CustomizerManager.Instance.ColorSet -= SetColor;
+    }
+
 
     private void SetColor(CustomizerColorData data)
     {
