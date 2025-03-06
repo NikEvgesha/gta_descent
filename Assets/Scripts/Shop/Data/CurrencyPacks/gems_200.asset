@@ -16,6 +16,7 @@ MonoBehaviour:
   _currencyType: 2
   _itemImg: {fileID: 21300000, guid: 3e21b8a24f9b92d479a4bc4a62a56151, type: 3}
   _text: 200
-  _rewards:
+  _currencyReward:
   - Amount: 200
     CurrencyType: 1
+  _itemReward: []
