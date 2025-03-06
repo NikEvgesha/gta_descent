@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioMixerGroup _mixer;
     [SerializeField] private AnimationCurve _curve;
     [SerializeField] private AudioSource _music;
+    [SerializeField] private AudioSource _uiClick;
     [SerializeField] private AudioClip _lose;
     [SerializeField] private AudioClip _win;
 
@@ -92,5 +93,9 @@ public class SoundManager : MonoBehaviour
         _music.loop = false;
         _music.clip = _win;
         _music.Play();
+    }
+    public void PlayUIClick() 
+    {
+        _uiClick.Play();
     }
 }
