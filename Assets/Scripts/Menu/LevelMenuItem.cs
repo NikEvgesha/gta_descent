@@ -11,6 +11,7 @@ public class LevelMenuItem : MonoBehaviour
     [SerializeField] private bool _unlocked = false;
     [SerializeField] private Animator _animator;
     [SerializeField] private Image _lvlImage;
+    [SerializeField] private GameObject _firstWinBonus;
 
     private bool _firstWin;
 
@@ -21,11 +22,16 @@ public class LevelMenuItem : MonoBehaviour
         if (_unlocked)
         {
             _lvlLockedPanel.gameObject.SetActive(false);
+            if (!_firstWin)
+            {
+                _firstWinBonus.gameObject.SetActive(true);
+            }
         }
         else
         {
             CheckCupsButton(CurrencyManager.Instance.Cups);
         }
+        
     }
 
     private void Start()

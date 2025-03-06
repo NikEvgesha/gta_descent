@@ -10,6 +10,11 @@ public class CameraSlide : MonoBehaviour
         ShopUI.Instance.CustomShopOpen += OpenSlide;
     }
 
+    private void OnDisable()
+    {
+        ShopUI.Instance.CustomShopOpen -= OpenSlide;
+    }
+
     private void OpenSlide(bool shopOpen)
     {
         _animator.SetBool("ShopOpened", shopOpen);
