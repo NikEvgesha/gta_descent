@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: lvl_5
   m_EditorClassIdentifier: 
   _ID: 5
-  _cupsPrice: 50
-  _gemsPrice: 500
+  _cupsPrice: 100
+  _gemsPrice: 40
   _sceneName: Scen 5
   _baseReward:
-  - Amount: 10
+  - Amount: 5
     CurrencyType: 0
   _firstReward:
-  - Amount: 50
+  - Amount: 100
     CurrencyType: 0
   - Amount: 10
     CurrencyType: 1
