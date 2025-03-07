@@ -10,7 +10,7 @@ public class YGAdsProvider : AdsProvider
         // Подписка на событие вознаграждения
         YG.YG2.onRewardAdv += OnReward;
         YG.YG2.onOpenRewardedAdv += OnRewardedAdOpened;
-        YG.YG2.onCloseRewardedAdv += OnRewardedAdClosed;
+        YG.YG2.onErrorRewardedAdv += OnRewardedAdClosed;
         isInitialized = true;
         Debug.Log("YG Ads initialized");
     }
@@ -84,6 +84,6 @@ public class YGAdsProvider : AdsProvider
     {
         YG.YG2.onRewardAdv -= OnReward;
         YG.YG2.onOpenRewardedAdv -= OnRewardedAdOpened;
-        YG.YG2.onCloseRewardedAdv -= OnRewardedAdClosed;
+        YG.YG2.onErrorRewardedAdv -= OnRewardedAdClosed;
     }
 }
