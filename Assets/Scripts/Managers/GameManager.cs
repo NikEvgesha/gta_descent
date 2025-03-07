@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using YG;
 
@@ -14,9 +15,7 @@ public class GameManager : MonoBehaviour
     //public Action LevelStart;
     //public Action LevelExit;
 
-
     private LevelData _currentLevel;
-
     void Awake()
     {
         if (_instance != null)
@@ -28,6 +27,7 @@ public class GameManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
+        LevelWin += LevelWinEvent;
     }
 
     private void Start()
@@ -72,10 +72,19 @@ public class GameManager : MonoBehaviour
         _currentLevel = null;
         GameLoader.Instance.LoadNextScene("Menu", true);
         LevelInProgress?.Invoke(false);
+        AnalyticsManager.Instance.LogEvent(EventName.home.ToString());
     }
 
     public LevelData GetCurrentLevelData()
     {
         return _currentLevel;
+    }
+    private void LevelWinEvent()
+    {
+        Dictionary<string,string> key = new Dictionary<string,string>
+        {
+            { _currentLevel.Scene, "" }
+        };
+        AnalyticsManager.Instance.LogEvent(EventName.levelEnd.ToString(), key);
     }
 }

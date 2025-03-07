@@ -60,6 +60,11 @@ public class Shop : MonoBehaviour
             SaveManager.Instance.SaveColor(colorData, true);
             CustomizerManager.Instance.Activate(colorData, true);
             slot.SetPurchaseStatus(true);
+            Dictionary<string, string> keyValue = new Dictionary<string, string> 
+            {
+                {"Color",colorData.Identifier}
+            };
+            AnalyticsManager.Instance.LogEvent(EventName.buyColor.ToString(), keyValue);
         } else
         {
             slot.SetPurchaseStatus(false);
@@ -81,6 +86,11 @@ public class Shop : MonoBehaviour
             SaveManager.Instance.SaveColor(item, true);
             _shopSlots[item].SetPurchaseStatus(true);
         }
+        Dictionary<string, string> keyValue = new Dictionary<string, string>
+            {
+                {"Item",packData.Description}
+            };
+        AnalyticsManager.Instance.LogEvent(EventName.buyInShop.ToString(), keyValue);
     }
 
 

@@ -83,6 +83,12 @@ public class LevelsManager : MonoBehaviour
         {
             SaveManager.Instance.SaveLevelUnlock(lvlData.ID, true);
             _lvlsSlots[lvlData].UnlockLevel();
+
+            Dictionary<string, string> keyValue = new Dictionary<string, string>
+            {
+                {"Name",lvlData.Scene}
+            };
+            AnalyticsManager.Instance.LogEvent(EventName.buyLevel.ToString(), keyValue);
         }
     }
 

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "New Level Data", menuName = "Level Data")]
 public class LevelData : ScriptableObject
@@ -12,7 +11,6 @@ public class LevelData : ScriptableObject
     [SerializeField] private List<CurrencyRewardData> _baseReward;
     [SerializeField] private List<CurrencyRewardData> _firstReward;
     [SerializeField] private Sprite _lvlImg;
-
 
     public int ID { get { return _ID; } }
     public int CupsPrice { get { return _cupsPrice; } }
