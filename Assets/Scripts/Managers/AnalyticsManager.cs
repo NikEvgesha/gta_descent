@@ -1,14 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
-using YG;
 
 // Интерфейс для аналитических провайдеров
-public interface IAnalyticsProvider
+public abstract class AnalyticsProvider : MonoBehaviour
 {
-    void Initialize(); // Инициализация провайдера
-    void SendEvent(string eventName, Dictionary<string, object> parameters = null); // Отправка события
-    void SendEvent(string eventName, Dictionary<string, string> parameters = null); // Отправка события
-    void SendEvent(string eventName); // Отправка события
+    public abstract void Initialize(); // Инициализация провайдера
+    public abstract void SendEvent(string eventName, Dictionary<string, object> parameters = null); // Отправка события
+    public abstract void SendEvent(string eventName, Dictionary<string, string> parameters = null); // Отправка события
+    public abstract void SendEvent(string eventName); // Отправка события
 }
 
 // Главный менеджер аналитики
@@ -29,7 +28,7 @@ public class AnalyticsManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private List<IAnalyticsProvider> analyticsProviders = new List<IAnalyticsProvider>(); // Список активных провайдеров
+    [SerializeField] private List<AnalyticsProvider> analyticsProviders = new List<AnalyticsProvider>(); // Список активных провайдеров
 
     void Awake()
     {
@@ -96,7 +95,7 @@ public class AnalyticsManager : MonoBehaviour
         }
     }
     // Метод для добавления провайдера в рантайме (опционально)
-    public void AddProvider(IAnalyticsProvider provider)
+    public void AddProvider(AnalyticsProvider provider)
     {
         if (!analyticsProviders.Contains(provider))
         {
@@ -124,43 +123,25 @@ public class AnalyticsManager : MonoBehaviour
 }*/
 
 // Пример реализации для отладочной аналитики
-public class DebugAnalyticsProvider : IAnalyticsProvider
+public class DebugAnalyticsProvider : AnalyticsProvider
 {
-    public void Initialize()
+    public override void Initialize()
     {
         Debug.Log("Debug Analytics initialized");
     }
 
-    public void SendEvent(string eventName, Dictionary<string, object> parameters)
+    public override void SendEvent(string eventName, Dictionary<string, object> parameters)
     {
         string paramString = parameters != null ? string.Join(", ", parameters) : "None";
         Debug.Log($"Debug event: {eventName}, Parameters: {paramString}");
     }
-    public void SendEvent(string eventName, Dictionary<string, string> parameters)
+    public override void SendEvent(string eventName, Dictionary<string, string> parameters)
     {
         string paramString = parameters != null ? string.Join(", ", parameters) : "None";
         Debug.Log($"Debug event: {eventName}, Parameters: {paramString}");
     }
-    public void SendEvent(string eventName)
+    public override void SendEvent(string eventName)
     {
         Debug.Log($"Debug event: {eventName}");
-    }
-}
-public class YG_MetricaProvider : IAnalyticsProvider
-{
-    public void Initialize()
-    {
-    }
-    public void SendEvent(string eventName, Dictionary<string, object> parameters)
-    {
-        YG2.MetricaSend(eventName, parameters);
-    }
-    public void SendEvent(string eventName, Dictionary<string, string> parameters)
-    {
-        YG2.MetricaSend(eventName, parameters);
-    }
-    public void SendEvent(string eventName)
-    {
-        YG2.MetricaSend(eventName);
     }
 }

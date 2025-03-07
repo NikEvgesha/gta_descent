@@ -20,6 +20,18 @@ public class CurrencyShopSlot : ShopSlot
         base.Init(data);
         _packData = data;
         _textObj.text = _packData.Description;
+
+        if (data.PurchaseReward)
+        {
+            PurchaseData PurchaseData = PurchasesManager.Instance.GetPurchaseData(data.PurchaseRewardName.ToString());
+            if (PurchaseData != null)
+            {
+                Debug.Log($"Item: {PurchaseData.Title}, Price: {PurchaseData.Price}");
+                _textObj.text = PurchaseData.Title;
+                _priceObj.text = PurchaseData.Price;
+            }
+        }
+
         _itemImgObj.sprite = _packData.ItemIMG;
     }
 

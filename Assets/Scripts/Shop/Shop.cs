@@ -75,7 +75,44 @@ public class Shop : MonoBehaviour
 
     public void TryBuy(CurrencyPackData packData)
     {
+        if (packData.AdsReward)
+        {
+            AdsManager.Instance.ShowRewardedAd(packData.AdsRewardName.ToString(), (success) =>
+            {
+                if (success)
+                {
+                    AddReward(packData);
+                    Debug.Log("Player received reward!");
+                }
+                else
+                {
+                    Debug.Log("Rewarded ad failed or was closed");
+                }
+            });
+            return;
+        }
+
         // Payment processing
+        if (packData.PurchaseReward)
+        {
+            PurchasesManager.Instance.BuyPurchase(packData.PurchaseRewardName.ToString(), (success) =>
+            {
+                if (success)
+                {
+                    AddReward(packData);
+                    Debug.Log("Purchase completed!");
+                    // Дай игроку награду, например, 50 монет
+                }
+                else
+                {
+                    Debug.Log("Purchase failed!");
+                }
+            });
+        }
+
+    }
+    private void AddReward(CurrencyPackData packData)
+    {
         foreach (var item in packData.CurrencyRewards)
         {
             CurrencyManager.Instance.AddCurrency(item.CurrencyType, item.Amount);

@@ -13,6 +13,7 @@ public class Teleport : MonoBehaviour
                 GameManager.Instance.LevelWin?.Invoke();
             }
             other.gameObject.GetComponent<CarTeleport>().Teleport(_spawnPoint.GetPointToSpawn(), _onInertion);
+            AdsManager.Instance.ShowInterstitialAd();
         }
     }
     private void Awake()

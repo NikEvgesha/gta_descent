@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676c869f6c04b7848ae04d741545c51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  id: gems_5
   purchaseImageLoad: {fileID: 0}
   currencyImageLoad: {fileID: 0}
   showCurrencyCode: 0

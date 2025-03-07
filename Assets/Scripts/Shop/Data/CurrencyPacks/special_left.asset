@@ -21,3 +21,7 @@ MonoBehaviour:
     CurrencyType: 1
   _itemReward:
   - {fileID: 11400000, guid: a766bb360f1f5694cbfc62a6ad6d236f, type: 2}
+  _adsReward: 0
+  _adsRewardName: 1
+  _purchaseReward: 1
+  _purchaseRewardName: 3

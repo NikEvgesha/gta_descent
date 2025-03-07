@@ -20,3 +20,7 @@ MonoBehaviour:
   - Amount: 5
     CurrencyType: 1
   _itemReward: []
+  _adsReward: 1
+  _adsRewardName: 1
+  _purchaseReward: 0
+  _purchaseRewardName: 0

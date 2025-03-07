@@ -184,27 +184,45 @@ MonoBehaviour:
   Payments:
     testBuyFail: 0
     purshases:
-    - id: gun
-      title: Gun
-      description: Product - Gun
+    - id: gems_5
+      title: Gems 5
+      description: 
       imageURI: demo image
       price: 5 YAN
       priceValue: 5
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
       consumed: 1
-    - id: armor
-      title: Armor
-      description: Product - Armor
+    - id: gems_50
+      title: Gems 50
+      description: 
       imageURI: demo image
       price: 10 YAN
       priceValue: 10
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
       consumed: 1
-    - id: grenade
-      title: Grenade
-      description: Product - Grenade
+    - id: gems_200
+      title: Gems 200
+      description: 
+      imageURI: demo image
+      price: 30 YAN
+      priceValue: 30
+      priceCurrencyCode: YAN
+      currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
+      consumed: 1
+    - id: special_left
+      title: Special Left
+      description: 
+      imageURI: demo image
+      price: 30 YAN
+      priceValue: 30
+      priceCurrencyCode: YAN
+      currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
+      consumed: 1
+    - id: special_right
+      title: Special Right
+      description: 
       imageURI: demo image
       price: 30 YAN
       priceValue: 30
