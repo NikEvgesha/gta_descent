@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 572a2ba3d277f0c45a53902f437b9db9, type: 3}
-  m_Name: gems_50
+  m_Name: cups_150
   m_EditorClassIdentifier: 
-  _price: 45
-  _currencyType: 2
-  _itemImg: {fileID: 21300000, guid: af173c583a2a86e42a5693d13f1cd742, type: 3}
-  _text: 50
+  _price: 69
+  _currencyType: 1
+  _itemImg: {fileID: 21300000, guid: 34be9a13a06d4974e9b13295924b11bf, type: 3}
+  _text: 150
   _currencyReward:
-  - Amount: 50
-    CurrencyType: 1
+  - Amount: 150
+    CurrencyType: 0
   _itemReward: []
   _adsReward: 0
-  _adsRewardName: 1
-  _purchaseReward: 1
-  _purchaseRewardName: 1
+  _adsRewardName: 0
+  _purchaseReward: 0
+  _purchaseRewardName: 0

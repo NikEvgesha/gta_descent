@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572a2ba3d277f0c45a53902f437b9db9, type: 3}
   m_Name: cups_50
   m_EditorClassIdentifier: 
-  _price: 400
+  _price: 29
   _currencyType: 1
   _itemImg: {fileID: 21300000, guid: 34be9a13a06d4974e9b13295924b11bf, type: 3}
   _text: 50

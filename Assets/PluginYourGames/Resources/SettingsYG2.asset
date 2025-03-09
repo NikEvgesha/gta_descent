@@ -184,48 +184,48 @@ MonoBehaviour:
   Payments:
     testBuyFail: 0
     purshases:
-    - id: gems_5
-      title: Gems 5
+    - id: gems_35
+      title: 35
       description: 
       imageURI: demo image
-      price: 5 YAN
-      priceValue: 5
+      price: 19
+      priceValue: 19
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
       consumed: 1
-    - id: gems_50
-      title: Gems 50
+    - id: gems_100
+      title: 100
       description: 
       imageURI: demo image
-      price: 10 YAN
-      priceValue: 10
+      price: 49
+      priceValue: 49
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
       consumed: 1
-    - id: gems_200
-      title: Gems 200
+    - id: gems_210
+      title: 210
       description: 
       imageURI: demo image
-      price: 30 YAN
-      priceValue: 30
+      price: 99
+      priceValue: 99
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
       consumed: 1
     - id: special_left
-      title: Special Left
+      title: 50
       description: 
       imageURI: demo image
-      price: 30 YAN
-      priceValue: 30
+      price: 29
+      priceValue: 29
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
       consumed: 1
     - id: special_right
-      title: Special Right
+      title: 360
       description: 
       imageURI: demo image
-      price: 30 YAN
-      priceValue: 30
+      price: 149
+      priceValue: 149
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
       consumed: 1

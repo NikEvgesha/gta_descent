@@ -12,14 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572a2ba3d277f0c45a53902f437b9db9, type: 3}
   m_Name: special_right
   m_EditorClassIdentifier: 
-  _price: 100
+  _price: 149
   _currencyType: 2
-  _itemImg: {fileID: 21300000, guid: ad321336bf876034ca6fff92978fa59e, type: 3}
-  _text: 100+20
+  _itemImg: {fileID: 21300000, guid: d3a69dfaa35f98844ab4b30e8f5328ae, type: 3}
+  _text: 360
   _currencyReward:
-  - Amount: 20
-    CurrencyType: 0
-  - Amount: 100
+  - Amount: 360
     CurrencyType: 1
   _itemReward: []
   _adsReward: 0
