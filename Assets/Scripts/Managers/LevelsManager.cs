@@ -7,7 +7,7 @@ public class LevelsManager : MonoBehaviour
     [SerializeField] private List<LevelData> _levelsData;
 
     [SerializeField] private LevelMenuItem _lvlPrefab;
-    [SerializeField] private Transform _lvlParent;
+    [SerializeField] private DynamicGridSpawner _lvlParent;
 
     private Dictionary<LevelData, bool[]> _levelsSaveInfo;
     private Dictionary<LevelData, LevelMenuItem> _lvlsSlots;
@@ -46,7 +46,8 @@ public class LevelsManager : MonoBehaviour
     {
         foreach (var item in _levelsData)
         {
-            LevelMenuItem slot = Instantiate(_lvlPrefab, _lvlParent);
+            LevelMenuItem slot = _lvlParent.SpawnObject<LevelMenuItem>(_lvlPrefab.gameObject);
+            //LevelMenuItem slot = Instantiate(_lvlPrefab, _lvlParent);
             slot.Init(item, _levelsSaveInfo[item][0], _levelsSaveInfo[item][1]);
             _lvlsSlots.Add(item, slot);
         }

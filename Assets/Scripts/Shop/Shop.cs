@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +15,8 @@ public class Shop : MonoBehaviour
 
     [Header("Slot Prefabs")]
     [SerializeField] private ColorShopSlot _colorSlotPrefab;
-    [SerializeField] private Transform _colorSlotParent;
+    [SerializeField] private DynamicGridSpawner _colorSlotParent;
+
 /*    [SerializeField] private CurrencyShopSlot _currencyPrefab;
     [SerializeField] private Transform _currencySlotParent;*/
 
@@ -140,7 +140,9 @@ public class Shop : MonoBehaviour
 
 
         foreach (var item in _carColors) {
-            ColorShopSlot slot = Instantiate(_colorSlotPrefab, _colorSlotParent);
+
+            ColorShopSlot slot = _colorSlotParent.SpawnObject<ColorShopSlot>(_colorSlotPrefab.gameObject);
+            //ColorShopSlot slot = Instantiate(_colorSlotPrefab, _colorSlotParent);
             slot.Init(item, _colorStatuses[item], _buyButton, _toggleGroup);
             _shopSlots.Add(item, slot);
         }
