@@ -188,7 +188,7 @@ MonoBehaviour:
       title: 35
       description: 
       imageURI: demo image
-      price: 19
+      price: 19 YAN
       priceValue: 19
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
@@ -197,7 +197,7 @@ MonoBehaviour:
       title: 100
       description: 
       imageURI: demo image
-      price: 49
+      price: 49 YAN
       priceValue: 49
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
@@ -206,7 +206,7 @@ MonoBehaviour:
       title: 210
       description: 
       imageURI: demo image
-      price: 99
+      price: 99 YAN
       priceValue: 99
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
@@ -215,7 +215,7 @@ MonoBehaviour:
       title: 50
       description: 
       imageURI: demo image
-      price: 29
+      price: 29 YAN
       priceValue: 29
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png
@@ -224,7 +224,7 @@ MonoBehaviour:
       title: 360
       description: 
       imageURI: demo image
-      price: 149
+      price: 149 YAN
       priceValue: 149
       priceCurrencyCode: YAN
       currencyImageURL: https://yastatic.net/s3/games-static/static-data/images/payments/sdk/currency-icon-s@2x.png

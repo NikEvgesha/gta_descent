@@ -11,7 +11,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private CurrencyShopSlot _currencyPrefab;
     [SerializeField] private CurrencyShopSlot _currencyPrefabLeft;
     [SerializeField] private CurrencyShopSlot _currencyPrefabRight;
-    [SerializeField] private Transform _currencySlotParent;
+    [SerializeField] private DynamicGridSpawner _currencySlotParent;
     [SerializeField] private Transform _leftPackParent;
     [SerializeField] private Transform _rightPackParent;
     [SerializeField] private List<Transform> _slotRow;
@@ -66,22 +66,11 @@ public class ShopUI : MonoBehaviour
 
     public void InitCurrencySpecialSlots(List<CurrencyPackData> packs, CurrencyPackData packLeft, CurrencyPackData packRight)
     {
-        int rowNum = 0;
-        int slotNum = 0;
         foreach (var item in packs)
         {
-            CurrencyShopSlot slot = Instantiate(_currencyPrefab, _slotRow[rowNum]);
+            CurrencyShopSlot slot = _currencySlotParent.SpawnObject<CurrencyShopSlot>(_currencyPrefab.gameObject);
+            //CurrencyShopSlot slot = Instantiate(_currencyPrefab, _slotRow[rowNum]);
             slot.Init(item);
-            slotNum++;
-            if (slotNum >= _slotsPerRow)
-            {
-                rowNum++;
-                if (rowNum>= _slotRow.Count)
-                {
-                    Debug.Log("Need more slots"); 
-                    rowNum = _slotRow.Count-1;
-                }
-            }
         }
 
         CurrencyShopSlot left = Instantiate(_currencyPrefabLeft, _leftPackParent);

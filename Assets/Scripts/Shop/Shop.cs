@@ -108,6 +108,11 @@ public class Shop : MonoBehaviour
                     Debug.Log("Purchase failed!");
                 }
             });
+            return;
+        }
+        if (CurrencyManager.Instance.RemoveCurrency(packData.CurrencyType, packData.Price))
+        {
+            AddReward(packData);
         }
 
     }

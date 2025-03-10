@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ public class CurrencyShopSlot : ShopSlot
     [SerializeField] private Text _textObj;
 
     [SerializeField] private CurrencyPackData _packData;
+
+    [SerializeField] private GameObject _ads;
 
 /*    private new void Start()
     {
@@ -28,11 +31,15 @@ public class CurrencyShopSlot : ShopSlot
             {
                 Debug.Log($"Item: {PurchaseData.Title}, Price: {PurchaseData.Price}");
                 _textObj.text = PurchaseData.Title;
-                _priceObj.text = PurchaseData.Price;
+                string number = Regex.Match(PurchaseData.Price, @"\d+\.?\d*").Value; // "19.99"
+                _priceObj.text = number;
             }
         }
 
         _itemImgObj.sprite = _packData.ItemIMG;
+
+        _ads.SetActive(data.AdsReward);
+        _priceObj.gameObject.SetActive(!data.AdsReward);
     }
 
     public override void OnClick()
