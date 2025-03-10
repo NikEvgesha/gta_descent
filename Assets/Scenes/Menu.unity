@@ -2111,6 +2111,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 623504520716014608, guid: 06e373d58dae043459feca9375d2e5ae, type: 3}
+      propertyPath: _currencyPacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8237f2b344ba44cac67e67fad04e84, type: 2}
+    - target: {fileID: 623504520716014608, guid: 06e373d58dae043459feca9375d2e5ae, type: 3}
+      propertyPath: _currencyPacks.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b7c173d901445f4cbf67a512869bc53, type: 2}
     - target: {fileID: 636246942754300731, guid: 06e373d58dae043459feca9375d2e5ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 605.65424

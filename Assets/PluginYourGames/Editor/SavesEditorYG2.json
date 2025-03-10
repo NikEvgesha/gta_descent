@@ -7,7 +7,7 @@
         false,
         false
     ],
-    "idSave": 564,
+    "idSave": 557,
     "levels": [],
     "levels_id": [
         1,
@@ -46,7 +46,7 @@
     "colors_status": [
         true,
         false,
-        true,
+        false,
         false,
         false
     ],
@@ -59,7 +59,7 @@
         34.42966079711914,
         97.94567108154297
     ],
-    "cups": 122,
-    "gems": 1590,
+    "cups": 102,
+    "gems": 790,
     "newPlayer": false
 }

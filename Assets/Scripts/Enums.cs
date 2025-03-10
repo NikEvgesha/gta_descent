@@ -26,9 +26,9 @@ public enum AdsReward
 }
 public enum PurchaseReward
 {
-    gems_5,
-    gems_50,
-    gems_200,
+    gems_35,
+    gems_100,
+    gems_210,
     special_left,
     special_right,
 }
