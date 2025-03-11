@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     {
         Dictionary<string,string> key = new Dictionary<string,string>
         {
-            { _currentLevel.Scene, "" }
+            { "Scene:", _currentLevel.Scene }
         };
         AnalyticsManager.Instance.LogEvent(EventName.levelEnd.ToString(), key);
     }

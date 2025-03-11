@@ -82,6 +82,7 @@ public class Shop : MonoBehaviour
                 if (success)
                 {
                     AddReward(packData);
+                    AddMetrica(packData.CurrencyType.ToString()); ;
                     Debug.Log("Player received reward!");
                 }
                 else
@@ -115,6 +116,14 @@ public class Shop : MonoBehaviour
             AddReward(packData);
         }
 
+    }
+    private void AddMetrica(string currencyType)
+    {
+        Dictionary<string, string> key = new Dictionary<string, string>
+        {
+            { "Reward:",  currencyType}
+        };
+        AnalyticsManager.Instance.LogEvent(EventName.adsView.ToString(), key);
     }
     private void AddReward(CurrencyPackData packData)
     {
