@@ -20,6 +20,8 @@ public class SaveManager : MonoBehaviour
     private Dictionary<int, bool[]> _levels = new();
 
     private bool _initialized;
+
+    private bool _isChanged;
     public bool IsNewPlayer { 
         get {
             if (YG2.isSDKEnabled)
@@ -69,6 +71,7 @@ public class SaveManager : MonoBehaviour
             YG2.SaveProgress();
             _removeSaveOnStart = false;
         }
+        StartCoroutine(SaveProgress());
         //GameLoader.Instance.LoadNextScene("Menu", true);
     }
 
@@ -81,6 +84,21 @@ public class SaveManager : MonoBehaviour
         }
     }*/
 
+
+    private IEnumerator SaveProgress()
+    {
+        
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            if (_isChanged)
+            {
+                YG2.SaveProgress();
+                _isChanged = false;
+            }
+                
+        }
+    }
     private void OnDisable()
     {
         YG2.SaveProgress();
@@ -112,11 +130,13 @@ public class SaveManager : MonoBehaviour
     public void SaveMusicVolume(float volume)
     {
         YG2.saves.musicVolume = volume;
+        _isChanged = true;
     }
 
     public void SaveSoundVolume(float volume)
     {
         YG2.saves.soundVolume = volume;
+        _isChanged = true;
     }
 
     public void SaveScore(float score, int lvlId)
@@ -125,6 +145,7 @@ public class SaveManager : MonoBehaviour
         YG2.saves.scores[lvlId - 1] = score;
         string lbName = "lvl" + lvlId.ToString();
         YG2.SetLBTimeConvert(lbName, score);
+        _isChanged = true;
     }
 
     public void LoadScores()
@@ -189,6 +210,7 @@ public class SaveManager : MonoBehaviour
                 break;
             default: break;
         }
+        _isChanged = true;
     }
 
     private IEnumerator UpdateLeaderboard(int amount)
@@ -212,6 +234,7 @@ public class SaveManager : MonoBehaviour
             _levels[id][0] = unlocked;
             YG2.saves.levels_status[id-1] = unlocked;
         }
+        _isChanged = true;
     }
 
     public void SaveLevelWin(int id, bool win)
@@ -226,6 +249,7 @@ public class SaveManager : MonoBehaviour
             _levels[id][1] = win;
             YG2.saves.levels_win[id - 1] = win;
         }
+        _isChanged = true;
     }
 
 
@@ -251,6 +275,7 @@ public class SaveManager : MonoBehaviour
                 YG2.saves.colors_status[i] = purchased;
             }
         }
+        _isChanged = true;
     }
 
 

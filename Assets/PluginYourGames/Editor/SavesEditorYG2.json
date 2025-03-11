@@ -7,7 +7,7 @@
         false,
         false
     ],
-    "idSave": 731,
+    "idSave": 740,
     "levels": [],
     "levels_id": [
         1,
@@ -20,15 +20,15 @@
     ],
     "levels_status": [
         false,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
     ],
     "levels_win": [
-        false,
+        true,
         false,
         false,
         false,
@@ -51,7 +51,7 @@
         false
     ],
     "scores": [
-        0.0,
+        30.3799991607666,
         0.0,
         0.0,
         0.0,
@@ -59,9 +59,9 @@
         0.0,
         0.0
     ],
-    "cups": 800,
-    "gems": 1776,
+    "cups": 10,
+    "gems": 10,
     "newPlayer": false,
-    "musicVolume": 0.09156276285648346,
-    "soundVolume": 0.8395309448242188
+    "musicVolume": 0.5,
+    "soundVolume": 0.5
 }
