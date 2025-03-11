@@ -5246,7 +5246,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: df47aa4001bd9ab4595c500782c17d09, type: 2}
   _currencyPacks:
   - {fileID: 11400000, guid: 4435158ba5670054984b74bc69b30b57, type: 2}
-  - {fileID: 11400000, guid: fffd116562396b54ebf278094d0ff1c4, type: 2}
+  - {fileID: 11400000, guid: a5b7505947ee2774ba90c2f3217e1bf2, type: 2}
   - {fileID: 11400000, guid: 8b7c173d901445f4cbf67a512869bc53, type: 2}
   - {fileID: 11400000, guid: a9c1f881a28e2914aa773c3d99196d30, type: 2}
   - {fileID: 11400000, guid: c44ee3c2c1830d646bde922fe6d080cb, type: 2}
