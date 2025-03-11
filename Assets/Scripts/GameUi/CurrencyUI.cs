@@ -27,11 +27,13 @@ public class CurrencyUI : MonoBehaviour
 
     private void SetGems(int newAmount)
     {
+        Debug.Log("Set UI gems: " + newAmount);
         _gems.Set(newAmount.ToString());
     }
 
     private void SetCups(int newAmount)
     {
+        Debug.Log("Set UI cups: " + newAmount);
         _cups.Set(newAmount.ToString());
     }
 }

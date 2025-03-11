@@ -162,10 +162,12 @@ public class SaveManager : MonoBehaviour
         Dictionary<CurrencyType, int> res = new();
         if (YG2.isSDKEnabled)
         {
+            Debug.Log("load currency from saves");
             res.Add(CurrencyType.Cups, YG2.saves.cups);
             res.Add(CurrencyType.Gems, YG2.saves.gems);
         } else
         {
+            Debug.Log("load currency from defaults");
             res.Add(CurrencyType.Cups, 0);
             res.Add(CurrencyType.Gems, 0);
         }
