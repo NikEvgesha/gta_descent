@@ -20,7 +20,7 @@ public class LanguageButton : MonoBehaviour
 
         if (LocalizationManager.Instance != null)
         {
-            LocalizationManager.Instance.ChangeLanguage(language); 
+            //LocalizationManager.Instance.ChangeLanguage(language); 
             string formattedLang = char.ToLowerInvariant(language[0]) + language.Substring(1);
             YG2.SwitchLanguage(formattedLang);
             Debug.LogFormat("Выбранный язык: {0}", language);

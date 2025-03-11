@@ -13,6 +13,8 @@ public class LevelScore : MonoBehaviour
     private int _lvl_id;
     private float _playerBestScore;
     private Tuple<int, string> _globalBestScore;
+    private string _bestPlayerName;
+    private int _bestPlayerScore;
 
     public float CurrentTime { get { return _roundTime; } private set { } }
 
@@ -20,11 +22,13 @@ public class LevelScore : MonoBehaviour
     {
         GameManager.Instance.LevelWin += OnWin;
         YG2.onGetLeaderboard += SetGlobalRecord;
+        LocalizationManager.Instance.OnLanguageChanged += onLanguageChange;
     }
 
     private void OnDisable()
     {
         GameManager.Instance.LevelWin -= OnWin;
+        LocalizationManager.Instance.OnLanguageChanged -= onLanguageChange;
     }
 
     void Start()
@@ -42,13 +46,21 @@ public class LevelScore : MonoBehaviour
         UpdateTime();
     }
 
+    private void onLanguageChange(string lang)
+    {
+        _globalBestScore = Tuple.Create(_bestPlayerScore, LBMethods.AnonymousName(_bestPlayerName));
+        _ui.SetGlobalRecord(_globalBestScore);
+    }
+
 
     private void SetGlobalRecord(LBData data)
     {
         if (data.technoName != "lvl" + _lvl_id)
             return;
         if (data.players.Length > 0) {
-            _globalBestScore = Tuple.Create(data.players[0].score, data.players[0].name);
+            _globalBestScore = Tuple.Create(data.players[0].score, LBMethods.AnonymousName(data.players[0].name));
+            _bestPlayerName = data.players[0].name;
+            _bestPlayerScore = data.players[0].score;
             _ui.SetGlobalRecord(_globalBestScore);
         } else
         {

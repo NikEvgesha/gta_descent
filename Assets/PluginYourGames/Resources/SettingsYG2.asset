@@ -50,7 +50,7 @@ MonoBehaviour:
       type: numeric
       players:
       - rank: 1
-        name: test
+        name: anonymous
         score: 20034
         photo: 
         uniqueID: 
