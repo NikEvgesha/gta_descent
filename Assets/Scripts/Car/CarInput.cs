@@ -76,16 +76,12 @@ public class CarInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            IsCursorVisible = true;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            ShowCursor();
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            IsCursorVisible = false;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            HideCursor();
         }
 
         if (!IsCursorVisible)
@@ -99,7 +95,18 @@ public class CarInput : MonoBehaviour
             MouseY = 0f;
         }
     }
-
+    public void ShowCursor()
+    {
+        IsCursorVisible = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+    public void HideCursor()
+    {
+        IsCursorVisible = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     private bool ValidateTouchControls()
     {
         if (_uIButton._throttleButton == null || _uIButton._reverseButton == null || _uIButton._turnRightButton == null ||
