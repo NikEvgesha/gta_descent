@@ -26,17 +26,24 @@ public class CameraFollow : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private bool isRotating = false;
     private float timeSinceLastInput = 0f;
-
+    private bool forceInstantUpdate = false; 
+    private float forceUpdateTime = 0f; // Таймер на несколько кадров
+    private float forceUpdateDuration = 0.1f; // Время в секундах для фиксации
     private void OnEnable()
     {
         if (Application.isPlaying)
+        {
             Settings.instance.ChangeMouseSensitivity += ChangeMouseSensitivity;
+        }
     }
 
     private void OnDisable()
     {
         if (Application.isPlaying)
+        {
+            carTransform.GetComponent<CarTeleport>().TeleportStart -= TeleportCamera;
             Settings.instance.ChangeMouseSensitivity -= ChangeMouseSensitivity;
+        }
     }
 
     void Start()
@@ -50,6 +57,7 @@ public class CameraFollow : MonoBehaviour
         if (Application.isPlaying)
         {
             touchArea = carInput.GetCameraArea();
+            carTransform.GetComponent<CarTeleport>().TeleportStart += TeleportCamera;
         }
     }
 
@@ -68,7 +76,26 @@ public class CameraFollow : MonoBehaviour
             HandleCameraRotation();
             UpdateCameraPosition();
         }
+        /*else if (forceInstantUpdate)
+        {
+            InstantUpdateCameraPosition();
+        }*/
     }
+    void LateUpdate()
+    {
+        if (forceInstantUpdate)
+        {
+            InstantUpdateCameraPosition();
+
+            // Поддерживаем мгновенное обновление на протяжении нескольких кадров
+            forceUpdateTime -= Time.deltaTime;
+            if (forceUpdateTime <= 0)
+            {
+                forceInstantUpdate = false;
+            }
+        }
+    }
+
 
     void HandleCameraRotation()
     {
@@ -136,26 +163,49 @@ public class CameraFollow : MonoBehaviour
             rotation.x = Mathf.LerpAngle(rotation.x, targetRotationX, Time.fixedDeltaTime * rotationReturnSpeed);
         }
     }
+    public void TeleportCamera()
+    {
+        forceInstantUpdate = true;
+        forceUpdateTime = forceUpdateDuration; // Активируем принудительное обновление
+        rotation.x = carTransform.eulerAngles.y;
+        InstantUpdateCameraPosition();
+    }
 
-    void UpdateCameraPosition()
+
+    void InstantUpdateCameraPosition()
     {
         if (!carTransform) return;
 
-        // Вычисляем позицию камеры
         Quaternion rotationQuat = Quaternion.Euler(rotation.y, rotation.x, 0);
         Vector3 targetPosition = carTransform.position - (rotationQuat * Vector3.forward * distance) + (Vector3.up * height);
-        transform.position = Application.isPlaying ? Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime) : targetPosition;
 
-        // Вычисляем точку, на которую смотрит камера, с учётом смещения
+        // Принудительно ставим камеру на место
+        transform.position = targetPosition;
+
+        // Сразу смотрим на нужную точку
         Vector3 lookAtPoint = carTransform.position + carTransform.TransformDirection(lookAtOffset);
         transform.LookAt(lookAtPoint);
     }
 
-    public void TeleportCamera()
+    void UpdateCameraPosition(bool instant = false)
     {
-        rotation.x = carTransform.eulerAngles.y;
-        transform.position = carTransform.position - (Quaternion.Euler(rotation.y, rotation.x, 0) * Vector3.forward * distance) + (Vector3.up * height);
-        transform.LookAt(carTransform.position + carTransform.TransformDirection(lookAtOffset));
+        if (!carTransform) return;
+
+        Quaternion rotationQuat = Quaternion.Euler(rotation.y, rotation.x, 0);
+        Vector3 targetPosition = carTransform.position - (rotationQuat * Vector3.forward * distance) + (Vector3.up * height);
+
+        if (instant || !Application.isPlaying)
+        {
+            transform.position = targetPosition;
+            velocity = Vector3.zero; // Останавливаем плавное движение
+        }
+        else
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        }
+
+        Vector3 lookAtPoint = carTransform.position + carTransform.TransformDirection(lookAtOffset);
+        transform.LookAt(lookAtPoint);
     }
 
     void OnValidate()

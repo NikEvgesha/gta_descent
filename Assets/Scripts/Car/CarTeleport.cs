@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CarTeleport : MonoBehaviour
@@ -5,6 +6,7 @@ public class CarTeleport : MonoBehaviour
     private Rigidbody _rb;
     private SpawnPoint _spawnPoint;
     private bool _wasSpawnPressed;
+    public Action TeleportStart;
 
     private void Awake()
     {
@@ -31,5 +33,6 @@ public class CarTeleport : MonoBehaviour
 
         _rb.velocity = spawn.forward * velocity.magnitude;
         _rb.angularVelocity = angularVelocity;
+        TeleportStart?.Invoke();
     }
 }

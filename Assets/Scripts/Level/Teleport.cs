@@ -1,23 +1,49 @@
 using UnityEngine;
+using System.Collections;
 
 public class Teleport : MonoBehaviour
 {
     [SerializeField] private SpawnPoint _spawnPoint;
     [SerializeField] private bool _onInertion = true;
+    [SerializeField] private AudioSource _sound;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<CarTeleport>() != null)
         {
             if (_onInertion)
             {
+                _sound.Play();
                 GameManager.Instance.LevelWin?.Invoke();
             }
-            other.gameObject.GetComponent<CarTeleport>().Teleport(_spawnPoint.GetPointToSpawn(), _onInertion);
-            AdsManager.Instance.ShowInterstitialAd();
+
+            StartCoroutine(FadeSequence(other.gameObject.GetComponent<CarTeleport>()));
         }
     }
+
     private void Awake()
     {
         _spawnPoint = FindAnyObjectByType<SpawnPoint>();
+    }
+
+    private IEnumerator FadeSequence(CarTeleport car)
+    {
+        if (Fade.Instance != null)
+        {
+            yield return Fade.Instance.FadeIn();
+            AfterFade(car);
+            yield return Fade.Instance.FadeOut();
+        }
+        else
+        {
+            AfterFade(car);
+            yield return null;
+        }
+    }
+
+    private void AfterFade(CarTeleport car)
+    {
+        car.Teleport(_spawnPoint.GetPointToSpawn(), _onInertion);
+        AdsManager.Instance.ShowInterstitialAd();
     }
 }
