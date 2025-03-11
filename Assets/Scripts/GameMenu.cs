@@ -4,9 +4,22 @@ public class GameMenu : MonoBehaviour
 {
     [SerializeField] private GameObject _exitWindow;
 
+    private static GameMenu _instance;
+    public static GameMenu Instance { get { return _instance; } }
 
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
-    public void OnClick()
+    public void OpenExitWindow()
     {
         _exitWindow.SetActive(true);
         //GameManager.Instance.SetPause(true);

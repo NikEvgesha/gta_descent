@@ -7,7 +7,7 @@
         false,
         false
     ],
-    "idSave": 680,
+    "idSave": 705,
     "levels": [],
     "levels_id": [
         1,
@@ -20,12 +20,12 @@
     ],
     "levels_status": [
         false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
     ],
     "levels_win": [
         false,
@@ -60,6 +60,6 @@
         0.0
     ],
     "cups": 0,
-    "gems": 0,
+    "gems": 2150,
     "newPlayer": false
 }
