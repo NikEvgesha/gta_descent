@@ -38,7 +38,7 @@ public class AnalyticsManager : MonoBehaviour
             return;
         }
         _instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         // Инициализация всех провайдеров
         InitializeProviders();

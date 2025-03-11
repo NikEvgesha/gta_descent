@@ -56,7 +56,7 @@ public class PurchasesManager : MonoBehaviour
             return;
         }
         _instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         // ѕроверка и инициализаци€ провайдера
         if (activeProvider == null || !activeProvider.TryGetComponent(out provider))

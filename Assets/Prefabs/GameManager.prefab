@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localizationData: {fileID: 11400000, guid: 247e385684679874b849f4c64cf8b6fc, type: 2}
-  currentLanguage: Ru
+  currentLanguage: En
 --- !u!1 &745955758753446238
 GameObject:
   m_ObjectHideFlags: 0

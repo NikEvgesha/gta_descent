@@ -39,7 +39,7 @@ public class AdsManager : MonoBehaviour
             return;
         }
         _instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         // Инициализация всех провайдеров
         InitializeProviders();
