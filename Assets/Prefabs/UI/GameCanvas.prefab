@@ -647,6 +647,7 @@ GameObject:
   - component: {fileID: 3976576801972056488}
   - component: {fileID: 8339919612544279911}
   - component: {fileID: 2556417502932966106}
+  - component: {fileID: 1968017512203682663}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -717,6 +718,21 @@ MonoBehaviour:
   m_Text: 'Spawn
 
 '
+--- !u!114 &1968017512203682663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082377701170984884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4151974eac4ae4ba8ed7bcb9cf28ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationData: {fileID: 11400000, guid: 247e385684679874b849f4c64cf8b6fc, type: 2}
+  selectedKey: Spawn
+  currentLanguage: Ru
 --- !u!1 &1592698749269605460
 GameObject:
   m_ObjectHideFlags: 0

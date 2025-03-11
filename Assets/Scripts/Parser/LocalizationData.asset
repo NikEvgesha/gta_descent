@@ -98,3 +98,7 @@ MonoBehaviour:
     Translations:
     - "\u0412 \u043B\u043E\u0431\u0431\u0438"
     - To lobby
+  - Key: Spawn
+    Translations:
+    - "\u0421\u043F\u0430\u0432\u043D"
+    - Spawn
