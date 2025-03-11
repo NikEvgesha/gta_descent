@@ -30,7 +30,7 @@ MonoBehaviour:
     enable: 1
     saveScoreAnonymousPlayers: 1
     listLBSim:
-    - technoName: lvl_1
+    - technoName: lvl1
       entries: '1. Max: 10
 
         2. Maria: 15321
@@ -59,7 +59,7 @@ MonoBehaviour:
         rank: 5
         score: 999
         extraData: 
-    - technoName: lvl_2
+    - technoName: lvl2
       entries: '1. Max: 10
 
         2. Maria: 15321
@@ -77,7 +77,13 @@ MonoBehaviour:
       isInvertSortOrder: 1
       decimalOffset: 2
       type: numeric
-      players: []
+      players:
+      - rank: 1
+        name: pumpumpum
+        score: 1000456
+        photo: 
+        uniqueID: 
+        extraData: 
       currentPlayer:
         rank: 5
         score: 999
@@ -173,6 +179,71 @@ MonoBehaviour:
       currentPlayer:
         rank: 5
         score: 999
+        extraData: 
+    - technoName: main
+      entries: '1. Max: 10
+
+        2. Maria: 15321
+
+        3. anonymous: 62000
+
+        4.
+        Player 4: 122000
+
+        5. Player current: 127000
+
+        6. Player 6:
+        340000'
+      isDefault: 0
+      isInvertSortOrder: 0
+      decimalOffset: 0
+      type: numeric
+      players:
+      - rank: 7
+        name: sjdkofsdf
+        score: 10
+        photo: 
+        uniqueID: 
+        extraData: 
+      - rank: 6
+        name: cnivosfscfsd
+        score: 20
+        photo: 
+        uniqueID: 
+        extraData: 
+      - rank: 45
+        name: vdhbdfg
+        score: 30
+        photo: 
+        uniqueID: 
+        extraData: 
+      - rank: 4
+        name: dgfhdfgdg
+        score: 45
+        photo: 
+        uniqueID: 
+        extraData: 
+      - rank: 3
+        name: cvbfgc
+        score: 67
+        photo: 
+        uniqueID: 
+        extraData: 
+      - rank: 2
+        name: fghncvb
+        score: 78
+        photo: 
+        uniqueID: 
+        extraData: 
+      - rank: 1
+        name: rgfdgbcf
+        score: 80
+        photo: 
+        uniqueID: 
+        extraData: 
+      currentPlayer:
+        rank: 10
+        score: 4
         extraData: 
   Localization:
     setLanguageMod: 1

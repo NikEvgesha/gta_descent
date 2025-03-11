@@ -56,54 +56,52 @@ public class SaveManager : MonoBehaviour
 
     private void OnEnable()
     {
-        YG2.onGetLeaderboard += LoadGlobalScores;
+        //YG2.onGetLeaderboard += LoadGlobalScores;
     }
 
     private void Start()
     {
-        GetLevelLeaderboards();
-        
+        //GetLevelLeaderboards();
         if (_removeSaveOnStart)
         {
             YG2.SetDefaultSaves();
             YG2.SaveProgress();
             _removeSaveOnStart = false;
         }
-        GameLoader.Instance.LoadNextScene("Menu", true);
+        //GameLoader.Instance.LoadNextScene("Menu", true);
     }
 
-    private void GetLevelLeaderboards()
+/*    private void GetLevelLeaderboards()
     {
         for (int i = 0; i < _lvlsCount; i++)
         {
             _globalScores.Add(Tuple.Create(0, ""));
-            YG2.GetLeaderboard("lvl_" + (i + 1).ToString(), 1, 0);
+            YG2.GetLeaderboard("lvl" + (i + 1).ToString(), 1, 0);
         }
-    }
+    }*/
 
     private void OnDisable()
     {
         YG2.SaveProgress();
     }
 
-    private void LoadGlobalScores(LBData data)
+/*    private void LoadGlobalScores(LBData data)
     {
-        int lvlId = Int32.Parse(data.technoName.Substring(data.technoName.IndexOf("_") + 1));
+        int lvlId = Int32.Parse(data.technoName.Substring(3));
         if (data.players.Length > 0)
             _globalScores[lvlId - 1] = Tuple.Create(data.players[0].score, data.players[0].name);
-    }
+    }*/
 
-
-    public Tuple<int, string> GetLevelBestScore(int lvlId)
+/*    public Tuple<int, string> GetLevelBestScore(int lvlId)
     {
         return _globalScores[lvlId - 1];
-    }
+    }*/
 
     public void SaveScore(float score, int lvlId)
     {
         _scores[lvlId - 1] = score;
         YG2.saves.scores[lvlId - 1] = score;
-        string lbName = "lvl_" + lvlId.ToString();
+        string lbName = "lvl" + lvlId.ToString();
         YG2.SetLBTimeConvert(lbName, score);
     }
 
@@ -159,6 +157,7 @@ public class SaveManager : MonoBehaviour
         {
             case CurrencyType.Cups:
                 YG2.saves.cups = amount;
+                YG2.SetLeaderboard("main", amount);
                 break;
             case CurrencyType.Gems:
                 YG2.saves.gems = amount;
@@ -228,7 +227,7 @@ public class SaveManager : MonoBehaviour
     {
         _lvlsCount = lvlsData.Count;
         LoadScores();
-        GetLevelLeaderboards();
+        //GetLevelLeaderboards();
 
         if (YG2.saves.levels_id != null && YG2.saves.levels_id.Count > 0)
         {
@@ -335,10 +334,10 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        foreach (var el in res)
+/*        foreach (var el in res)
         {
             Debug.Log("Loaded status for " + el.Key + ": " + el.Value);
-        }
+        }*/
 
         return res;
     }

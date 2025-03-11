@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,15 +7,17 @@ public class LevelsManager : MonoBehaviour
     private static LevelsManager _instance;
     [SerializeField] private List<LevelData> _levelsData;
 
-    [SerializeField] private LevelMenuItem _lvlPrefab;
-    [SerializeField] private DynamicGridSpawner _lvlParent;
+    //[SerializeField] private LevelMenuItem _lvlPrefab;
+    //[SerializeField] private DynamicGridSpawner _lvlParent;
 
     private Dictionary<LevelData, bool[]> _levelsSaveInfo;
-    private Dictionary<LevelData, LevelMenuItem> _lvlsSlots;
+    //private Dictionary<LevelData, LevelMenuItem> _lvlsSlots;
 
     private int _lvlCount;
 
     public static LevelsManager Instance { get { return _instance; } }
+
+    public Action<LevelData> LevelUnlock;
 
     private void Awake()
     {
@@ -30,19 +33,19 @@ public class LevelsManager : MonoBehaviour
 
     private void Start()
     {
-        _lvlsSlots = new();
+        //_lvlsSlots = new();
         _levelsSaveInfo = SaveManager.Instance.GetLevelStatuses(_levelsData);
         CheckDefault();
-        InitSlots();
+        //InitSlots();
     }
 
-    public LevelData GetFirstLevel()
+/*    public LevelData GetFirstLevel()
     {
         return _levelsData[0];
-    }
+    }*/
 
 
-    private void InitSlots()
+/*    private void InitSlots()
     {
         foreach (var item in _levelsData)
         {
@@ -51,7 +54,7 @@ public class LevelsManager : MonoBehaviour
             slot.Init(item, _levelsSaveInfo[item][0], _levelsSaveInfo[item][1]);
             _lvlsSlots.Add(item, slot);
         }
-    }
+    }*/
 
     private void CheckDefault()
     {
@@ -83,7 +86,8 @@ public class LevelsManager : MonoBehaviour
         if (buy_res)
         {
             SaveManager.Instance.SaveLevelUnlock(lvlData.ID, true);
-            _lvlsSlots[lvlData].UnlockLevel();
+            //_lvlsSlots[lvlData].UnlockLevel();
+            LevelUnlock?.Invoke(lvlData);
 
             Dictionary<string, string> keyValue = new Dictionary<string, string>
             {
@@ -109,5 +113,16 @@ public class LevelsManager : MonoBehaviour
         _levelsSaveInfo[_levelsData[lvlIdx - 1]][1] = true;
         SaveManager.Instance.SaveLevelWin(lvlIdx, true);
     } 
+
+
+    public List<LevelData> GetLevelsData()
+    {
+        return new List<LevelData>(_levelsData);
+    }
+
+    public bool[] GetLevelSaveInfo(LevelData lvlData)
+    {
+        return _levelsSaveInfo[lvlData];
+    }
 
 }

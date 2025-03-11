@@ -7,7 +7,7 @@
         false,
         false
     ],
-    "idSave": 557,
+    "idSave": 680,
     "levels": [],
     "levels_id": [
         1,
@@ -20,21 +20,21 @@
     ],
     "levels_status": [
         false,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
     ],
     "levels_win": [
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
     ],
     "colors_id": [
         "red_white",
@@ -51,15 +51,15 @@
         false
     ],
     "scores": [
-        46.305755615234378,
-        179.1333465576172,
-        56.786407470703128,
-        35.03582763671875,
-        361.74481201171877,
-        34.42966079711914,
-        97.94567108154297
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
     ],
-    "cups": 102,
-    "gems": 790,
+    "cups": 0,
+    "gems": 0,
     "newPlayer": false
 }

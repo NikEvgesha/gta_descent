@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShopUI : MonoBehaviour
@@ -17,14 +18,21 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private List<Transform> _slotRow;
     [SerializeField] private int _slotsPerRow = 3;
 
-    private static ShopUI instance;
-    public static ShopUI Instance {  get { return instance; } }
+    private static ShopUI _instance;
+    public static ShopUI Instance {  get { return _instance; } }
 
     public Action<bool> CustomShopOpen;
 
     private void Awake()
     {
-        instance = this;
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
 

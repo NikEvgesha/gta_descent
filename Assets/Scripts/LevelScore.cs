@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using YG;
+using YG.Utils.LB;
 
 public class LevelScore : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class LevelScore : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.LevelWin += OnWin;
+        YG2.onGetLeaderboard += SetGlobalRecord;
     }
 
     private void OnDisable()
@@ -28,9 +31,9 @@ public class LevelScore : MonoBehaviour
         _roundTimeStart = Time.time;
         _lvl_id = GameManager.Instance.GetCurrentLevelData().ID;
         _playerBestScore = SaveManager.Instance.GetLevelScore(_lvl_id);
-        _globalBestScore = SaveManager.Instance.GetLevelBestScore(_lvl_id);
+        YG2.GetLeaderboard("lvl" + (_lvl_id).ToString(), 1, 0);
+        //_globalBestScore = SaveManager.Instance.GetLevelBestScore(_lvl_id);
         UpdateRecord(_playerBestScore);
-        SetGlobalRecord();
     }
 
     private void FixedUpdate()
@@ -39,8 +42,12 @@ public class LevelScore : MonoBehaviour
     }
 
 
-    private void SetGlobalRecord()
+    private void SetGlobalRecord(LBData data)
     {
+        if (data.technoName != "lvl" + _lvl_id)
+            return;
+        if (data.players.Length > 0)
+            _globalBestScore = Tuple.Create(data.players[0].score, data.players[0].name);
         _ui.SetGlobalRecord(_globalBestScore);
     }
 

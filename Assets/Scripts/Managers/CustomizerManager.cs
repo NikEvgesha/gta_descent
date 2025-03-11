@@ -38,6 +38,7 @@ public class CustomizerManager : MonoBehaviour
     {
         if (!_currentPurchased)
         {
+            _currentColor = _defaultColor;
             ColorSet?.Invoke(_defaultColor);
         }
     }

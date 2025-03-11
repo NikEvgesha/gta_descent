@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
+    [SerializeField] private LevelData _firstLevel;
+
     /* Events */
     public Action<bool> LevelInProgress;
     public Action LevelWin;
@@ -34,8 +36,11 @@ public class GameManager : MonoBehaviour
     {
         if (SaveManager.Instance.IsNewPlayer)
         {
-            StartLevel(LevelsManager.Instance.GetFirstLevel());
+            StartLevel(_firstLevel);
             SaveManager.Instance.IsNewPlayer = false;
+        } else
+        {
+            GameLoader.Instance.LoadNextScene("Menu", true);
         }
     }
 
