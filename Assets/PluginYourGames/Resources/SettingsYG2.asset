@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Authorization:
     scopes: 1
-    playerPhotoSize: 1
+    playerPhotoSize: 0
     authorized: 1
     playerName: Player current
     uniqueID: 000
@@ -28,7 +28,7 @@ MonoBehaviour:
     labelAdvSimLabel: 0
   Leaderboards:
     enable: 1
-    saveScoreAnonymousPlayers: 1
+    saveScoreAnonymousPlayers: 0
     listLBSim:
     - technoName: lvl1
       entries: '1. Max: 10
@@ -305,7 +305,7 @@ MonoBehaviour:
     skipInterAdvAfterReward: 1
     labelAdvSimLabel: 0
   Storage:
-    saveLocal: 0
+    saveLocal: 1
     saveCloud: 1
     saveCloudInterval: 0
     flush: 0
