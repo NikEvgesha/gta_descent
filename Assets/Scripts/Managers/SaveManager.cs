@@ -97,6 +97,27 @@ public class SaveManager : MonoBehaviour
         return _globalScores[lvlId - 1];
     }*/
 
+    public float[] GetVolume()
+    {
+        float[] res = new float[] {0.5f, 0.5f};
+        if (YG2.isSDKEnabled)
+        {
+            res[0] = YG2.saves.musicVolume;
+            res[1] = YG2.saves.soundVolume;
+        }
+        return res;
+    }
+
+    public void SaveMusicVolume(float volume)
+    {
+        YG2.saves.musicVolume = volume;
+    }
+
+    public void SaveSoundVolume(float volume)
+    {
+        YG2.saves.soundVolume = volume;
+    }
+
     public void SaveScore(float score, int lvlId)
     {
         _scores[lvlId - 1] = score;

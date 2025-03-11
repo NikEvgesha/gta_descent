@@ -199,51 +199,51 @@ MonoBehaviour:
       decimalOffset: 0
       type: numeric
       players:
-      - rank: 7
-        name: sjdkofsdf
+      - rank: 0
+        name: anonymous
         score: 10
         photo: 
         uniqueID: 
         extraData: 
-      - rank: 6
-        name: cnivosfscfsd
+      - rank: 0
+        name: anonymous
         score: 20
         photo: 
         uniqueID: 
         extraData: 
-      - rank: 45
-        name: vdhbdfg
+      - rank: 0
+        name: anonymous
         score: 30
         photo: 
         uniqueID: 
         extraData: 
-      - rank: 4
-        name: dgfhdfgdg
+      - rank: 0
+        name: anonymous
         score: 45
         photo: 
         uniqueID: 
         extraData: 
-      - rank: 3
-        name: cvbfgc
+      - rank: 0
+        name: anonymous
         score: 67
         photo: 
         uniqueID: 
         extraData: 
-      - rank: 2
-        name: fghncvb
+      - rank: 0
+        name: anonymous
         score: 78
         photo: 
         uniqueID: 
         extraData: 
-      - rank: 1
-        name: rgfdgbcf
+      - rank: 0
+        name: anonymous
         score: 80
         photo: 
         uniqueID: 
         extraData: 
       currentPlayer:
-        rank: 10
-        score: 4
+        rank: 0
+        score: 400
         extraData: 
   Localization:
     setLanguageMod: 1

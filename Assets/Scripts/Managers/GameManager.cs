@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         {
             GameLoader.Instance.LoadNextScene("Menu", true);
         }
+       
     }
 
     private void OnEnable()

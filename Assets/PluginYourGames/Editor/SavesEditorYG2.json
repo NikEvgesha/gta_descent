@@ -7,7 +7,7 @@
         false,
         false
     ],
-    "idSave": 705,
+    "idSave": 731,
     "levels": [],
     "levels_id": [
         1,
@@ -59,7 +59,9 @@
         0.0,
         0.0
     ],
-    "cups": 0,
-    "gems": 2150,
-    "newPlayer": false
+    "cups": 800,
+    "gems": 1776,
+    "newPlayer": false,
+    "musicVolume": 0.09156276285648346,
+    "soundVolume": 0.8395309448242188
 }

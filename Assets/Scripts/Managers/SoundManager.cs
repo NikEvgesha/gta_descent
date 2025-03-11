@@ -33,6 +33,7 @@ public class SoundManager : MonoBehaviour
             _soundVolume = value;
             _mixer.audioMixer.SetFloat(_soundName, Mathf.Lerp(minVolume, maxVolume, _curve.Evaluate(_soundVolume)));
             //VolumeChange?.Invoke(_volume);
+            SaveManager.Instance.SaveSoundVolume(value);
         }
     }
     public float MusicVolume
@@ -43,6 +44,7 @@ public class SoundManager : MonoBehaviour
             _musicVolume = value;
             _mixer.audioMixer.SetFloat(_musicName, Mathf.Lerp(minVolume, maxVolume, _curve.Evaluate(_musicVolume)));
             //VolumeChange?.Invoke(_volume);
+            SaveManager.Instance.SaveMusicVolume(value);
         }
     }
     
@@ -74,6 +76,9 @@ public class SoundManager : MonoBehaviour
     }
     private void Start()
     {
+        float[] volume = SaveManager.Instance.GetVolume();
+        MusicVolume = volume[0];
+        SoundVolume = volume[1];
         //GameManager.Instance.GameLose += GameLose;
         //GameManager.Instance.GameWin += GameWon;
     }
