@@ -29,6 +29,9 @@ public class CameraFollow : MonoBehaviour
     private bool forceInstantUpdate = false; 
     private float forceUpdateTime = 0f; // Таймер на несколько кадров
     private float forceUpdateDuration = 0.1f; // Время в секундах для фиксации
+
+    private bool isDragging = false;
+    private Vector2 lastTouchPosition;
     private void OnEnable()
     {
         if (Application.isPlaying)
@@ -114,6 +117,8 @@ public class CameraFollow : MonoBehaviour
             userInput = true;
         }
 
+
+
         // Управление для мобильных устройств (через прозрачный спрайт)
         if (Input.touchCount > 0 && touchArea != null)
         {
@@ -122,12 +127,29 @@ public class CameraFollow : MonoBehaviour
 
             if (RectTransformUtility.RectangleContainsScreenPoint(touchArea, touchPos))
             {
-                rotation.x += touch.deltaPosition.x * touchRotationSpeed;
-                rotation.y -= touch.deltaPosition.y * touchRotationSpeed;
-                rotation.y = Mathf.Clamp(rotation.y, 5f, 60f);
+                if (touch.phase == TouchPhase.Began)
+                {
+                    isDragging = true;
+                    lastTouchPosition = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Moved && isDragging)
+                {
+                    Vector2 delta = touch.position - lastTouchPosition;
+                    rotation.x += delta.x * touchRotationSpeed;
+                    rotation.y -= delta.y * touchRotationSpeed;
+                    rotation.y = Mathf.Clamp(rotation.y, 5f, 60f);
+
+                    lastTouchPosition = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                {
+                    isDragging = false;
+                }
+
                 userInput = true;
             }
         }
+
 
         // Логика задержки перед возвратом
         if (userInput)
