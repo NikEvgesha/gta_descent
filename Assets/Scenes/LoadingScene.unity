@@ -529,7 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8926d01203aab4443892f3b7bcf60feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _removeSaveOnStart: 0
+  _removeSaveOnStart: 1
 --- !u!1 &1707452311
 GameObject:
   m_ObjectHideFlags: 0
