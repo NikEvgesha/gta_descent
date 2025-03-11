@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using YG;
 
 public class CurrencyManager : MonoBehaviour
 {
@@ -42,6 +41,7 @@ public class CurrencyManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Currency Manager start");
         _balance = SaveManager.Instance.LoadCurrency();
         Debug.Log("Balance after save: " + _balance[CurrencyType.Cups] + " cups; " + _balance[CurrencyType.Gems] + " gems");
         CupsChanged?.Invoke(_balance[CurrencyType.Cups]);

@@ -5,10 +5,13 @@ public class CurrencyUI : MonoBehaviour
     [SerializeField] private TextUI _gems;
     [SerializeField] private TextUI _cups;
 
-    private void OnEnable()
+    private void Start()
     {
+        Debug.Log("Currency UI start");
         CurrencyManager.Instance.GemsChanged += SetGems;
         CurrencyManager.Instance.CupsChanged += SetCups;
+        SetGems(CurrencyManager.Instance.Gems);
+        SetCups(CurrencyManager.Instance.Cups);
         //GameManager.Instance.LevelInProgress += ToggleGemsUI;
     }
 

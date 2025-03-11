@@ -1,9 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using YG;
-using YG.Utils.LB;
 
 public class SaveManager : MonoBehaviour
 {
@@ -176,17 +176,24 @@ public class SaveManager : MonoBehaviour
 
     public void SaveCurrency(CurrencyType type, int amount)
     {
+        Debug.Log("Save cuurency " + type + ": " + amount);
         switch (type)
         {
             case CurrencyType.Cups:
                 YG2.saves.cups = amount;
-                YG2.SetLeaderboard("main", amount);
+                StartCoroutine(UpdateLeaderboard(amount));
                 break;
             case CurrencyType.Gems:
                 YG2.saves.gems = amount;
                 break;
             default: break;
         }
+    }
+
+    private IEnumerator UpdateLeaderboard(int amount)
+    {
+        yield return new WaitForSeconds(1);
+        YG2.SetLeaderboard("main", amount);
     }
 
 
