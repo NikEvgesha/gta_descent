@@ -7,18 +7,20 @@ public class CarTeleport : MonoBehaviour
     private SpawnPoint _spawnPoint;
     private bool _wasSpawnPressed;
     public Action TeleportStart;
-
+    private Teleport _teleport;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _spawnPoint = FindAnyObjectByType<SpawnPoint>();
+        _teleport = FindAnyObjectByType<Teleport>();
     }
 
     public void HandleTeleport(bool spawnPressed)
     {
         if (spawnPressed && !_wasSpawnPressed)
         {
-            Teleport(_spawnPoint.GetPointToSpawn());
+            _teleport.UseTeleport(this);
+            //Teleport(_spawnPoint.GetPointToSpawn());
         }
         _wasSpawnPressed = spawnPressed;
     }

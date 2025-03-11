@@ -16,8 +16,7 @@ public class Teleport : MonoBehaviour
                 _sound.Play();
                 GameManager.Instance.LevelWin?.Invoke();
             }
-
-            StartCoroutine(FadeSequence(other.gameObject.GetComponent<CarTeleport>()));
+            UseTeleport(other.gameObject.GetComponent<CarTeleport>());
         }
     }
 
@@ -43,7 +42,11 @@ public class Teleport : MonoBehaviour
 
     private void AfterFade(CarTeleport car)
     {
-        car.Teleport(_spawnPoint.GetPointToSpawn(), _onInertion);
+        car.Teleport(_spawnPoint.GetPointToSpawn(), false);
         AdsManager.Instance.ShowInterstitialAd();
+    }
+    public void UseTeleport(CarTeleport car)
+    {
+        StartCoroutine(FadeSequence(car));
     }
 }
