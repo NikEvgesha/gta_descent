@@ -680,6 +680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ui: {fileID: 8053177920896673294}
+  _globalBest: {fileID: 6058941800308315357}
 --- !u!1 &8244169586249305768
 GameObject:
   m_ObjectHideFlags: 0

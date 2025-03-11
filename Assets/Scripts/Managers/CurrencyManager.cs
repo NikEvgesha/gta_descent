@@ -57,6 +57,7 @@ public class CurrencyManager : MonoBehaviour
 
     public void AddCups(int amount)
     {
+        Debug.Log("Add cups: " + amount);
         _balance[CurrencyType.Cups] += amount;
         CupsChanged?.Invoke(_balance[CurrencyType.Cups]);
         SaveManager.Instance.SaveCurrency(CurrencyType.Cups, _balance[CurrencyType.Cups]);

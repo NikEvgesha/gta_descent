@@ -32,6 +32,7 @@ public class SaveManager : MonoBehaviour
         {
             if (YG2.isSDKEnabled)
             {
+                Debug.Log("Set newPlayer to: " + value);
                 YG2.saves.newPlayer = value;
             }
         }

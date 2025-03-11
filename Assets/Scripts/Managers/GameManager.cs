@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Player name: " + YG2.player.name);
         if (SaveManager.Instance.IsNewPlayer)
         {
             StartLevel(_firstLevel);
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
         {
             GameLoader.Instance.LoadNextScene("Menu", true);
         }
-       
+        
     }
 
     private void OnEnable()

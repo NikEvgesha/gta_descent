@@ -7,6 +7,7 @@ public class LevelScore : MonoBehaviour
 {
 
     [SerializeField] private LevelScoreUI _ui;
+    [SerializeField] private GameObject _globalBest;
     private float _roundTimeStart;
     private float _roundTime;
     private int _lvl_id;
@@ -46,9 +47,13 @@ public class LevelScore : MonoBehaviour
     {
         if (data.technoName != "lvl" + _lvl_id)
             return;
-        if (data.players.Length > 0)
+        if (data.players.Length > 0) {
             _globalBestScore = Tuple.Create(data.players[0].score, data.players[0].name);
-        _ui.SetGlobalRecord(_globalBestScore);
+            _ui.SetGlobalRecord(_globalBestScore);
+        } else
+        {
+            _globalBest.SetActive(false);
+        }
     }
 
     private void UpdateTime()

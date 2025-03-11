@@ -44,7 +44,8 @@ public class CameraFollow : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            carTransform.GetComponent<CarTeleport>().TeleportStart -= TeleportCamera;
+            if (carTransform != null)
+                carTransform.GetComponent<CarTeleport>().TeleportStart -= TeleportCamera;
             Settings.instance.ChangeMouseSensitivity -= ChangeMouseSensitivity;
         }
     }
