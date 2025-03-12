@@ -124,7 +124,7 @@ public class CameraFollow : MonoBehaviour
         }
 
         // Управление для мобильных устройств (через прозрачный спрайт)
-        /*if (Input.touchCount > 0 && touchArea != null)
+        if (Input.touchCount > 0 && touchArea != null)
         {
             Touch touch = Input.GetTouch(0);
             Vector2 touchPos = touch.position;
@@ -152,7 +152,7 @@ public class CameraFollow : MonoBehaviour
 
                 userInput = true;
             }
-        }*/
+        }
 
 
         // Логика задержки перед возвратом

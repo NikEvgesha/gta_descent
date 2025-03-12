@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Networking;
+using static UnityEditor.Progress;
 
 public class ShopUI : MonoBehaviour
 {
@@ -16,7 +18,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Transform _leftPackParent;
     [SerializeField] private Transform _rightPackParent;
     [SerializeField] private List<Transform> _slotRow;
-    [SerializeField] private int _slotsPerRow = 3;
+    //[SerializeField] private int _slotsPerRow = 3;
 
     private static ShopUI _instance;
     public static ShopUI Instance {  get { return _instance; } }
@@ -74,18 +76,44 @@ public class ShopUI : MonoBehaviour
 
     public void InitCurrencySpecialSlots(List<CurrencyPackData> packs, CurrencyPackData packLeft, CurrencyPackData packRight)
     {
+
         foreach (var item in packs)
         {
             CurrencyShopSlot slot = _currencySlotParent.SpawnObject<CurrencyShopSlot>(_currencyPrefab.gameObject);
             //CurrencyShopSlot slot = Instantiate(_currencyPrefab, _slotRow[rowNum]);
             slot.Init(item);
+            if (item.PurchaseReward)
+                StartCoroutine(DownloadImage(PurchasesManager.Instance.GetPurchaseData(item.PurchaseRewardName.ToString()).CurrencyImageURL, slot));
         }
 
         CurrencyShopSlot left = Instantiate(_currencyPrefabLeft, _leftPackParent);
         left.Init(packLeft);
 
+        if (packLeft.PurchaseReward)
+            StartCoroutine(DownloadImage(PurchasesManager.Instance.GetPurchaseData(packLeft.PurchaseRewardName.ToString()).CurrencyImageURL, left));
+
         CurrencyShopSlot right = Instantiate(_currencyPrefabRight, _rightPackParent);
         right.Init(packRight);
 
+        if (packRight.PurchaseReward)
+            StartCoroutine(DownloadImage(PurchasesManager.Instance.GetPurchaseData(packRight.PurchaseRewardName.ToString()).CurrencyImageURL, right));
+
+    }
+
+    IEnumerator DownloadImage(string imageUrl, CurrencyShopSlot slot)
+    {
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            slot.InitImage(sprite);
+        }
+        else
+        {
+            Debug.LogError("Ошибка загрузки: " + request.error);
+        }
     }
 }

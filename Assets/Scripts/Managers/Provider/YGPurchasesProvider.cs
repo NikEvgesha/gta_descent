@@ -1,6 +1,8 @@
 // Реализация для YG плагина
 using System;
 using UnityEngine;
+using UnityEngine.Networking;
+using YG;
 
 public class YGPurchasesProvider : PurchasesProvider
 {
@@ -15,7 +17,6 @@ public class YGPurchasesProvider : PurchasesProvider
     }
 
     private Action<bool> currentCallback;
-
     public override void BuyPurchase(string purchaseId, Action<bool> onComplete)
     {
         if (!isInitialized)
@@ -56,8 +57,7 @@ public class YGPurchasesProvider : PurchasesProvider
             Debug.LogError($"No purchase found with ID: {purchaseId}");
             return null;
         }
-
-        return new PurchaseData(purchase.id, purchase.title, purchase.description, purchase.price);
+        return new PurchaseData(purchase.id, purchase.title, purchase.description, purchase.price, purchase.currencyImageURL);
     }
 
     private void OnPurchaseSuccess(string id)

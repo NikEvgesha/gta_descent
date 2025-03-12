@@ -10,7 +10,7 @@ public class CurrencyShopSlot : ShopSlot
     [SerializeField] private CurrencyPackData _packData;
 
     [SerializeField] private GameObject _ads;
-
+    [SerializeField] private GameObject _assets;
 /*    private new void Start()
     {
         base.Start();
@@ -23,25 +23,27 @@ public class CurrencyShopSlot : ShopSlot
         base.Init(data);
         _packData = data;
         _textObj.text = _packData.Description;
-
+        _itemImgObj.sprite = _packData.ItemIMG;
         if (data.PurchaseReward)
         {
             PurchaseData PurchaseData = PurchasesManager.Instance.GetPurchaseData(data.PurchaseRewardName.ToString());
             if (PurchaseData != null)
             {
                 Debug.Log($"Item: {PurchaseData.Title}, Price: {PurchaseData.Price}");
-                _textObj.text = PurchaseData.Title;
+                //_textObj.text = PurchaseData.Title;
                 string number = Regex.Match(PurchaseData.Price, @"\d+\.?\d*").Value; // "19.99"
                 _priceObj.text = number;
             }
         }
 
-        _itemImgObj.sprite = _packData.ItemIMG;
 
         _ads.SetActive(data.AdsReward);
         _priceObj.gameObject.SetActive(!data.AdsReward);
     }
-
+    public void InitImage(Sprite imageCurr)
+    {
+        _currencyImgObj.sprite = imageCurr;
+    }
     public override void OnClick()
     {
         // обработка покупки

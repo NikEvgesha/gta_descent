@@ -17,13 +17,15 @@ public class PurchaseData
     public string Title { get; private set; }
     public string Description { get; private set; }
     public string Price { get; private set; }
+    public string CurrencyImageURL { get; private set; }
 
-    public PurchaseData(string id, string title, string description, string price)
+    public PurchaseData(string id, string title, string description, string price,string currencyImageURL)
     {
         Id = id;
         Title = title;
         Description = description;
         Price = price;
+        CurrencyImageURL = currencyImageURL;
     }
 }
 
@@ -124,6 +126,6 @@ public class DebugPurchasesProvider :  PurchasesProvider
 
     public override PurchaseData GetPurchaseData(string purchaseId)
     {
-        return new PurchaseData(purchaseId, "Test Item", "A debug purchase", "1.99 USD");
+        return new PurchaseData(purchaseId, "Test Item", "A debug purchase", "1.99 USD","");
     }
 }
