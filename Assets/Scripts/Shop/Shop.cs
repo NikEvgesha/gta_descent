@@ -57,10 +57,21 @@ public class Shop : MonoBehaviour
         {
             if (item.PurchaseReward && item.PurchaseRewardName.ToString() == idPurchases)
             {
+                Debug.Log($"OnRestorePurchases successful: {idPurchases}");
                 AddReward(item);
-                AddMetrica(item.CurrencyType.ToString()); ;
             }
         }
+        if (_specialPack_left.PurchaseReward && _specialPack_left.PurchaseRewardName.ToString() == idPurchases)
+        {
+            Debug.Log($"OnRestorePurchases successful: {idPurchases}");
+            AddReward(_specialPack_left);
+        }
+        if (_specialPack_right.PurchaseReward && _specialPack_right.PurchaseRewardName.ToString() == idPurchases)
+        {
+            Debug.Log($"OnRestorePurchases successful: {idPurchases}");
+            AddReward(_specialPack_right);
+        }
+
     }
 
     public void TryBuy(CustomizerColorData colorData, ColorShopSlot slot)
@@ -92,8 +103,8 @@ public class Shop : MonoBehaviour
             {
                 if (success)
                 {
-                    //AddReward(packData);
-                    //AddMetrica(packData.CurrencyType.ToString()); ;
+                    AddReward(packData);
+                    AddMetrica(packData.CurrencyType.ToString());
                     Debug.Log("Player received reward!");
                 }
                 else
@@ -111,7 +122,7 @@ public class Shop : MonoBehaviour
             {
                 if (success)
                 {
-                    AddReward(packData);
+                    //AddReward(packData);
                     Debug.Log("Purchase completed!");
                     // Дай игроку награду, например, 50 монет
                 }
