@@ -43,7 +43,6 @@ public class Teleport : MonoBehaviour
     private void AfterFade(CarTeleport car)
     {
         car.Teleport(_spawnPoint.GetPointToSpawn(), false);
-        AdsManager.Instance.ShowInterstitialAd();
     }
     public void UseTeleport(CarTeleport car)
     {

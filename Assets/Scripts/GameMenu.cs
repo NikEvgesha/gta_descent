@@ -21,6 +21,7 @@ public class GameMenu : MonoBehaviour
 
     public void OpenExitWindow()
     {
+        GameManager.Instance.SetPause(true);
         _exitWindow.SetActive(true);
         //GameManager.Instance.SetPause(true);
     }
@@ -28,11 +29,13 @@ public class GameMenu : MonoBehaviour
 
     public void ExitLevel()
     {
+        GameManager.Instance.SetPause(false);
         GameManager.Instance.ExitLevel();
     }
 
     public void CancelExit()
     {
+        GameManager.Instance.SetPause(false);
         _exitWindow.SetActive(false);
     }
 }

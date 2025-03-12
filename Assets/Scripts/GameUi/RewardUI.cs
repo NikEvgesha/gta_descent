@@ -8,6 +8,8 @@ public class RewardUI : MonoBehaviour
 
     [SerializeField] private Transform _cupsPoint;
     [SerializeField] private Transform _gemsPoint;
+    [SerializeField] private ShowReward _showReward;
+    private List<CurrencyRewardData> _rewards;
 
     private LevelData _currentLevel;
     private void OnEnable()
@@ -20,43 +22,49 @@ public class RewardUI : MonoBehaviour
         GameManager.Instance.LevelWin -= ShowReward;
     }
 
-
-
     private void ShowReward()
     {
+        //AddReward();
         _currentLevel = GameManager.Instance.GetCurrentLevelData();
         if (_currentLevel)
         {
+            _showReward.gameObject.SetActive(true);
             bool firstWin = !(LevelsManager.Instance.CheckLevelWin(_currentLevel.ID));
-            List<CurrencyRewardData> rewards;
+            
             if (firstWin)
             {
-                rewards = _currentLevel.FirstReward;
+                _rewards = _currentLevel.FirstReward;
                 LevelsManager.Instance.UpdateFirstWin(_currentLevel.ID);
             }
             else
             {
-                rewards = _currentLevel.Reward;
+                _rewards = _currentLevel.Reward;
             }
-            foreach (var item in rewards)
+            _showReward.SetRevard(firstWin, _rewards);
+        }
+    }
+    public void AddReward(bool x2Reward = false)
+    {
+        AdsManager.Instance.ShowInterstitialAd();
+        _showReward.gameObject.SetActive(false);
+        foreach (var item in _rewards)
+        {
+            switch (item.CurrencyType)
             {
-                switch (item.CurrencyType)
-                {
-                    case CurrencyType.Cups:
-                        {
-                            RewardNotification reward = Instantiate(_rewardPrefab, _cupsPoint);
-                            reward.SetRewardText(item.Amount, item.CurrencyType);
-                            break;
-                        }
-                    case CurrencyType.Gems:
-                        {
-                            RewardNotification reward = Instantiate(_rewardPrefab, _gemsPoint);
-                            reward.SetRewardText(item.Amount, item.CurrencyType);
-                            break;
-                        }
-                }
-                CurrencyManager.Instance.AddCurrency(item.CurrencyType, item.Amount);
+                case CurrencyType.Cups:
+                    {
+                        RewardNotification reward = Instantiate(_rewardPrefab, _cupsPoint);
+                        reward.SetRewardText(item.Amount, item.CurrencyType);
+                        break;
+                    }
+                case CurrencyType.Gems:
+                    {
+                        RewardNotification reward = Instantiate(_rewardPrefab, _gemsPoint);
+                        reward.SetRewardText(item.Amount, item.CurrencyType);
+                        break;
+                    }
             }
+            CurrencyManager.Instance.AddCurrency(item.CurrencyType, item.Amount);
         }
     }
 }

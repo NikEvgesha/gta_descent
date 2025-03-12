@@ -88,6 +88,7 @@ public class LevelScore : MonoBehaviour
             SaveManager.Instance.SaveScore(_roundTime, _lvl_id);
             UpdateRecord(_roundTime);
             _playerBestScore = _roundTime;
+            YG2.GetLeaderboard("lvl" + (_lvl_id).ToString(), 1, 0);
             // обновить глобальный рекорд если нужно
         }
         _roundTimeStart = Time.time;
