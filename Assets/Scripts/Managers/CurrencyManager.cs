@@ -25,7 +25,7 @@ public class CurrencyManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-
+            Debug.Log("Currency Manager Awake");
             _currencyIcons = new Dictionary<CurrencyType, Sprite> {
             {CurrencyType.Gems, _gemsIcon},
             {CurrencyType.Cups, _cupsIcon},
