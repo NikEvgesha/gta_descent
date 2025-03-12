@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using YG;
 
 [ExecuteAlways]
 public class CameraFollow : MonoBehaviour
@@ -106,19 +107,21 @@ public class CameraFollow : MonoBehaviour
         if (!carInput) return;
 
         bool userInput = false;
-
-        // Управление для ПК через CarInput
-        float mouseX = carInput.MouseX * mouseRotationSpeed;
-        float mouseY = carInput.MouseY * mouseRotationSpeed;
-        if (Mathf.Abs(mouseX) > 0.01f || Mathf.Abs(mouseY) > 0.01f)
+        if (YG2.envir.isDesktop)
         {
-            rotation.x += mouseX;
-            rotation.y -= mouseY;
-            rotation.y = Mathf.Clamp(rotation.y, 5f, 60f);
-            userInput = true;
+            
+            // Управление для ПК через CarInput
+            float mouseX = carInput.MouseX * mouseRotationSpeed;
+            float mouseY = carInput.MouseY * mouseRotationSpeed;
+            if (Mathf.Abs(mouseX) > 0.01f || Mathf.Abs(mouseY) > 0.01f)
+            {
+                rotation.x += mouseX;
+                rotation.y -= mouseY;
+                rotation.y = Mathf.Clamp(rotation.y, 5f, 60f);
+                userInput = true;
+            }
+
         }
-
-
 
         // Управление для мобильных устройств (через прозрачный спрайт)
         /*if (Input.touchCount > 0 && touchArea != null)
