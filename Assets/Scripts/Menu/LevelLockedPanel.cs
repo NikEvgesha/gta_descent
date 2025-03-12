@@ -14,9 +14,9 @@ public class LevelLockedPanel : MonoBehaviour
         _gemsPriceText.text = data.GemsPrice.ToString();
     }
 
-    public void UnlockCupsButton()
+    public void UnlockCupsButton(bool unlock)
     {
-        _cupButtonInactive.interactable = true;
+        _cupButtonInactive.interactable = unlock;
     }
 
 }

@@ -41,7 +41,13 @@ public class LevelMenuItem : MonoBehaviour
         if (!_unlocked)
         {
             _lvlLockedPanel.SetPrice(_levelData);
+            CurrencyManager.Instance.CupsChanged += CheckCupsButton;
         }
+    }
+
+    private void OnDisable()
+    {
+        CurrencyManager.Instance.CupsChanged -= CheckCupsButton;
     }
 
 
@@ -54,9 +60,14 @@ public class LevelMenuItem : MonoBehaviour
 
     private void CheckCupsButton(int newAmount)
     {
+        if (_unlocked)
+            return;
         if (newAmount >= _levelData.CupsPrice)
         {
-            _lvlLockedPanel.UnlockCupsButton();
+            _lvlLockedPanel.UnlockCupsButton(true);
+        } else
+        {
+            _lvlLockedPanel.UnlockCupsButton(false);
         }
     }
 
