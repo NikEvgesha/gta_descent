@@ -51,6 +51,17 @@ public class Shop : MonoBehaviour
         InitSlots();
     }
 
+    public void OnRestorePurchases(string idPurchases)
+    {
+        foreach (CurrencyPackData item in _currencyPacks)
+        {
+            if (item.PurchaseReward && item.PurchaseRewardName.ToString() == idPurchases)
+            {
+                AddReward(item);
+                AddMetrica(item.CurrencyType.ToString()); ;
+            }
+        }
+    }
 
     public void TryBuy(CustomizerColorData colorData, ColorShopSlot slot)
     {
@@ -81,8 +92,8 @@ public class Shop : MonoBehaviour
             {
                 if (success)
                 {
-                    AddReward(packData);
-                    AddMetrica(packData.CurrencyType.ToString()); ;
+                    //AddReward(packData);
+                    //AddMetrica(packData.CurrencyType.ToString()); ;
                     Debug.Log("Player received reward!");
                 }
                 else

@@ -63,6 +63,7 @@ public class YGPurchasesProvider : PurchasesProvider
     private void OnPurchaseSuccess(string id)
     {
         Debug.Log($"YG Purchase successful: {id}");
+        Shop.Instance.OnRestorePurchases(id);
         currentCallback?.Invoke(true);
         currentCallback = null;
     }
