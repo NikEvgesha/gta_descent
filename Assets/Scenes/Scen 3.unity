@@ -174,6 +174,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoHome
       objectReference: {fileID: 0}
+    - target: {fileID: 7515416383442781820, guid: 675aa9877f3cb1e40af84387295ac4fe, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -226,7 +230,7 @@ GameObject:
   - component: {fileID: 49903215}
   - component: {fileID: 49903214}
   - component: {fileID: 49903213}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pipe (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2870,7 +2874,7 @@ GameObject:
   - component: {fileID: 170849140}
   - component: {fileID: 170849139}
   - component: {fileID: 170849138}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8041,7 +8045,7 @@ GameObject:
   - component: {fileID: 261644912}
   - component: {fileID: 261644911}
   - component: {fileID: 261644910}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13047,7 +13051,7 @@ GameObject:
   - component: {fileID: 276381849}
   - component: {fileID: 276381848}
   - component: {fileID: 276381847}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19013,7 +19017,7 @@ GameObject:
   - component: {fileID: 733317179}
   - component: {fileID: 733317178}
   - component: {fileID: 733317177}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pipe (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20548,7 +20552,7 @@ GameObject:
   - component: {fileID: 777544310}
   - component: {fileID: 777544309}
   - component: {fileID: 777544308}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26315,7 +26319,7 @@ GameObject:
   - component: {fileID: 1401036417}
   - component: {fileID: 1401036416}
   - component: {fileID: 1401036415}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pipe (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27908,7 +27912,7 @@ GameObject:
   - component: {fileID: 1530612436}
   - component: {fileID: 1530612435}
   - component: {fileID: 1530612434}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pipe (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28899,7 +28903,7 @@ GameObject:
   - component: {fileID: 1639217188}
   - component: {fileID: 1639217187}
   - component: {fileID: 1639217186}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33982,7 +33986,7 @@ GameObject:
   - component: {fileID: 1661939056}
   - component: {fileID: 1661939055}
   - component: {fileID: 1661939054}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35092,7 +35096,7 @@ GameObject:
   - component: {fileID: 1854564217}
   - component: {fileID: 1854564216}
   - component: {fileID: 1854564215}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40269,6 +40273,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -109.62012
       objectReference: {fileID: 0}
+    - target: {fileID: 3942496759347228005, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3942496759347228005, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8575362623257202356, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -40368,7 +40380,7 @@ GameObject:
   - component: {fileID: 1908386853}
   - component: {fileID: 1908386852}
   - component: {fileID: 1908386851}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40746,7 +40758,7 @@ GameObject:
   - component: {fileID: 1957137499}
   - component: {fileID: 1957137498}
   - component: {fileID: 1957137497}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pipe (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42174,7 +42186,7 @@ GameObject:
   - component: {fileID: 2006343399}
   - component: {fileID: 2006343398}
   - component: {fileID: 2006343397}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47244,7 +47256,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2083856352}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Static
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47295,7 +47307,7 @@ GameObject:
   - component: {fileID: 2084232133}
   - component: {fileID: 2084232132}
   - component: {fileID: 2084232131}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
