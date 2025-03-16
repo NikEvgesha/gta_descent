@@ -9993,7 +9993,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1929919968}
+  m_Mesh: {fileID: 1919885756}
 --- !u!33 &827313048
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -20627,7 +20627,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1919885756}
+  m_Mesh: {fileID: 1607118171}
 --- !u!33 &1354986051
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -36598,42 +36598,6 @@ PrefabInstance:
     - target: {fileID: 1777364829847018523, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
       propertyPath: m_Name
       value: GameCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 3942496759347228005, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3942496759347228005, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7406255668022257307, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -1828.451
-      objectReference: {fileID: 0}
-    - target: {fileID: 7406255668022257307, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -1248.052
-      objectReference: {fileID: 0}
-    - target: {fileID: 7406255668022257307, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7406255668022257307, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7406255668022257307, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7406255668022257307, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -230.83374
-      objectReference: {fileID: 0}
-    - target: {fileID: 7406255668022257307, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 102.635376
       objectReference: {fileID: 0}
     - target: {fileID: 8575362623257202356, guid: e5b1176e5c1605c4f9e9cdb8c0bea890, type: 3}
       propertyPath: m_Pivot.x
